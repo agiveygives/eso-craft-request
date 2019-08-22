@@ -4,6 +4,8 @@
   "private": true,
   "homepage": "http://agiveygives.github.io/eso-craft-request",
   "dependencies": {
+    "@material-ui/core": "^4.3.3",
+    "@material-ui/icons": "^4.2.1",
     "axios": "^0.18.0",
     "babel-core": "^6.26.3",
     "babel-polyfill": "^6.26.0",
@@ -20,7 +22,7 @@
     "raf": "^3.4.1",
     "rc-slider": "^8.6.5",
     "react": "^16.7.0",
-    "react-dom": "^16.7.0",
+    "react-dom": "^16.8.0",
     "react-redux": "^6.0.0",
     "react-scripts": "^2.1.5",
     "react-select": "^2.4.0",
