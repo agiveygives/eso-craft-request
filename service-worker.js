@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.6.3/workbox-sw.js");
 
 importScripts(
-  "/eso-craft-request/precache-manifest.37068c6bbc0e0940a09bda55d721bd2e.js"
+  "/eso-craft-request/precache-manifest.51267d2d5e2fbb99b73252d2e0523e19.js"
 );
 
 workbox.clientsClaim();
