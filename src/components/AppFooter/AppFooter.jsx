@@ -7,7 +7,7 @@ import Button from 'terra-button';
 import Spacer from 'terra-spacer';
 import Text from 'terra-text';
 import ReactTooltip from 'react-tooltip';
-import Icon from '../../images/pixelation-nation-circle.png'
+import Guilds from '../../constants/guilds';
 import { RESTART, TOGGLE_REVIEW } from '../../store/constants';
 
 const propTypes = {
@@ -77,11 +77,11 @@ const AppFooter = ({ currentState, restart, review }) => {
 
   return (
     <ActionFooter
-      style={{ borderStyle: 'hidden', backgroundColor: '#bf1a6e' }}
+      style={{ borderStyle: 'hidden', backgroundColor: Guilds.pixelPirates.footer }}
       start={(
         <React.Fragment>
           <a
-            href="https://www.guilded.gg/Pixelation-Nation/games/ElderScrollsOnline"
+            href={Guilds.pixelPirates.website}
             rel="noopener noreferrer"
             target="_blank"
             style={{
@@ -91,8 +91,8 @@ const AppFooter = ({ currentState, restart, review }) => {
             }}
           >
             <React.Fragment>
-              <Image src={Icon} />
-              <Text>Pixelation Nation</Text>
+              <Image src={Guilds.pixelPirates.icon} />
+              <Text style={{ paddingLeft: '1rem' }}>{Guilds.pixelPirates.name}</Text>
             </React.Fragment>
           </a>
           <div>
