@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import Text from 'terra-text';
+import { Typography } from '@material-ui/core';
 import Spacer from 'terra-spacer';
 
 // Material-UI
@@ -32,7 +32,7 @@ const styles = createStyles({
 
 const PaymentOption = ({ options, paymentType, updatePaymentOption }) => (
   <span className="centered-div">
-    <Text fontSize={20} weight={400}>I will be paying with </Text>
+    <Typography variant='h5'>I will be paying with </Typography>
     <Spacer paddingLeft="small">
       <Tooltip
         title="Crafters are more likely to accept material payments"

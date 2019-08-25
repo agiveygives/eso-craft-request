@@ -2,9 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Arrange from 'terra-arrange';
-import Text from 'terra-text';
 import IconSuccess from 'terra-icon/lib/icon/IconSuccess';
 import IconError from 'terra-icon/lib/icon/IconError';
+import { Typography } from '@material-ui/core';
 import { RESTART } from '../../store/constants';
 import ContentContainer from 'terra-content-container';
 import Spacer from 'terra-spacer';
@@ -38,11 +38,11 @@ const RequestAlert = ({
           <Spacer padding='small'>
             <div className='centered-div'>
               <IconSuccess />
-              <Text style={{paddingLeft: '0.5em' }} color='black' weight={700} fontSize={16}>Success!</Text>
+              <Typography style={{paddingLeft: '0.5em' }} color='black' variant='h5'>Success!</Typography>
             </div>
           </Spacer>
         }
-        fill={<Text style={bodyStyle} weight={400} fontSize={16}>Your request was sent to discord.</Text>}
+        fill={<Typography style={bodyStyle} variant='h5'>Your request was sent to discord.</Typography>}
       />
     );
   } else if (isFailed) {
@@ -54,11 +54,11 @@ const RequestAlert = ({
           <Spacer padding='small'>
             <div className='centered-div'>
               <IconError />
-              <Text style={{ paddingLeft: '0.5em' }} color='#d00a10' weight={700} fontSize={16}>Error!</Text>
+              <Typography style={{ paddingLeft: '0.5em' }} color='#d00a10' variant='h5'>Error!</Typography>
             </div>
           </Spacer>
         }
-        fill={<Text style={bodyStyle} weight={400} fontSize={16}>Failed to send request, please try again. If the problem persists, contact @JukesMcGee on discord.</Text>}
+        fill={<Typography style={bodyStyle} variant='h5'>Failed to send request, please try again. If the problem persists, contact @JukesMcGee on discord.</Typography>}
       />
     );
   }

@@ -2,8 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Spacer from 'terra-spacer';
-import Text from 'terra-text';
-import { FormControl, FormGroup, FormControlLabel, Switch } from '@material-ui/core';
+import { FormControl, FormGroup, FormControlLabel, Switch, Typography } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
 import { green } from '@material-ui/core/colors';
 import { UPDATE_ARMOR_PIECES, UPDATE_JEWELRY_PIECES, UPDATE_WEAPON_PIECES } from '../../store/constants';
@@ -94,9 +93,9 @@ const CheckboxRow = ({ id, selectedPieces, updatePieces }) => {
   return (
     <Spacer margin='large+1'>
       <div className="centered-div">
-        <Text fontSize={18} weight={700}>
+        <Typography variant='h5' gutterBottom>
           Select Your {id.charAt(0).toUpperCase() + id.slice(1)}
-        </Text>
+        </Typography>
       </div>
       <div className="centered-div">
         <FormControl component="fieldset">

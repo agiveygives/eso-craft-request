@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import InputField from 'terra-form-input/lib/InputField';
-import Text from 'terra-text';
+import { Typography } from '@material-ui/core';
 import { SET_ESO_NAME } from '../../store/constants';
 
 const propTypes = {
@@ -18,10 +18,10 @@ const FormInput = ({ label, helpText, esoUsername, setEsoUsername }) => (
   <InputField
     inputId="username-input"
     label={
-      <Text style={{ color: '#dddacb' }} fontSize={18} weight={400}>{label}</Text>
+      <Typography style={{ color: '#dddacb' }} variant='h6'>{label}</Typography>
     }
     help={
-      <Text style={{ color: '#dddacb' }} fontSize={16} weight={200}>{helpText}</Text>
+      <Typography style={{ color: '#dddacb' }} variant='body1'>{helpText}</Typography>
     }
     value={esoUsername}
     style={{ color: 'black' }}

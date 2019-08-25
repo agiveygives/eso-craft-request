@@ -3,7 +3,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Slider from 'rc-slider';
-import Text from 'terra-text';
+import { Typography } from '@material-ui/core';
 import craftLevels from '../../constants/craftableLevels';
 import { UPDATE_GEAR_LEVEL } from '../../store/constants';
 
@@ -27,7 +27,7 @@ const LevelSlider = ({ label, craftableLevels, updateGearLevel }) => {
 
   return (
     <div style={{ width: 200, marginLeft: 50 }}>
-      <Text fontSize={18} weight={400}>{label}</Text>
+      <Typography variant='h6'>{label}</Typography>
       <TooltipSlider
         id="level-slider"
         trackStyle={{ backgroundColor: '#27a745' }}
@@ -40,13 +40,12 @@ const LevelSlider = ({ label, craftableLevels, updateGearLevel }) => {
           updateGearLevel(sliderLevels[value]);
         }}
       />
-      <Text
+      <Typography
         id='level-label'
-        fontSize={16}
-        weight={200}
+        variant='body1'
       >
         Level {sliderLevels[0]}
-      </Text>
+      </Typography>
     </div>
   );
 };
