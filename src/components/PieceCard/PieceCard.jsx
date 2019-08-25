@@ -4,8 +4,7 @@ import { connect } from 'react-redux';
 import Card from 'terra-card';
 import Spacer from 'terra-spacer';
 import ContentContainer from 'terra-content-container';
-import Select from '@material-ui/core/Select';
-import Input from '@material-ui/core/Input';
+import { Grid, Input, Select, Typography } from '@material-ui/core';
 import { Circle } from 'react-shapes'
 import Utils from '../../utils';
 import QualityOptions from '../../constants/qualityOptions';
@@ -15,7 +14,6 @@ import { primaryWeapons, secondaryWeapons, weaponTraits, weaponGlyphs } from '..
 import SetOptions from '../../constants/setOptions';
 import StyleOptions from '../../constants/styleOptions';
 import { UPDATE_ARMOR, UPDATE_JEWELRY, UPDATE_WEAPONS } from '../../store/constants';
-import { Grid, Typography } from '@material-ui/core';
 
 const propTypes = {
   group: PropTypes.oneOf(['armor', 'jewelry', 'weapon']).isRequired,

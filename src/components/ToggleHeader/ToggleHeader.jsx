@@ -1,12 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-
-// Material-ui imports
-import Collapse from '@material-ui/core/Collapse';
-import Container from '@material-ui/core/Container';
-import ExpandMore from '@material-ui/icons/ExpandMore';
-import ExpandLess from '@material-ui/icons/ExpandLess';
-import Typography from '@material-ui/core/Typography';
+import { Collapse, Container, ExpandMore, ExpandLess, Typography } from '@material-ui/core';
 
 const propTypes = {
   title: PropTypes.string.isRequired,

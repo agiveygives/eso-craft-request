@@ -2,8 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 // Material-UI
-import Fade from '@material-ui/core/Fade';
-import MaterialUITooltip from '@material-ui/core/Tooltip';
+import { Fade, Tooltip } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 
 import Colors from '../../constants/colors';
@@ -66,7 +65,7 @@ const arrowGenerator = (color) => {
   };
 }
 
-const Tooltip = ({
+const CustomTooltip = ({
   title, TransitionComponent, placement, children, maxWidth, fontSize,
   textColor, backgroundColor
 }) => {
@@ -98,7 +97,7 @@ const Tooltip = ({
   const { arrow, ...classes } = useStyles();
 
   return (
-    <MaterialUITooltip
+    <Tooltip
       classes={classes}
       TransitionComponent={TransitionComponent}
       title={
@@ -121,11 +120,11 @@ const Tooltip = ({
       ref={setArrowRef}
     >
       {children}
-    </MaterialUITooltip>
+    </Tooltip>
   );
 };
 
-Tooltip.defaultProps = {
+CustomTooltip.defaultProps = {
   TransitionComponent: Fade,
   placement: 'bottom',
   maxWidth: '12rem',
@@ -134,6 +133,6 @@ Tooltip.defaultProps = {
   color: 'rgba(0, 0, 0, 0.87)',
 };
 
-Tooltip.propTypes = propTypes;
+CustomTooltip.propTypes = propTypes;
 
-export default Tooltip;
+export default CustomTooltip;
