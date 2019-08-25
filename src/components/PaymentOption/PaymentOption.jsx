@@ -1,60 +1,51 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import chroma from 'chroma-js';
 import Text from 'terra-text';
 import Spacer from 'terra-spacer';
-import Select from 'react-select';
-import ReactTooltip from 'react-tooltip';
+
+// Material-UI
+import Select from '@material-ui/core/Select';
+import Tooltip from '../Tooltip/Tooltip';
+import { createStyles } from '@material-ui/core/styles';
+
 import { UPDATE_PAYMENT_TYPE } from '../../store/constants';
+import Utils from '../../utils';
 
 const propTypes = {
-  options: PropTypes.arrayOf(PropTypes.shape({
-    label: PropTypes.string.isRequired
-  })).isRequired,
+  options: PropTypes.arrayOf(PropTypes.string).isRequired,
 
   // from redux
+  paymentType: PropTypes.string.isRequired,
   updatePaymentOption: PropTypes.func.isRequired
 };
 
-const colourStyles = {
-  container: styles => ({ ...styles, width: '8em' }),
-  control: styles => ({ ...styles, backgroundColor: 'white' }),
-  option: (styles, { data, isDisabled, isFocused, isSelected }) => {
-    const color = chroma(data.color);
-    return {
-      ...styles,
-      backgroundColor: isDisabled
-        ? null
-        : isSelected ? data.color : isFocused ? color.alpha(0.1).css() : null,
-      color: isDisabled
-        ? '#ccc'
-        : isSelected
-          ? chroma.contrast(color, 'white') > 2 ? 'white' : 'black'
-          : data.color,
-      cursor: isDisabled ? 'not-allowed' : 'default',
-    };
-  },
-  input: styles => ({ ...styles }),
-  placeholder: styles => ({ ...styles }),
-  singleValue: (styles, { data }) => ({ ...styles }),
-};
+const styles = createStyles({
+  select: {
+    background: 'white',
+    borderRadius: 3,
+    color: 'black',
+    padding: '0.2rem',
+    minWidth: '7rem'
+  }
+});
 
-const PaymentOption = ({ options, updatePaymentOption }) => (
+const PaymentOption = ({ options, paymentType, updatePaymentOption }) => (
   <span className="centered-div">
     <Text fontSize={20} weight={400}>I will be paying with </Text>
     <Spacer paddingLeft="small">
-      <a data-for="payment-option" data-tip data-place="right">
+      <Tooltip
+        title="Crafters are more likely to accept material payments"
+        placement="right"
+      >
         <Select
-          defaultValue={options[0]}
-          options={options}
-          styles={colourStyles}
-          onChange={option => updatePaymentOption(option.label)}
-        />
-      </a>
-      <ReactTooltip id="payment-option" type="warning">
-        Crafters are more likely to accept material payments
-      </ReactTooltip>
+          style={styles.select}
+          value={paymentType}
+          onChange={event => updatePaymentOption(event.target.value)}
+        >
+          {options.map(Utils.generateSelectOptions)}
+        </Select>
+      </Tooltip>
     </Spacer>
   </span>
 );
@@ -62,11 +53,17 @@ const PaymentOption = ({ options, updatePaymentOption }) => (
 PaymentOption.propTypes = propTypes;
 
 PaymentOption.defaultProps = {
-  options: [{ label: 'Materials', color: 'white', isFixed: true }, { label: 'Gold', color: 'white', isFixed: true }]
-}
+  options: ['Materials', 'Gold']
+};
 
-const mapDispatchToProps = dispatch => ({
-  updatePaymentOption: payment => dispatch({ type: UPDATE_PAYMENT_TYPE, value: payment })
+const mapStateToProps = state => ({
+  paymentType: state.payment
 });
 
-export default connect(null, mapDispatchToProps)(PaymentOption);
+const mapDispatchToProps = dispatch => ({
+  updatePaymentOption: payment => dispatch(
+    { type: UPDATE_PAYMENT_TYPE, value: payment }
+  )
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(PaymentOption);
