@@ -195,7 +195,7 @@ const PieceCard = ({
     }
 
     return (
-      <Grid item xs={gridXs}>
+      <Grid key={dropdownData.key} item xs={gridXs}>
         <Spacer padding="large" key={dropdownData.key}>
           <Select
             MenuProps={{
@@ -217,7 +217,7 @@ const PieceCard = ({
                 <React.Fragment>
                   <span style={{ display: 'flex', alignItems: 'center' }}>
                     <Circle r={5} fill={{color: value.color}} />
-                    <Typography variant='p' style={{ padding: '0.5rem', minWidth: '5rem' }}>{value.label}</Typography>
+                    <Typography variant='body1' style={{ padding: '0.5rem', minWidth: '5rem' }}>{value.label}</Typography>
                   </span>
                 </React.Fragment>
               )
@@ -247,7 +247,7 @@ const PieceCard = ({
       >
         <Card.Body isContentCentered>
           <ContentContainer
-            style={{ width: "40em" }}
+            style={{ width: "30em" }}
             header={
               <Typography variant='h4'>
                 {gearAttributes.display}
@@ -259,7 +259,7 @@ const PieceCard = ({
                 {createDropdown({ options: QualityOptions, default: defaultValues.quality, key: 'Quality' }, 12)}
               </div>
               <div className="centered-div">
-                {allOptions.map(option => createDropdown(option, 4))}
+                {allOptions.map(option => createDropdown(option, 6))}
               </div>
             </Grid>
           </ContentContainer>

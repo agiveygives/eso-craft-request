@@ -10,7 +10,7 @@ import Colors from '../../constants/colors';
 const propTypes = {
   title: PropTypes.string.isRequired,
   children: PropTypes.node.isRequired,
-  TransitionComponent: PropTypes.node,
+  TransitionComponent: PropTypes.elementType,
   placement: PropTypes.string,
   maxWidth: PropTypes.string.isRequired,
   fontSize: PropTypes.string.isRequired,
@@ -131,6 +131,7 @@ CustomTooltip.defaultProps = {
   fontSize: '0.8rem',
   backgroundColor: Colors.warning,
   color: 'rgba(0, 0, 0, 0.87)',
+  textColor: 'black'
 };
 
 CustomTooltip.propTypes = propTypes;

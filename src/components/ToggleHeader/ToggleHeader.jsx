@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Collapse, Container, ExpandMore, ExpandLess, Typography } from '@material-ui/core';
+import { Collapse, Container, Typography } from '@material-ui/core';
+import ExpandMore from '@material-ui/icons/ExpandMore';
+import ExpandLess from '@material-ui/icons/ExpandLess';
 
 const propTypes = {
   title: PropTypes.string.isRequired,
@@ -9,10 +11,10 @@ const propTypes = {
 
 const headerStyles = {
   container: {
-    'display': 'flex',
-    'flex-wrap': 'wrap',
-    'justify-content': 'center',
-    'align-items': 'center'
+    display: 'flex',
+    flexWrap: 'wrap',
+    justifyContent: 'center',
+    alignItems: 'center'
   },
   text: {
     cursor: 'pointer',
