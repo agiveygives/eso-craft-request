@@ -13680,17 +13680,6 @@ terra-table@^3.2.0:
     terra-doc-template "^2.17.0"
     terra-icon "^3.18.0"
 
-terra-text@^3.0.0:
-  version "3.3.0"
-  resolved "https://registry.yarnpkg.com/terra-text/-/terra-text-3.3.0.tgz#35060b5730762db16d1632a681d3a023498acca4"
-  integrity sha512-MEvBjjF33fv+1ojC3UEEbt0WVLf0qfzpx0IM3kysC4xbExjQ7cR6aho171eog9UJsOWdktiIgeIThJXO8SFjUw==
-  dependencies:
-    classnames "^2.2.5"
-    prop-types "^15.5.8"
-    terra-arrange "^3.3.0"
-    terra-doc-template "^2.4.0"
-    terra-markdown "^2.21.0"
-
 terra-toolkit@^4.22.0:
   version "4.29.0"
   resolved "https://registry.yarnpkg.com/terra-toolkit/-/terra-toolkit-4.29.0.tgz#d7e1458aa2e97b1604bda546528fb29b250da62b"

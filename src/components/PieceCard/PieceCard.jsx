@@ -1,11 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import Card from 'terra-card';
-import Spacer from 'terra-spacer';
-import ContentContainer from 'terra-content-container';
-import { Grid, Input, Select, Typography } from '@material-ui/core';
+import { Card, CardContent, CardHeader, Grid, Input, Select, Typography } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
 import { Circle } from 'react-shapes'
+
+// constants and Utils
 import Utils from '../../utils';
 import QualityOptions from '../../constants/qualityOptions';
 import { armorWeights, armorTraits, armorGlyphs } from '../../constants/armorOptions';
@@ -24,6 +24,26 @@ const propTypes = {
   updateAttributes: PropTypes.func.isRequired,
   glyphVal: PropTypes.string
 };
+
+const useStyles = makeStyles({
+  card: {
+    color: 'black',
+    backgroundColor: '#e8e9ea',
+    overflow: 'visible'
+  },
+  content: {
+    width: "30em"
+  },
+  centered: {
+    display: 'flex',
+    flexWrap: 'wrap',
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  cardPadding: {
+    padding: '2rem'
+  }
+});
 
 const defaultValues = {
   glyph: { value: null, label: 'Glyph', color: '#FF5630', isFixed: true },
@@ -51,6 +71,7 @@ const PieceCard = ({
   updateAttributes,
   glyphVal
 }) => {
+  const classes = useStyles();
   let allOptions;
 
   switch (group) {
@@ -195,77 +216,61 @@ const PieceCard = ({
     }
 
     return (
-      <Grid key={dropdownData.key} item xs={gridXs}>
-        <Spacer padding="large" key={dropdownData.key}>
-          <Select
-            MenuProps={{
-              PaperProps: {
-                style: {
-                  maxHeight: '30rem',
-                },
+      <Grid key={dropdownData.key} item xs={gridXs} className='centered-div'>
+        <Select
+          style={{ minWidth: '10rem' }}
+          MenuProps={{
+            PaperProps: {
+              style: {
+                maxHeight: '30rem',
               },
-            }}
-            displayEmpty
-            input={(
-              <Input
-                disabled={glyphVal === 'None' && dropdownData.key === 'Glyph Quality'}
-              />
-            )}
-            value={selectValue}
-            renderValue={
-              value => (
-                <React.Fragment>
-                  <span style={{ display: 'flex', alignItems: 'center' }}>
-                    <Circle r={5} fill={{color: value.color}} />
-                    <Typography variant='body1' style={{ padding: '0.5rem', minWidth: '5rem' }}>{value.label}</Typography>
-                  </span>
-                </React.Fragment>
-              )
+            },
+          }}
+          displayEmpty
+          input={(
+            <Input
+              disabled={glyphVal === 'None' && dropdownData.key === 'Glyph Quality'}
+            />
+          )}
+          value={selectValue}
+          renderValue={
+            value => (
+              <React.Fragment>
+                <span style={{ display: 'flex', alignItems: 'center' }}>
+                  <Circle r={5} fill={{color: value.color}} />
+                  <Typography variant='body1' style={{ padding: '0.5rem', minWidth: '5rem' }}>{value.label}</Typography>
+                </span>
+              </React.Fragment>
+            )
+          }
+          onChange={
+            (_, child) => {
+              setSelectValue(child.props.optiondata)
+              updateAttributes(piece, child.props.piecekey, child.props.value)
             }
-            onChange={
-              (_, child) => {
-                setSelectValue(child.props.optiondata)
-                updateAttributes(piece, child.props.piecekey, child.props.value)
-              }
-            }
-          >
-            {dropdownData.options.map(option => Utils.generateSelectOptions(option.value, dropdownData.key, option))}
-          </Select>
-        </Spacer>
+          }
+        >
+          {dropdownData.options.map(option => Utils.generateSelectOptions(option.value, dropdownData.key, option))}
+        </Select>
       </Grid>
     );
   };
 
   return (
-    <Spacer paddingTop="medium" paddingRight="medium">
-      <Card style={{
-          color: 'black',
-          backgroundColor: '#e8e9ea',
-          overflow: 'visible'
-        }}
-        variant="raised"
+    <span style={{ padding: '1rem' }}>
+      <Card
+        className={classes.card}
+        raised
       >
-        <Card.Body isContentCentered>
-          <ContentContainer
-            style={{ width: "30em" }}
-            header={
-              <Typography variant='h4'>
-                {gearAttributes.display}
-              </Typography>
-            }
-          >
-            <Grid>
-              <div className="centered-div">
-                {createDropdown({ options: QualityOptions, default: defaultValues.quality, key: 'Quality' }, 12)}
-              </div>
-              <div className="centered-div">
-                {allOptions.map(option => createDropdown(option, 6))}
-              </div>
-            </Grid>
-          </ContentContainer>
-        </Card.Body>
+        <CardHeader classes={{content: classes.centered}} title={gearAttributes.display} />
+        <CardContent className={classes.content}>
+          <Grid container>
+            {createDropdown({ options: QualityOptions, default: defaultValues.quality, key: 'Quality' }, 12)}
+            {allOptions.map(option => createDropdown(option, 6))}
+          </Grid>
+        </CardContent>
       </Card>
-    </Spacer>
+    </span>
   )
 };
 

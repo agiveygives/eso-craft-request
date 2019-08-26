@@ -22,7 +22,7 @@ const propTypes = {
 
 const styles = createStyles({
   select: {
-    background: 'white',
+    background: '#e8e9ea',
     borderRadius: 3,
     color: 'black',
     padding: '0.2rem',
