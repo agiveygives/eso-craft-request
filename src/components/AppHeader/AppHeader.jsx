@@ -5,7 +5,7 @@ import Header from 'terra-clinical-header';
 import Heading from 'terra-heading';
 import Arrange from 'terra-arrange';
 import craftIcon from '../../images/hammer-and-anvil.png'
-import Button from 'terra-button';
+import guilds from '../../constants/guilds';
 
 const propTypes = {
   title: PropTypes.string.isRequired
@@ -20,10 +20,7 @@ const AppHeader = ({ title }) => (
         align='center'
       />
     }
-    // endContent={
-    //   <Button text="Help" variant="action" />
-    // }
-    style={{ borderStyle: 'hidden', backgroundColor: '#ff7ecc' }}
+    style={{ borderStyle: 'hidden', backgroundColor: guilds.pixelPirates.header }}
   />
 );
 

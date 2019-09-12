@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Spacer from 'terra-spacer';
-import ToggleSectionHeader from 'terra-toggle-section-header';
+import ToggleHeader from '../ToggleHeader/ToggleHeader';
 import CheckboxRow from '../CheckboxRow/CheckboxRow';
 import PieceCard from '../PieceCard/PieceCard';
 
@@ -15,18 +15,8 @@ const propTypes = {
 
 const GearSection = ({ group, selectedPieces }) => (
     <Spacer paddingTop='large'>
-      <ToggleSectionHeader
-        sectionHeaderAttrs={{
-          style: {
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center'
-          }
-        }}
+      <ToggleHeader
         title={`${group.charAt(0).toUpperCase() + group.slice(1)} Pieces`}
-        level={2}
-        isInitiallyOpen
-        isAnimated
       >
         <CheckboxRow id={group} />
         <Spacer padding="large+2">
@@ -34,7 +24,7 @@ const GearSection = ({ group, selectedPieces }) => (
             {selectedPieces.map(piece => <PieceCard group={group} piece={piece} key={`${group}-${piece}`} />)}
           </div>
         </Spacer>
-      </ToggleSectionHeader>
+      </ToggleHeader>
     </Spacer>
 );
 

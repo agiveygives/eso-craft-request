@@ -5,9 +5,9 @@ import ActionFooter from 'terra-action-footer';
 import Image from 'terra-image';
 import Button from 'terra-button';
 import Spacer from 'terra-spacer';
-import Text from 'terra-text';
+import { Typography } from '@material-ui/core';
 import ReactTooltip from 'react-tooltip';
-import Icon from '../../images/pixelation-nation-circle.png'
+import Guilds from '../../constants/guilds';
 import { RESTART, TOGGLE_REVIEW } from '../../store/constants';
 
 const propTypes = {
@@ -77,11 +77,11 @@ const AppFooter = ({ currentState, restart, review }) => {
 
   return (
     <ActionFooter
-      style={{ borderStyle: 'hidden', backgroundColor: '#bf1a6e' }}
+      style={{ borderStyle: 'hidden', backgroundColor: Guilds.pixelPirates.footer }}
       start={(
         <React.Fragment>
           <a
-            href="https://www.guilded.gg/Pixelation-Nation/games/ElderScrollsOnline"
+            href={Guilds.pixelPirates.website}
             rel="noopener noreferrer"
             target="_blank"
             style={{
@@ -91,13 +91,13 @@ const AppFooter = ({ currentState, restart, review }) => {
             }}
           >
             <React.Fragment>
-              <Image src={Icon} />
-              <Text>Pixelation Nation</Text>
+              <Image src={Guilds.pixelPirates.icon} />
+              <Typography style={{ display: 'inline', paddingLeft: '1rem' }}>{Guilds.pixelPirates.name}</Typography>
             </React.Fragment>
           </a>
           <div>
             <a
-              href="https://github.com/agiveygives/eso-craft-request/issues/new/choose"
+              href={Guilds.pixelPirates.website}
               rel="noopener noreferrer"
               target="_blank"
               style={{
@@ -106,7 +106,7 @@ const AppFooter = ({ currentState, restart, review }) => {
                 textDecoration: 'none',
               }}
             >
-              <Text>Found an issue or want to request a feature?</Text>
+              <Typography>Found an issue or want to request a feature?</Typography>
             </a>
           </div>
         </React.Fragment>

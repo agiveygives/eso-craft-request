@@ -83,7 +83,7 @@ const TermsOfUse = ({ termsOpen, acceptTerms }) => (
       <div className='centered-div'>
         <h4>Terms of Use</h4>
         <p>1.    Please <strong>be patient</strong> and treat your crafters with respect. They have volunteered their time to help you and the guild, and are under no obligation to do so.</p>
-        <p>2.    This guild service is provided by Pixelation Nation members for other Pixelation Nation members. DO NOT use this app to request gear for people who are not a member of this guild.</p>
+        <p>2.    This guild service is provided by Pixel Pirates members for other Pixel Pirates members. DO NOT use this app to request gear for people who are not a member of this guild.</p>
       </div>
 
       <div className="centered-div">

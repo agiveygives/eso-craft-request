@@ -2,8 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Spacer from 'terra-spacer';
-import Text from 'terra-text';
-import ButtonGroup from 'terra-button-group';
+import { FormControl, FormGroup, FormControlLabel, Switch, Typography } from '@material-ui/core';
+import { withStyles } from '@material-ui/core/styles';
+import { green } from '@material-ui/core/colors';
 import { UPDATE_ARMOR_PIECES, UPDATE_JEWELRY_PIECES, UPDATE_WEAPON_PIECES } from '../../store/constants';
 
 const propTypes = {
@@ -13,6 +14,19 @@ const propTypes = {
   selectedPieces: PropTypes.arrayOf(PropTypes.string).isRequired,
   updatePieces: PropTypes.func.isRequired
 };
+
+const ColoredSwitch = withStyles({
+  switchBase: {
+    '&$checked': {
+      color: green[500],
+    },
+    '&$checked + $track': {
+      backgroundColor: green[500],
+    },
+  },
+  checked: {},
+  track: {},
+})(Switch);
 
 const CheckboxRow = ({ id, selectedPieces, updatePieces }) => {
   const armorBoxes = [
@@ -53,26 +67,25 @@ const CheckboxRow = ({ id, selectedPieces, updatePieces }) => {
   }
 
   function createCheckbox(box) {
-    const style = {
-      width: '7.5em',
-      borderColor: 'black'
-    }
-    let buttonStyle;
-    let label;
-
-    if (selectedPieces.includes(box.id)) {
-      label = `- ${box.label}`;
-      buttonStyle = { ...style, backgroundColor: '#dc3545' }
-    } else {
-      label = `+ ${box.label}`;
-      buttonStyle = { ...style, backgroundColor: '#27a745' }
-    }
-
     return (
-      <ButtonGroup.Button
-        style={buttonStyle}
-        text={label}
+      <FormControlLabel
         key={box.id}
+        value={box.id}
+        control={(
+          <ColoredSwitch
+            checked={selectedPieces.includes(box.id)}
+            color="primary"
+            onChange={(event, checked) => {
+              if (checked && !selectedPieces.includes(event.target.value)) {
+                updatePieces([ ...selectedPieces, event.target.value ]);
+              } else if (!checked && selectedPieces.includes(event.target.value)) {
+                updatePieces(selectedPieces.filter(word => word !== event.target.value));
+              }
+            }}
+          />
+        )}
+        label={box.label}
+        labelPlacement="top"
       />
     );
   }
@@ -80,21 +93,16 @@ const CheckboxRow = ({ id, selectedPieces, updatePieces }) => {
   return (
     <Spacer margin='large+1'>
       <div className="centered-div">
-        <Text fontSize={18} weight={700}>
+        <Typography variant='h5' gutterBottom>
           Select Your {id.charAt(0).toUpperCase() + id.slice(1)}
-        </Text>
+        </Typography>
       </div>
       <div className="centered-div">
-        <ButtonGroup
-          id="button-group-multi-select"
-          onChange={(event, key) => {
-            event.preventDefault();
-            updatePieces(ButtonGroup.Utils.handleMultiSelectedKeys(selectedPieces, key))
-          }}
-          selectedKeys={selectedPieces}
-        >
-          {checkboxes.map(createCheckbox)}
-        </ButtonGroup >
+        <FormControl component="fieldset">
+          <FormGroup aria-label="position" row>
+            {checkboxes.map(createCheckbox)}
+          </FormGroup>
+        </FormControl>
       </div>
     </Spacer>
   )

@@ -54,9 +54,7 @@ const CraftRequest = ({ termsAccepted }) => (
         <PaymentOption />
         <GearSection group="armor" />
         <GearSection group="jewelry" />
-        <div style={{ marginBottom: '20em' }}>
-          <GearSection group="weapon" />
-        </div>
+        <GearSection group="weapon" />
       </Spacer>
     </ContentContainer>
   </ContentContainer>

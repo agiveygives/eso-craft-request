@@ -39,26 +39,6 @@ start local server (you will automatically be directed to localhost:3000)
 npm run start
 ```
 
-## Running the tests
-
-Explain how to run the automated tests for this system
-
-### Break down into end to end tests
-
-Explain what these tests test and why
-
-```
-Give an example
-```
-
-### And coding style tests
-
-Explain what these tests test and why
-
-```
-Give an example
-```
-
 ## Deployment
 
 How to deploy app to the github page
@@ -73,8 +53,9 @@ The App will be deployed to https://agiveygives.github.io/eso-craft-request/
 
 * [Node](https://nodejs.org/en/) - an open source server environment
 * [React](https://reactjs.org/) - The web framework used
+* [Material-UI](https://material-ui.com/) - open source React Component
 * [Terra](https://engineering.cerner.com/terra-ui/#/home/terra-ui/index) - Cerner Open Source React Components
-* [Webpack](https://webpack.js.org/) - To build the project
+* [Webpack](https://webpack.js.org/)
 
 ## Contributing
 
@@ -93,9 +74,3 @@ See also the list of [contributors](https://github.com/agiveygives/eso-craft-req
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
-
-## Acknowledgments
-
-* Hat tip to anyone whose code was used
-* Inspiration
-* etc

@@ -1,12 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import Card from 'terra-card';
-import Spacer from 'terra-spacer';
-import ContentContainer from 'terra-content-container';
-import Heading from 'terra-heading';
-import chroma from 'chroma-js';
-import Select from 'react-select';
+import { Card, CardContent, CardHeader, Grid, Input, Select, Typography } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
+import { Circle } from 'react-shapes'
+
+// constants and Utils
+import Utils from '../../utils';
 import QualityOptions from '../../constants/qualityOptions';
 import { armorWeights, armorTraits, armorGlyphs } from '../../constants/armorOptions';
 import { jewelryTraits, jewelryGlyphs } from '../../constants/jewelryOptions';
@@ -24,6 +24,26 @@ const propTypes = {
   updateAttributes: PropTypes.func.isRequired,
   glyphVal: PropTypes.string
 };
+
+const useStyles = makeStyles({
+  card: {
+    color: 'black',
+    backgroundColor: '#e8e9ea',
+    overflow: 'visible'
+  },
+  content: {
+    width: "30em"
+  },
+  centered: {
+    display: 'flex',
+    flexWrap: 'wrap',
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  cardPadding: {
+    padding: '2rem'
+  }
+});
 
 const defaultValues = {
   glyph: { value: null, label: 'Glyph', color: '#FF5630', isFixed: true },
@@ -51,6 +71,7 @@ const PieceCard = ({
   updateAttributes,
   glyphVal
 }) => {
+  const classes = useStyles();
   let allOptions;
 
   switch (group) {
@@ -88,45 +109,9 @@ const PieceCard = ({
       break;
   }
 
-  const dot = (color = '#ccc') => ({
-    alignItems: 'center',
-    display: 'flex',
+  const createDropdown = (dropdownData, gridXs) => {
+    const [selectValue, setSelectValue] = React.useState(dropdownData.default)
 
-    ':before': {
-      backgroundColor: color,
-      borderRadius: 10,
-      content: '" "',
-      display: 'block',
-      marginRight: 8,
-      height: 10,
-      width: 10,
-    },
-  });
-
-  const colourStyles = {
-    container: styles => ({ ...styles, width: '18em' }),
-    control: styles => ({ ...styles, backgroundColor: 'white' }),
-    option: (styles, { data, isDisabled, isFocused, isSelected }) => {
-      const color = chroma(data.color);
-      return {
-        ...styles,
-        backgroundColor: isDisabled
-          ? null
-          : isSelected ? data.color : isFocused ? color.alpha(0.1).css() : null,
-        color: isDisabled
-          ? '#ccc'
-          : isSelected
-            ? chroma.contrast(color, 'white') > 2 ? 'white' : 'black'
-            : data.color,
-        cursor: isDisabled ? 'not-allowed' : 'default',
-      };
-    },
-    input: styles => ({ ...styles, ...dot() }),
-    placeholder: styles => ({ ...styles, ...dot() }),
-    singleValue: (styles, { data }) => ({ ...styles, ...dot(data.color) }),
-  };
-
-  const createDropdown = (dropdownData) => {
     // Load Data
     switch (dropdownData.key) {
       case 'Quality':
@@ -231,46 +216,61 @@ const PieceCard = ({
     }
 
     return (
-      <Spacer padding="large" key={dropdownData.key}>
+      <Grid key={dropdownData.key} item xs={gridXs} className='centered-div'>
         <Select
-          isDisabled={glyphVal === 'None' && dropdownData.key === 'Glyph Quality'}
-          defaultValue={dropdownData.default}
-          options={dropdownData.options}
-          styles={colourStyles}
-          onChange={option => { updateAttributes(piece, dropdownData.key, option.label) } }
-        />
-      </Spacer>
+          style={{ minWidth: '10rem' }}
+          MenuProps={{
+            PaperProps: {
+              style: {
+                maxHeight: '30rem',
+              },
+            },
+          }}
+          displayEmpty
+          input={(
+            <Input
+              disabled={glyphVal === 'None' && dropdownData.key === 'Glyph Quality'}
+            />
+          )}
+          value={selectValue}
+          renderValue={
+            value => (
+              <React.Fragment>
+                <span style={{ display: 'flex', alignItems: 'center' }}>
+                  <Circle r={5} fill={{color: value.color}} />
+                  <Typography variant='body1' style={{ padding: '0.5rem', minWidth: '5rem' }}>{value.label}</Typography>
+                </span>
+              </React.Fragment>
+            )
+          }
+          onChange={
+            (_, child) => {
+              setSelectValue(child.props.optiondata)
+              updateAttributes(piece, child.props.piecekey, child.props.value)
+            }
+          }
+        >
+          {dropdownData.options.map(option => Utils.generateSelectOptions(option.value, dropdownData.key, option))}
+        </Select>
+      </Grid>
     );
   };
 
   return (
-    <Spacer paddingTop="medium" paddingRight="medium">
-      <Card style={{
-          color: 'black',
-          backgroundColor: '#e8e9ea',
-          overflow: 'visible'
-        }}
-        variant="raised"
+    <span style={{ padding: '1rem' }}>
+      <Card
+        className={classes.card}
+        raised
       >
-        <Card.Body isContentCentered>
-          <ContentContainer
-            style={{ width: "40em" }}
-            header={
-              <Heading level={3} size="small" weight={700}>
-                {gearAttributes.display}
-              </Heading>
-            }
-          >
-            <div className="centered-div">
-              {createDropdown({ options: QualityOptions, default: defaultValues.quality, key: 'Quality' })}
-            </div>
-            <div className="centered-div">
-              {allOptions.map(createDropdown)}
-            </div>
-          </ContentContainer>
-        </Card.Body>
+        <CardHeader classes={{content: classes.centered}} title={gearAttributes.display} />
+        <CardContent className={classes.content}>
+          <Grid container>
+            {createDropdown({ options: QualityOptions, default: defaultValues.quality, key: 'Quality' }, 12)}
+            {allOptions.map(option => createDropdown(option, 6))}
+          </Grid>
+        </CardContent>
       </Card>
-    </Spacer>
+    </span>
   )
 };
 
