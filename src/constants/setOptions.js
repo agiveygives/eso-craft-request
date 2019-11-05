@@ -48,7 +48,10 @@ const craftedSets = [
   "Willow's Path",
   "Coldharbour's Favorite",
   "Senche-raht's Grit",
-  "Vastarie's Tutelage"
+  "Vastarie's Tutelage",
+  "Ancient Dragonguard",
+  "Daring Corsair",
+  "New Moon Acolyte"
 ];
 
 export default [

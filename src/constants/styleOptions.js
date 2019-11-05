@@ -72,7 +72,10 @@ const styles = [
   "Yokudan",
   "Pellitine",
   "Coldsnap",
-  "Meridian"
+  "Meridian",
+  "Dragonguard",
+  "Refabricator",
+  "Sunspire"
 ];
 
 export default [
