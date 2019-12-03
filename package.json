@@ -2,7 +2,6 @@
   "name": "eso-craft-request",
   "version": "1.0.2",
   "private": true,
-  "homepage": "http://agiveygives.github.io/eso-craft-request",
   "dependencies": {
     "@material-ui/core": "^4.3.3",
     "@material-ui/icons": "^4.2.1",
