@@ -13,10 +13,11 @@ import { RESTART, TOGGLE_REVIEW } from '../../store/constants';
 const propTypes = {
   currentState: PropTypes.shape({}).isRequired,
   restart: PropTypes.func.isRequired,
-  review: PropTypes.func.isRequired
+  review: PropTypes.func.isRequired,
+  guildName: PropTypes.string.isRequired
 }
 
-const AppFooter = ({ currentState, restart, review }) => {
+const AppFooter = ({ currentState, restart, review, guildName, guildWebsite, guildFooterColor }) => {
   const {
     esoName,
     armorPieces,
@@ -77,11 +78,11 @@ const AppFooter = ({ currentState, restart, review }) => {
 
   return (
     <ActionFooter
-      style={{ borderStyle: 'hidden', backgroundColor: Guilds.pixelPirates.footer }}
+      style={{ borderStyle: 'hidden', backgroundColor: guildFooterColor }}
       start={(
         <React.Fragment>
           <a
-            href={Guilds.pixelPirates.website}
+            href={guildWebsite}
             rel="noopener noreferrer"
             target="_blank"
             style={{
@@ -92,12 +93,12 @@ const AppFooter = ({ currentState, restart, review }) => {
           >
             <React.Fragment>
               <Image src={Guilds.pixelPirates.icon} />
-              <Typography style={{ display: 'inline', paddingLeft: '1rem' }}>{Guilds.pixelPirates.name}</Typography>
+              <Typography style={{ display: 'inline', paddingLeft: '1rem' }}>{guildName}</Typography>
             </React.Fragment>
           </a>
           <div>
             <a
-              href={Guilds.pixelPirates.website}
+              href={guildWebsite}
               rel="noopener noreferrer"
               target="_blank"
               style={{
@@ -136,7 +137,10 @@ const AppFooter = ({ currentState, restart, review }) => {
 AppFooter.propTypes = propTypes;
 
 const mapStateToProps = state => ({
-  currentState: state
+  currentState: state,
+  guildName: state.guildData.name,
+  guildWebsite: state.guildData.website,
+  guildFooterColor: state.guildData.colors.footer,
 });
 
 const mapDispatchToProps = dispatch => ({

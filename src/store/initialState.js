@@ -1,4 +1,5 @@
 export default {
+  guildData: {},
   termsAccepted: false,
   termsOpen: true,
   review: false,

@@ -14,3 +14,4 @@ export const TOGGLE_REVIEW = 'REVIEW';
 export const SUCCESSFUL_REQUEST = 'SUCCESSFUL_REQUEST';
 export const FAILED_REQUEST = 'FAILED_REQUEST';
 export const RETRY = 'RETRY';
+export const SET_GUILD_DATA = 'SET_GUILD_DATA';

@@ -1,10 +1,35 @@
 import axios from 'axios';
-import Discord from '../discord.js'
-import { TOGGLE_REVIEW, SUCCESSFUL_REQUEST, FAILED_REQUEST } from './constants.js';
+import { TOGGLE_REVIEW, SUCCESSFUL_REQUEST, FAILED_REQUEST, SET_GUILD_DATA } from './constants.js';
 
+export const getGuildData = (guildId) => dispatch => {
+  axios.get(`https://us-central1-eso-craft-request.cloudfunctions.net/api/guilds/${guildId}`)
+    .then(response => {
+      dispatch({ type: SET_GUILD_DATA, guildData: response.data });
+    })
+    .catch(error => {
+      dispatch({
+        type: SET_GUILD_DATA,
+        guildData: {
+          "website": "",
+          "active": true,
+          "crafterTag": "",
+          "name": "Craft Request App",
+          "webhook": "",
+          "imageUrl": "https://firebasestorage.googleapis.com/v0/b/eso-craft-request.appspot.com/o/default-guild.png?alt=media",
+          "colors": {
+              "header": "#FFFFFF",
+              "footer": "#000000"
+          }
+        }
+      });
+
+      console.error(error);
+    })
+}
 
 export const sendRequest = (currentState, retryMessage) => dispatch => {
   const {
+    guildData,
     esoName,
     gearLevel,
     payment,
@@ -47,9 +72,9 @@ export const sendRequest = (currentState, retryMessage) => dispatch => {
       buildGearMessage(armorPieces, armorAttributes) +
       buildGearMessage(jewelryPieces, jewelryAttributes) +
       buildGearMessage(weaponPieces, weaponAttributes) +
-      `\n${Discord.PixelationNation.role}`;
+      `\n${guildData.crafterTag}`;
 
-  axios.post(Discord.PixelationNation.webhook, {
+  axios.post(guildData.webhook, {
     content: discordMessage
   })
     .then(() => {

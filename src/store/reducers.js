@@ -65,6 +65,9 @@ const reducer = (state = initialState, action) => {
         newState.termsOpen = true;
       }
       break;
+    case constants.SET_GUILD_DATA:
+      newState.guildData = action.guildData;
+      break;
     default:
       if (action.type !== "@@INIT") {
         console.log(`WARNING: ${action.type} is not a reducer`);
