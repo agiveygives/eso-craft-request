@@ -13,3 +13,4 @@ export const RESTART = 'RESTART';
 export const TOGGLE_REVIEW = 'REVIEW';
 export const SUCCESSFUL_REQUEST = 'SUCCESSFUL_REQUEST';
 export const FAILED_REQUEST = 'FAILED_REQUEST';
+export const RETRY = 'RETRY';

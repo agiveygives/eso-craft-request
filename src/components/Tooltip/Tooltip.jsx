@@ -65,12 +65,10 @@ const arrowGenerator = (color) => {
   };
 }
 
-const CustomTooltip = ({
+const CustomTooltip = React.forwardRef(({
   title, TransitionComponent, placement, children, maxWidth, fontSize,
   textColor, backgroundColor
-}) => {
-  const [arrowRef, setArrowRef] = React.useState(null);
-
+}, ref) => {
   const useStyles = makeStyles(() => ({
     tooltip: {
       backgroundColor: backgroundColor,
@@ -103,7 +101,7 @@ const CustomTooltip = ({
       title={
         <React.Fragment>
           {title}
-          <span className={arrow} ref={setArrowRef} />
+          <span className={arrow} ref={ref} />
         </React.Fragment>
       }
       placement={placement}
@@ -111,18 +109,18 @@ const CustomTooltip = ({
         popperOptions: {
           modifiers: {
             arrow: {
-              enabled: Boolean(arrowRef),
-              element: arrowRef,
+              enabled: Boolean(ref),
+              element: ref,
             },
           },
         },
       }}
-      ref={setArrowRef}
+      ref={ref}
     >
       {children}
     </Tooltip>
   );
-};
+});
 
 CustomTooltip.defaultProps = {
   TransitionComponent: Fade,

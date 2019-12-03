@@ -55,5 +55,5 @@ const craftedSets = [
 ];
 
 export default [
-  { value: 'n/a', label: 'None', color: '#fcb935', isFixed: true }
+  { value: 'None', label: 'None', color: '#fcb935', isFixed: true }
 ].concat(craftedSets.sort().map(set => ({ value: set, label: set, color: '#2DC50E', isFixed: true })))

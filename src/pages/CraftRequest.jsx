@@ -28,14 +28,10 @@ const CraftRequest = ({ termsAccepted }) => (
   <ContentContainer
     style={appStyle}
     fill
-    header={
-      <React.Fragment>
-        <AppHeader title="Craft Request" />
-        <RequestAlert />
-      </React.Fragment>
-    }
+    header={<AppHeader title="Craft Request" />}
     footer={<AppFooter />}
   >
+    <RequestAlert />
     <TermsOfUse />
     <Confirmation />
     <ContentContainer

@@ -1,69 +1,74 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import Arrange from 'terra-arrange';
-import IconSuccess from 'terra-icon/lib/icon/IconSuccess';
-import IconError from 'terra-icon/lib/icon/IconError';
-import { Typography } from '@material-ui/core';
-import { RESTART } from '../../store/constants';
-import ContentContainer from 'terra-content-container';
-import Spacer from 'terra-spacer';
+import { IconButton, Snackbar, SnackbarContent, Typography } from '@material-ui/core';
+import { green, red } from '@material-ui/core/colors';
+import CloseIcon from '@material-ui/icons/Close';
+import { RESTART, RETRY } from '../../store/constants';
 
 const propTypes = {
   isSuccessful: PropTypes.bool.isRequired,
   isFailed: PropTypes.bool.isRequired,
-  reset: PropTypes.func.isRequired
+  reset: PropTypes.func.isRequired,
+  retry: PropTypes.func.isRequired
 };
 
 const RequestAlert = ({
   isSuccessful,
   isFailed,
-  reset
+  reset,
+  retry
 }) => {
-  const bodyStyle={ color: 'black', paddingLeft: '2em' };
-  let render = <ContentContainer />;
+  const [snackbarOpen, setSnackbarOpen] = React.useState(false);
+  const [backgroundColor, setBackgroundColor] = React.useState(green[600]);
+  const [message, setMessage] = React.useState('Your request was sent to discord.');
 
-  const style = (backgroundColor, borderColor) => ({
-    backgroundColor,
-    borderLeft: `3px solid ${borderColor}`
-  })
+  React.useEffect(() => {
+    if (isSuccessful || isFailed) {
+      setSnackbarOpen(true);
 
-  if (isSuccessful) {
-    reset();
-    render = (
-      <Arrange
-        align='center'
-        style={{ ...style('#f4f4f4', '#78c346'), margin: '1em'}}
-        fitStart={
-          <Spacer padding='small'>
-            <div className='centered-div'>
-              <IconSuccess />
-              <Typography style={{paddingLeft: '0.5em' }} color='black' variant='h5'>Success!</Typography>
-            </div>
-          </Spacer>
-        }
-        fill={<Typography style={bodyStyle} variant='h5'>Your request was sent to discord.</Typography>}
-      />
-    );
-  } else if (isFailed) {
-    render = (
-      <Arrange
-        align='center'
-        style={{ ...style('#fedcdc', '#cc0910'), margin: '1em' }}
-        fitStart={
-          <Spacer padding='small'>
-            <div className='centered-div'>
-              <IconError />
-              <Typography style={{ paddingLeft: '0.5em' }} color='#d00a10' variant='h5'>Error!</Typography>
-            </div>
-          </Spacer>
-        }
-        fill={<Typography style={bodyStyle} variant='h5'>Failed to send request, please try again. If the problem persists, contact @JukesMcGee on discord.</Typography>}
-      />
-    );
+      if(isSuccessful) {
+        setBackgroundColor(green[600]);
+        setMessage('Your request was sent to discord.');
+      }
+
+      if(isFailed) {
+        setBackgroundColor(red[600]);
+        setMessage('Failed to send request, please try again. If the problem persists, contact @JukesMcGee on discord.');
+      }
+    } else {
+      setSnackbarOpen(false);
+    }
+  }, [isSuccessful, isFailed])
+
+  const onClose = () => {
+    setSnackbarOpen(false);
+
+    if (isSuccessful) reset();
+    if (isFailed) retry();
   }
 
-  return render;
+  return (
+    <Snackbar
+      anchorOrigin={{
+        vertical: 'bottom',
+        horizontal: 'center',
+      }}
+      autoHideDuration={6000}
+      onClose={onClose}
+      open={snackbarOpen}
+    >
+      <SnackbarContent
+        style={{ backgroundColor, margin: '1em' }}
+        action={[
+          <IconButton key="close" aria-label="close" color="inherit" onClick={onClose}>
+            <CloseIcon />
+          </IconButton>,
+        ]}
+        message={<Typography>{message}</Typography>}
+      />
+    </Snackbar>
+  );
 }
 
 RequestAlert.propTypes = propTypes;
@@ -74,7 +79,8 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  reset: () => dispatch({ type: RESTART })
+  reset: () => dispatch({ type: RESTART }),
+  retry: () => dispatch({ type: RETRY })
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(RequestAlert);
