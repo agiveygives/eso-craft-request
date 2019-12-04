@@ -75,7 +75,8 @@ const styles = [
   "Meridian",
   "Dragonguard",
   "Refabricator",
-  "Sunspire"
+  "Sunspire",
+  "Moongrave Fane"
 ];
 
 export default [
