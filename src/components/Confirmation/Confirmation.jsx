@@ -1,18 +1,19 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { makeStyles } from '@material-ui/core/styles';
 import AbstractModal from 'terra-abstract-modal';
 import { TOGGLE_REVIEW } from '../../store/constants';
 import ContentContainer from 'terra-content-container';
 import Image from 'terra-image';
 import Arrange from 'terra-arrange';
 import Spacer from 'terra-spacer';
-import Button from 'terra-button';
+import Fab from '@material-ui/core/Fab';
 import Table from 'terra-table/lib/Table';
-import IconEdit from 'terra-icon/lib/icon/IconEdit';
 import { sendRequest } from '../../store/actions';
 import TheWouldBeGreat from '../../images/confirmation.png';
-import ThumbsUp from '../../images/thumbs-up-emoji.png';
+import EditIcon from '@material-ui/icons/Edit';
+import ThumbsUp from '@material-ui/icons/ThumbUp';
 
 const propTypes = {
   // from redux
@@ -25,6 +26,19 @@ const modalStyle = {
   backgroundColor: '#e0e0e0',
   padding: '2em'
 }
+
+const useStyles = makeStyles(theme => ({
+  modal: {
+    backgroundColor: '#e0e0e0',
+    padding: '2em'
+  },
+  buttonMargin: {
+    margin: theme.spacing(1),
+  },
+  iconMargin: {
+    marginRight: theme.spacing(1),
+  },
+}));
 
 const Confirmation = ({ currentState, sendMessage, closeReview }) => {
   const {
@@ -39,6 +53,7 @@ const Confirmation = ({ currentState, sendMessage, closeReview }) => {
     jewelryAttributes,
     weaponAttributes
   } = currentState;
+  const classes = useStyles();
 
   function pieceRows(selected, attributes) {
     let returnVal = null;
@@ -100,22 +115,29 @@ const Confirmation = ({ currentState, sendMessage, closeReview }) => {
             fill={
               <div className='centered-div'>
                 <Spacer padding='medium'>
-                  <Button
-                    text="Confirm"
-                    variant="action"
-                    icon={<Image src={ThumbsUp} />}
+                  <Fab
+                    variant="extended"
+                    size="medium"
                     style={{ backgroundColor: '#27a745' }}
+                    aria-label="confirm"
                     onClick={() => sendMessage(currentState)}
-                  />
+                    className={classes.buttonMargin}
+                  >
+                    <ThumbsUp className={classes.iconMargin} />
+                    Confirm
+                  </Fab>
                 </Spacer>
                 <Spacer padding='medium'>
-                  <Button
-                    text="Edit"
-                    variant="action"
-                    icon={<IconEdit />}
-                    style={{ backgroundColor: '#6c757c' }}
+                  <Fab
+                    variant="extended"
+                    size="medium"
+                    aria-label="edit"
                     onClick={() => closeReview()}
-                  />
+                    className={classes.buttonMargin}
+                  >
+                    <EditIcon className={classes.iconMargin} />
+                    Edit
+                  </Fab>
                 </Spacer>
               </div>
             }

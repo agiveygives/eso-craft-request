@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { makeStyles } from '@material-ui/core/styles';
 import ActionFooter from 'terra-action-footer';
 import Avatar from '@material-ui/core/Avatar';
-import Button from 'terra-button';
+import Button from '@material-ui/core/Button';
 import Spacer from 'terra-spacer';
 import { Typography } from '@material-ui/core';
 import ReactTooltip from 'react-tooltip';
@@ -126,17 +126,21 @@ const AppFooter = ({ currentState, restart, review, guildName, guildMnemonic, gu
           <Spacer isInlineBlock marginRight="medium">
             <a data-for="submit-button" data-tip>
               <Button
-                isDisabled={buttonDisabled()}
-                text="Submit"
-                variant="emphasis"
+                disabled={buttonDisabled()}
+                variant="contained"
+                color="primary"
                 onClick={() => review()}
-              />
+              >
+                Submit
+              </Button>
             </a>
             <ReactTooltip id="submit-button" type="info">
               Complete all selected fields to enable submission
             </ReactTooltip>
           </Spacer>
-          <Button text="Restart" onClick={() => restart()} />
+          <Button variant="outlined" color="secondary" onClick={() => restart()}>
+            Restart
+          </Button>
         </React.Fragment>
       )}
     />
