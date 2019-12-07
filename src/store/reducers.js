@@ -68,6 +68,12 @@ const reducer = (state = initialState, action) => {
     case constants.SET_GUILD_DATA:
       newState.guildData = action.guildData;
       break;
+    case constants.SET_GUILD_MNEMONIC:
+      newState.guildMnemonic = action.mnemonic;
+      break;
+    case constants.SET_GUILD_REQUEST_CODE:
+      newState.guildRequestCode = action.statusCode;
+      break;
     default:
       if (action.type !== "@@INIT") {
         console.log(`WARNING: ${action.type} is not a reducer`);
