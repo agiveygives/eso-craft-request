@@ -2,18 +2,23 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { makeStyles } from '@material-ui/core/styles';
-import AbstractModal from 'terra-abstract-modal';
 import { TOGGLE_REVIEW } from '../../store/constants';
-import ContentContainer from 'terra-content-container';
 import Image from 'terra-image';
-import Arrange from 'terra-arrange';
-import Spacer from 'terra-spacer';
 import Fab from '@material-ui/core/Fab';
-import Table from 'terra-table/lib/Table';
-import { sendRequest } from '../../store/actions';
-import TheWouldBeGreat from '../../images/confirmation.png';
 import EditIcon from '@material-ui/icons/Edit';
 import ThumbsUp from '@material-ui/icons/ThumbUp';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import Slide from '@material-ui/core/Slide';
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableHead from '@material-ui/core/TableHead';
+import TableRow from '@material-ui/core/TableRow';
+import { sendRequest } from '../../store/actions';
+import TheWouldBeGreat from '../../images/confirmation.png';
 
 const propTypes = {
   // from redux
@@ -22,8 +27,12 @@ const propTypes = {
   closeReview: PropTypes.func.isRequired
 };
 
+const Transition = React.forwardRef(function Transition(props, ref) {
+  return <Slide direction="up" ref={ref} {...props} />;
+});
+
 const modalStyle = {
-  backgroundColor: '#e0e0e0',
+  //backgroundColor: '#e0e0e0',
   padding: '2em'
 }
 
@@ -61,7 +70,11 @@ const Confirmation = ({ currentState, sendMessage, closeReview }) => {
     if (selected.length) {
       returnVal = (
         <React.Fragment>
-          <Table.Subheader key={`${attributes.display}_subheader`} content={attributes.display} colSpan={3} />
+          <TableRow>
+            <TableCell key={`${attributes.display}_subheader`} align='center' variant='head' colSpan={3}>
+              {attributes.display}
+            </TableCell>
+          </TableRow>
           {selected.map(piece => (
               Object.keys(attributes[piece]).map(attribute => {
                 if (attribute !== 'display') {
@@ -72,11 +85,11 @@ const Confirmation = ({ currentState, sendMessage, closeReview }) => {
                     tableRow = null;
                   } else {
                     tableRow = (
-                      <Table.Row key={`${piece}-${attribute}-row`}>
-                        <Table.Cell key={`${piece}-${attribute}-piece`} content={pieceLabel} />
-                        <Table.Cell key={`${piece}-${attribute}-attribute`} content={attribute} />
-                        <Table.Cell key={`${piece}-${attribute}-input`} content={attributes[piece][attribute]} />
-                      </Table.Row>
+                      <TableRow key={`${piece}-${attribute}-row`}>
+                        <TableCell key={`${piece}-${attribute}-piece`}>{pieceLabel}</TableCell>
+                        <TableCell key={`${piece}-${attribute}-attribute`}>{attribute}</TableCell>
+                        <TableCell key={`${piece}-${attribute}-input`}>{attributes[piece][attribute]}</TableCell>
+                      </TableRow>
                     );
                   }
 
@@ -96,81 +109,78 @@ const Confirmation = ({ currentState, sendMessage, closeReview }) => {
   }
 
   return (
-    <AbstractModal
+    <Dialog
+      TransitionComponent={Transition}
       style={{ overflow: 'auto' }}
-      ariaLabel="Confirmation"
-      isOpen={review}
-      closeOnOutsideClick={false}
-      onRequestClose={() => {}}
+      aria-labelledby="Request Confirmation Modal"
+      open={review}
+      disableBackdropClick
+      disableEscapeKeyDown
     >
-      <ContentContainer
+      <DialogTitle id="confirmation-dialog-title">
+        Request Confirmation
+      </DialogTitle>
+      <DialogContent
         style={modalStyle}
-        header={
+        dividers
+      >
+        <div style={{ paddingTop: '2em', paddingBottom: '2em' }}>
           <div className="centered-div">
             <Image src={TheWouldBeGreat} />
           </div>
-        }
-        footer={
-          <Arrange
-            fill={
-              <div className='centered-div'>
-                <Spacer padding='medium'>
-                  <Fab
-                    variant="extended"
-                    size="medium"
-                    style={{ backgroundColor: '#27a745' }}
-                    aria-label="confirm"
-                    onClick={() => sendMessage(currentState)}
-                    className={classes.buttonMargin}
-                  >
-                    <ThumbsUp className={classes.iconMargin} />
-                    Confirm
-                  </Fab>
-                </Spacer>
-                <Spacer padding='medium'>
-                  <Fab
-                    variant="extended"
-                    size="medium"
-                    aria-label="edit"
-                    onClick={() => closeReview()}
-                    className={classes.buttonMargin}
-                  >
-                    <EditIcon className={classes.iconMargin} />
-                    Edit
-                  </Fab>
-                </Spacer>
-              </div>
-            }
-          />
-        }
-      >
-        <div style={{ paddingTop: '2em', paddingBottom: '2em' }}>
-          <Table isStriped>
-            <Table.Header>
-              <Table.HeaderCell content="Input Field" key="input_field" colSpan={2} />
-              <Table.HeaderCell content="Your Input" key="user_input" />
-            </Table.Header>
-            <Table.Rows>
-              <Table.Row key="eso_username">
-                <Table.Cell content="ESO Username" key="username_label" colSpan={2} />
-                <Table.Cell content={esoName} key="username" />
-              </Table.Row>
-              <Table.Row key="gear_level">
-                <Table.Cell content="Gear Level" key="level_label" colSpan={2} />
-                <Table.Cell content={gearLevel} key="level" />
-              </Table.Row>
-              <Table.Row key="payment_option">
-                <Table.Cell content="Payment" key="payment_label" colSpan={2} />
-                <Table.Cell content={payment} key="payment" />
-              </Table.Row>
+          <Table>
+            <TableHead>
+              <TableRow>
+                <TableCell key="input_field" align='center' colSpan={2}>Input Field</TableCell>
+                <TableCell key="user_input">Your Input</TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              <TableRow key="eso_username">
+                <TableCell key="username_label" colSpan={2}>ESO Username</TableCell>
+                <TableCell key="username">{esoName}</TableCell>
+              </TableRow>
+              <TableRow key="gear_level">
+                <TableCell key="level_label" colSpan={2}>Gear Level</TableCell>
+                <TableCell key="level">{gearLevel}</TableCell>
+              </TableRow>
+              <TableRow key="payment_option">
+                <TableCell key="payment_label" colSpan={2}>Payment</TableCell>
+                <TableCell key="payment">{payment}</TableCell>
+              </TableRow>
               {pieceRows(armorPieces, armorAttributes)}
               {pieceRows(jewelryPieces, jewelryAttributes)}
               {pieceRows(weaponPieces, weaponAttributes)}
-            </Table.Rows>
+            </TableBody>
           </Table>
         </div>
-      </ContentContainer>
-    </AbstractModal>
+      </DialogContent>
+      <DialogActions>
+        <span>
+          <Fab
+            variant="extended"
+            size="medium"
+            style={{ backgroundColor: '#27a745' }}
+            aria-label="confirm"
+            onClick={() => sendMessage(currentState)}
+            className={classes.buttonMargin}
+          >
+            <ThumbsUp className={classes.iconMargin} />
+            Confirm
+          </Fab>
+          <Fab
+            variant="extended"
+            size="medium"
+            aria-label="edit"
+            onClick={() => closeReview()}
+            className={classes.buttonMargin}
+          >
+            <EditIcon className={classes.iconMargin} />
+            Edit
+          </Fab>
+        </span>
+      </DialogActions>
+    </Dialog>
   );
 };
 
