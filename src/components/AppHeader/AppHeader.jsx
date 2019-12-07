@@ -1,17 +1,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import Image from 'terra-image';
 import Header from 'terra-clinical-header';
 import Heading from 'terra-heading';
 import Arrange from 'terra-arrange';
 import craftIcon from '../../images/hammer-and-anvil.png'
-import guilds from '../../constants/guilds';
 
 const propTypes = {
-  title: PropTypes.string.isRequired
+  title: PropTypes.string.isRequired,
+  guildHeaderColor: PropTypes.string.isRequired,
 }
 
-const AppHeader = ({ title }) => (
+const AppHeader = ({ title, guildHeaderColor }) => (
   <Header
     startContent={
       <Arrange
@@ -20,10 +21,14 @@ const AppHeader = ({ title }) => (
         align='center'
       />
     }
-    style={{ borderStyle: 'hidden', backgroundColor: guilds.pixelPirates.header }}
+    style={{ borderStyle: 'hidden', backgroundColor: guildHeaderColor }}
   />
 );
 
 AppHeader.propTypes = propTypes;
 
-export default AppHeader;
+const mapStateToProps = state => ({
+  guildHeaderColor: state.guildData.colors.header,
+});
+
+export default connect(mapStateToProps)(AppHeader);

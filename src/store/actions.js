@@ -1,10 +1,15 @@
 import axios from 'axios';
-import { TOGGLE_REVIEW, SUCCESSFUL_REQUEST, FAILED_REQUEST, SET_GUILD_DATA } from './constants.js';
+import { TOGGLE_REVIEW, SUCCESSFUL_REQUEST, FAILED_REQUEST, SET_GUILD_DATA, SET_GUILD_REQUEST_CODE } from './constants.js';
 
-export const getGuildData = (guildId) => dispatch => {
-  axios.get(`https://us-central1-eso-craft-request.cloudfunctions.net/api/guilds/${guildId}`)
+export const getGuildData = (guildMemonic) => dispatch => {
+  axios.get(`https://us-central1-eso-craft-request.cloudfunctions.net/api/guilds?mnemonic=${guildMemonic}`)
     .then(response => {
-      dispatch({ type: SET_GUILD_DATA, guildData: response.data });
+      if (response.data.length > 0) {
+        dispatch({ type: SET_GUILD_DATA, guildData: response.data[0] });
+      }
+      else {
+        dispatch({ type: SET_GUILD_REQUEST_CODE, statusCode: '404' });
+      }
     })
     .catch(error => {
       dispatch({

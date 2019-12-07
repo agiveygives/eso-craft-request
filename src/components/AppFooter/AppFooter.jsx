@@ -1,23 +1,31 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { makeStyles } from '@material-ui/core/styles';
 import ActionFooter from 'terra-action-footer';
-import Image from 'terra-image';
+import Avatar from '@material-ui/core/Avatar';
 import Button from 'terra-button';
 import Spacer from 'terra-spacer';
 import { Typography } from '@material-ui/core';
 import ReactTooltip from 'react-tooltip';
-import Guilds from '../../constants/guilds';
 import { RESTART, TOGGLE_REVIEW } from '../../store/constants';
 
 const propTypes = {
   currentState: PropTypes.shape({}).isRequired,
   restart: PropTypes.func.isRequired,
   review: PropTypes.func.isRequired,
-  guildName: PropTypes.string.isRequired
+  guildName: PropTypes.string.isRequired,
+  guildMnemonic: PropTypes.string.isRequired,
 }
 
-const AppFooter = ({ currentState, restart, review, guildName, guildWebsite, guildFooterColor }) => {
+const useStyles = makeStyles(theme => ({
+  guildBranding : {
+    display: 'flex',
+    alignItems: 'center'
+  }
+}))
+
+const AppFooter = ({ currentState, restart, review, guildName, guildMnemonic, guildWebsite, guildFooterColor }) => {
   const {
     esoName,
     armorPieces,
@@ -27,6 +35,7 @@ const AppFooter = ({ currentState, restart, review, guildName, guildWebsite, gui
     jewelryAttributes,
     weaponAttributes
   } = currentState;
+  const classes = useStyles();
 
   function buttonDisabled() {
     if (esoName[0] !== '@' || esoName.length < 2
@@ -91,14 +100,14 @@ const AppFooter = ({ currentState, restart, review, guildName, guildWebsite, gui
               textDecoration: 'none',
             }}
           >
-            <React.Fragment>
-              <Image src={Guilds.pixelPirates.icon} />
-              <Typography style={{ display: 'inline', paddingLeft: '1rem' }}>{guildName}</Typography>
-            </React.Fragment>
+            <span className={classes.guildBranding}>
+              <Avatar className={classes.avatar} src={`/guildImages/${guildMnemonic}.png`} />
+              <Typography display='inline' style={{ paddingLeft: '1rem' }}>{guildName}</Typography>
+            </span>
           </a>
           <div>
             <a
-              href={guildWebsite}
+              href={'https://github.com/agiveygives/eso-craft-request/issues/new/choose'}
               rel="noopener noreferrer"
               target="_blank"
               style={{
@@ -139,6 +148,7 @@ AppFooter.propTypes = propTypes;
 const mapStateToProps = state => ({
   currentState: state,
   guildName: state.guildData.name,
+  guildMnemonic: state.guildMnemonic,
   guildWebsite: state.guildData.website,
   guildFooterColor: state.guildData.colors.footer,
 });

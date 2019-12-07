@@ -1,4 +1,6 @@
 export default {
+  guildMnemonic: '',
+  guildRequestCode: '',
   guildData: {},
   termsAccepted: false,
   termsOpen: true,
