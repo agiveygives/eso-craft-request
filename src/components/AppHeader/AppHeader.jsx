@@ -1,11 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import Image from 'terra-image';
+import Avatar from '@material-ui/core/Avatar';
 import Header from 'terra-clinical-header';
 import Heading from 'terra-heading';
 import Arrange from 'terra-arrange';
-import craftIcon from '../../images/hammer-and-anvil.png'
 
 const propTypes = {
   title: PropTypes.string.isRequired,
@@ -16,7 +15,7 @@ const AppHeader = ({ title, guildHeaderColor }) => (
   <Header
     startContent={
       <Arrange
-        fitStart={<Image src={craftIcon} variant='circle' />}
+        fitStart={<Avatar src="/images/hammer-and-anvil.png" />}
         fill={<Heading style={{ color: 'black' }} level={2}>{title}</Heading>}
         align='center'
       />

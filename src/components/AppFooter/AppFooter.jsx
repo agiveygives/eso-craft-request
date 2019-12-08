@@ -1,11 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import axios from 'axios';
 import { makeStyles } from '@material-ui/core/styles';
 import ActionFooter from 'terra-action-footer';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
-import Spacer from 'terra-spacer';
 import { Typography } from '@material-ui/core';
 import ReactTooltip from 'react-tooltip';
 import { RESTART, TOGGLE_REVIEW } from '../../store/constants';
@@ -22,6 +22,13 @@ const useStyles = makeStyles(theme => ({
   guildBranding : {
     display: 'flex',
     alignItems: 'center'
+  },
+  rightMargin: {
+    marginRight: '0.7rem',
+    display: 'flex'
+  },
+  wrapper: {
+    display: 'inline-flex'
   }
 }))
 
@@ -36,6 +43,18 @@ const AppFooter = ({ currentState, restart, review, guildName, guildMnemonic, gu
     weaponAttributes
   } = currentState;
   const classes = useStyles();
+  const guildImagePath = `/guildImages/${guildMnemonic}.png`;
+  const [imageExists, setImageExists] = React.useState(false);
+
+  React.useEffect(() => {
+    axios.get(guildImagePath)
+      .then(() => {
+        setImageExists(true);
+      })
+      .catch(() => {
+        setImageExists(false);
+      })
+  }, [])
 
   function buttonDisabled() {
     if (esoName[0] !== '@' || esoName.length < 2
@@ -85,26 +104,52 @@ const AppFooter = ({ currentState, restart, review, guildName, guildMnemonic, gu
     }
   }
 
+  const guildBranding = (name, website, imagePath) => {
+    let branding;
+
+    if (imageExists) {
+      branding = (
+        <span className={classes.guildBranding}>
+          <Avatar className={classes.avatar} src={imagePath} />
+          <Typography display='inline' style={{ paddingLeft: '1rem' }}>{name}</Typography>
+        </span>
+      )
+    }
+    else {
+      branding = (
+        <span className={classes.guildBranding}>
+          <Typography display='inline'>{name}</Typography>
+        </span>
+      )
+    }
+
+    if (website) {
+      return (
+        <a
+          href={website}
+          rel="noopener noreferrer"
+          target="_blank"
+          style={{
+            backgroundColor: 'transparent',
+            color: 'white',
+            textDecoration: 'none',
+          }}
+        >
+          {branding}
+        </a>
+      )
+    }
+    else {
+      return branding
+    }
+  }
+
   return (
     <ActionFooter
       style={{ borderStyle: 'hidden', backgroundColor: guildFooterColor }}
       start={(
         <React.Fragment>
-          <a
-            href={guildWebsite}
-            rel="noopener noreferrer"
-            target="_blank"
-            style={{
-              backgroundColor: 'transparent',
-              color: 'white',
-              textDecoration: 'none',
-            }}
-          >
-            <span className={classes.guildBranding}>
-              <Avatar className={classes.avatar} src={`/guildImages/${guildMnemonic}.png`} />
-              <Typography display='inline' style={{ paddingLeft: '1rem' }}>{guildName}</Typography>
-            </span>
-          </a>
+          {guildBranding(guildName, guildWebsite, guildImagePath)}
           <div>
             <a
               href={'https://github.com/agiveygives/eso-craft-request/issues/new/choose'}
@@ -122,8 +167,8 @@ const AppFooter = ({ currentState, restart, review, guildName, guildMnemonic, gu
         </React.Fragment>
       )}
       end={(
-        <React.Fragment>
-          <Spacer isInlineBlock marginRight="medium">
+        <span className={classes.wrapper}>
+          <span className={classes.rightMargin}>
             <a data-for="submit-button" data-tip>
               <Button
                 disabled={buttonDisabled()}
@@ -137,11 +182,11 @@ const AppFooter = ({ currentState, restart, review, guildName, guildMnemonic, gu
             <ReactTooltip id="submit-button" type="info">
               Complete all selected fields to enable submission
             </ReactTooltip>
-          </Spacer>
+          </span>
           <Button variant="outlined" color="secondary" onClick={() => restart()}>
             Restart
           </Button>
-        </React.Fragment>
+        </span>
       )}
     />
   );

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { makeStyles } from '@material-ui/core/styles';
 import { TOGGLE_REVIEW } from '../../store/constants';
-import Image from 'terra-image';
+import Image from 'material-ui-image';
 import Fab from '@material-ui/core/Fab';
 import EditIcon from '@material-ui/icons/Edit';
 import ThumbsUp from '@material-ui/icons/ThumbUp';
@@ -15,10 +15,8 @@ import Slide from '@material-ui/core/Slide';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
-import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import { sendRequest } from '../../store/actions';
-import TheWouldBeGreat from '../../images/confirmation.png';
 
 const propTypes = {
   // from redux
@@ -31,15 +29,11 @@ const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
-const modalStyle = {
-  //backgroundColor: '#e0e0e0',
-  padding: '2em'
-}
-
 const useStyles = makeStyles(theme => ({
-  modal: {
+  subheader: {
     backgroundColor: '#e0e0e0',
-    padding: '2em'
+    fontSize: '1em',
+    fontColor: 'black'
   },
   buttonMargin: {
     margin: theme.spacing(1),
@@ -71,7 +65,7 @@ const Confirmation = ({ currentState, sendMessage, closeReview }) => {
       returnVal = (
         <React.Fragment>
           <TableRow>
-            <TableCell key={`${attributes.display}_subheader`} align='center' variant='head' colSpan={3}>
+            <TableCell className={classes.subheader} key={`${attributes.display}_subheader`} align='center' colSpan={3}>
               {attributes.display}
             </TableCell>
           </TableRow>
@@ -121,20 +115,14 @@ const Confirmation = ({ currentState, sendMessage, closeReview }) => {
         Request Confirmation
       </DialogTitle>
       <DialogContent
-        style={modalStyle}
         dividers
       >
-        <div style={{ paddingTop: '2em', paddingBottom: '2em' }}>
-          <div className="centered-div">
-            <Image src={TheWouldBeGreat} />
-          </div>
+        <div style={{ paddingRight: '5em', paddingLeft: '5em' }}>
+          <Image
+            src='/images/confirmation.png'
+            aspectRatio={(16/9)}
+          />
           <Table>
-            <TableHead>
-              <TableRow>
-                <TableCell key="input_field" align='center' colSpan={2}>Input Field</TableCell>
-                <TableCell key="user_input">Your Input</TableCell>
-              </TableRow>
-            </TableHead>
             <TableBody>
               <TableRow key="eso_username">
                 <TableCell key="username_label" colSpan={2}>ESO Username</TableCell>
