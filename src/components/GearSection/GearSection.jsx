@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import Spacer from 'terra-spacer';
+import { makeStyles } from '@material-ui/core/styles';
 import ToggleHeader from '../ToggleHeader/ToggleHeader';
 import CheckboxRow from '../CheckboxRow/CheckboxRow';
 import PieceCard from '../PieceCard/PieceCard';
@@ -13,21 +13,33 @@ const propTypes = {
   selectedPieces: PropTypes.arrayOf(PropTypes.string).isRequired
 }
 
-const GearSection = ({ group, selectedPieces }) => (
-    <Spacer paddingTop='large'>
-      <ToggleHeader
-        title={`${group.charAt(0).toUpperCase() + group.slice(1)} Pieces`}
-      >
-        <CheckboxRow id={group} />
-        <Spacer padding="large+2">
-          <div className="centered-div">
-            {selectedPieces.map(piece => <PieceCard group={group} piece={piece} key={`${group}-${piece}`} />)}
-          </div>
-        </Spacer>
-      </ToggleHeader>
-    </Spacer>
-);
+const useStyles = makeStyles(theme => ({
+  wrapper: {
+    margin: '0.85rem'
+  },
+  cardWrapper: {
+    margin: '1.5rem'
+  }
+}))
 
+const GearSection = ({ group, selectedPieces }) => {
+  const classes = useStyles();
+
+    return (
+      <div className={classes.wrapper}>
+        <ToggleHeader
+          title={`${group.charAt(0).toUpperCase() + group.slice(1)} Pieces`}
+        >
+          <CheckboxRow id={group} />
+          <span className={classes.cardWrapper}>
+            <div className="centered-div">
+              {selectedPieces.map(piece => <PieceCard group={group} piece={piece} key={`${group}-${piece}`} />)}
+            </div>
+          </span>
+        </ToggleHeader>
+      </div>
+    );
+};
 
 GearSection.propTypes = propTypes;
 

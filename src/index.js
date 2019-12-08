@@ -15,7 +15,7 @@ document.addEventListener('DOMContentLoaded', () => {
     window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
   );
   const splitHost = window.location.host.split('.');
-  const mnemonic = splitHost.length === 3 ? splitHost[0] : 'demo';
+  const mnemonic = splitHost.length === 3 && splitHost[0] !== 'www' ? splitHost[0] : 'demo';
   store.dispatch({ type: SET_GUILD_MNEMONIC, mnemonic });
 
   getGuildData(mnemonic)(store.dispatch);

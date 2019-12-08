@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Typography } from '@material-ui/core';
-import Spacer from 'terra-spacer';
 
 // Material-UI
 import Select from '@material-ui/core/Select';
@@ -27,13 +26,16 @@ const styles = createStyles({
     color: 'black',
     padding: '0.2rem',
     minWidth: '7rem'
+  },
+  wrapper: {
+    paddingLeft: '0.5rem'
   }
 });
 
 const PaymentOption = ({ options, paymentType, updatePaymentOption }) => (
   <span className="centered-div">
     <Typography variant='h5'>I will be paying with </Typography>
-    <Spacer paddingLeft="small">
+    <span style={styles.wrapper}>
       <Tooltip
         title="Crafters are more likely to accept material payments"
         placement="right"
@@ -46,7 +48,7 @@ const PaymentOption = ({ options, paymentType, updatePaymentOption }) => (
           {options.map(Utils.generateSelectOptions)}
         </Select>
       </Tooltip>
-    </Spacer>
+    </span>
   </span>
 );
 

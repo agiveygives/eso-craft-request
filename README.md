@@ -41,13 +41,7 @@ npm run start
 
 ## Deployment
 
-How to deploy app to the github page
-
-```
-npm run deploy
-```
-
-The App will be deployed to https://agiveygives.github.io/eso-craft-request/
+Deployment it automated with AWS Amplify. A deployment pipeline will start on a merge to master, and be deployed to https://esocraftrequest.com
 
 ## Built With
 

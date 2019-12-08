@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import Spacer from 'terra-spacer';
+import { makeStyles } from '@material-ui/core/styles';
 import { FormControl, FormGroup, FormControlLabel, Switch, Typography } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
 import { green } from '@material-ui/core/colors';
@@ -28,7 +28,15 @@ const ColoredSwitch = withStyles({
   track: {},
 })(Switch);
 
+const useStyles = makeStyles(theme => ({
+  spacer: {
+    margin: '1rem'
+  }
+}))
+
 const CheckboxRow = ({ id, selectedPieces, updatePieces }) => {
+  const classes = useStyles();
+
   const armorBoxes = [
     { id: 'head', label: 'Head' },
     { id: 'shoulder', label: 'Shoulder' },
@@ -91,7 +99,7 @@ const CheckboxRow = ({ id, selectedPieces, updatePieces }) => {
   }
 
   return (
-    <Spacer margin='large+1'>
+    <span className={classes.spacer}>
       <div className="centered-div">
         <Typography variant='h5' gutterBottom>
           Select Your {id.charAt(0).toUpperCase() + id.slice(1)}
@@ -104,7 +112,7 @@ const CheckboxRow = ({ id, selectedPieces, updatePieces }) => {
           </FormGroup>
         </FormControl>
       </div>
-    </Spacer>
+    </span>
   )
 };
 
