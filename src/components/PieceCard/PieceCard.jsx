@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Card, CardContent, CardHeader, Grid, Input, Select, Typography } from '@material-ui/core';
+import { Card, CardContent, CardHeader, Grid, Select, Typography, FormControl } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { Circle } from 'react-shapes'
 
@@ -46,14 +46,14 @@ const useStyles = makeStyles({
 });
 
 const defaultValues = {
-  glyph: { value: null, label: 'Glyph', color: '#FF5630', isFixed: true },
-  glyphQuality: { value: null, label: 'Glyph Quality', color: '#FF5630', isFixed: true },
-  trait: { value: null, label: 'Trait', color: '#FF5630', isFixed: true },
-  quality: { value: null, label: 'Quality', color: '#FF5630', isFixed: true },
-  set: { value: null, label: 'Set', color: '#FF5630', isFixed: true },
-  style: { value: null, label: 'Style', color: '#FF5630', isFixed: true },
-  weapon: { value: null, label: 'Weapon', color: '#FF5630', isFixed: true },
-  weight: { value: null, label: 'Weight', color: '#FF5630', isFixed: true }
+  glyph: { value: '', label: 'Glyph', color: '#FF5630', isFixed: true },
+  glyphQuality: { value: '', label: 'Glyph Quality', color: '#FF5630', isFixed: true },
+  trait: { value: '', label: 'Trait', color: '#FF5630', isFixed: true },
+  quality: { value: '', label: 'Quality', color: '#FF5630', isFixed: true },
+  set: { value: '', label: 'Set', color: '#FF5630', isFixed: true },
+  style: { value: '', label: 'Style', color: '#FF5630', isFixed: true },
+  weapon: { value: '', label: 'Weapon', color: '#FF5630', isFixed: true },
+  weight: { value: '', label: 'Weight', color: '#FF5630', isFixed: true }
 }
 
 const qualityColors = {
@@ -217,41 +217,38 @@ const PieceCard = ({
 
     return (
       <Grid key={dropdownData.key} item xs={gridXs} className='centered-div'>
-        <Select
-          style={{ minWidth: '10rem' }}
-          MenuProps={{
-            PaperProps: {
-              style: {
-                maxHeight: '30rem',
+        <FormControl disabled={glyphVal === 'None' && dropdownData.key === 'Glyph Quality'}>
+          <Select
+            style={{ minWidth: '10rem' }}
+            MenuProps={{
+              PaperProps: {
+                style: {
+                  maxHeight: '30rem',
+                },
               },
-            },
-          }}
-          displayEmpty
-          input={(
-            <Input
-              disabled={glyphVal === 'None' && dropdownData.key === 'Glyph Quality'}
-            />
-          )}
-          value={selectValue}
-          renderValue={
-            value => (
-              <React.Fragment>
-                <span style={{ display: 'flex', alignItems: 'center' }}>
-                  <Circle r={5} fill={{color: value.color}} />
-                  <Typography variant='body1' style={{ padding: '0.5rem', minWidth: '5rem' }}>{value.label}</Typography>
-                </span>
-              </React.Fragment>
-            )
-          }
-          onChange={
-            (_, child) => {
-              setSelectValue(child.props.optiondata)
-              updateAttributes(piece, child.props.piecekey, child.props.value)
+            }}
+            displayEmpty
+            value={selectValue.value}
+            renderValue={
+              () => (
+                <React.Fragment>
+                  <span style={{ display: 'flex', alignItems: 'center' }}>
+                    <Circle r={5} fill={{color: selectValue.color}} />
+                    <Typography variant='body1' style={{ padding: '0.5rem', minWidth: '5rem' }}>{selectValue.label}</Typography>
+                  </span>
+                </React.Fragment>
+              )
             }
-          }
-        >
-          {dropdownData.options.map(option => Utils.generateSelectOptions(option.value, dropdownData.key, option))}
-        </Select>
+            onChange={
+              (_, child) => {
+                setSelectValue(child.props.optiondata)
+                updateAttributes(piece, child.props.piecekey, child.props.value)
+              }
+            }
+          >
+            {dropdownData.options.map(option => Utils.generateSelectOptions(option.value, dropdownData.key, option))}
+          </Select>
+        </FormControl>
       </Grid>
     );
   };
