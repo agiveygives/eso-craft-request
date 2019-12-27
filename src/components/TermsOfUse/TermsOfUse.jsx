@@ -71,7 +71,8 @@ const TermsOfUse = ({ termsOpen, acceptTerms, guildName, guildMnemonic }) => {
             <h4>The requests submitted through this will not be fulfilled by any crafter.</h4>
             <h4>To view requests sent, join the <a href="https://discord.gg/3SFgtcA" target="_blank" rel="noopener noreferrer">ESO Craft Request Demo</a> discord server.</h4>
             <h4>If you're trying to submit a craft request to your guild, please contact your guild leaders for the correct url.</h4>
-            <h4>Any questions can be directed the <a href="https://discord.gg/uEyzbrE" target="_blank" rel="noopener noreferrer">#questions</a> channel on the discord server or to JukesMcGee#4228 on Discord.</h4>
+            <h4>If you want to use this for your guild, please submit an <a href="https://github.com/agiveygives/eso-craft-request/issues/new?assignees=agiveygives&labels=onboarding&template=onboarding-request.md&title=%5BONBOARDING%5D" target="_blank" rel="noopener noreferrer">Onboarding Request</a> on github.</h4>
+            <h4>Any questions can be directed to the <a href="https://discord.gg/uEyzbrE" target="_blank" rel="noopener noreferrer">#questions</a> channel on the discord server or to JukesMcGee#4228 on Discord.</h4>
           </div>
         </div>
       )
