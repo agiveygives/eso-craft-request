@@ -48,8 +48,13 @@ const AppFooter = ({ currentState, restart, review, guildName, guildMnemonic, gu
 
   React.useEffect(() => {
     axios.get(guildImagePath)
-      .then(() => {
-        setImageExists(true);
+      .then(response => {
+        if(response.config.url === guildImagePath) {
+          setImageExists(true);
+        }
+        else {
+          setImageExists(false);
+        }
       })
       .catch(() => {
         setImageExists(false);
