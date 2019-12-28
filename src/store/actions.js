@@ -46,13 +46,24 @@ export const sendRequest = (currentState, retryMessage) => dispatch => {
     weaponAttributes
   } = currentState;
 
+  const requestLog = {
+    guild: guildData.name,
+    url: window.location.href,
+    username: esoName,
+    level: gearLevel,
+    payment: payment
+  };
+
   function buildGearMessage(selected, attributes) {
     let returnVal = '';
 
     if (selected.length) {
       returnVal = `\n__${attributes.display}__`;
+      requestLog[attributes.display.toLowerCase()] = {};
+
       selected.forEach(piece => {
         returnVal += `\n**${attributes[piece].display}**`
+        requestLog[attributes.display.toLowerCase()][piece] = attributes[piece];
 
         for (let attribute in attributes[piece]) {
           if (attribute !== 'display' && attribute !== 'Glyph Quality') {
@@ -87,6 +98,14 @@ export const sendRequest = (currentState, retryMessage) => dispatch => {
     })
     .catch(() => {
       dispatch({ type: FAILED_REQUEST });
+    })
+
+  axios.post(
+    'https://us-central1-eso-craft-request.cloudfunctions.net/api/craft-requests',
+    requestLog
+  )
+    .catch(err => {
+      console.error(err);
     })
 
   dispatch({ type: TOGGLE_REVIEW, show: false })
