@@ -76,7 +76,8 @@ const styles = [
   "Dragonguard",
   "Refabricator",
   "Sunspire",
-  "Moongrave Fane"
+  "Moongrave Fane",
+  "Stags of Z'en"
 ];
 
 export default [
