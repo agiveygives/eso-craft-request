@@ -77,7 +77,10 @@ const styles = [
   "Refabricator",
   "Sunspire",
   "Moongrave Fane",
-  "Stags of Z'en"
+  "Stags of Z'en",
+  "Critical Riposte",
+  "Dauntless Combatant",
+  "Unchained Aggressor"
 ];
 
 export default [
