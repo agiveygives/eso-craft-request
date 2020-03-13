@@ -1,14 +1,14 @@
 export const jewelryTraits = [
-  { value: 'None', label: 'None', color: '#fcb935', isFixed: true },
-  { value: 'Arcane', label: 'Arcane', color: '#2DC50E', isFixed: true },
-  { value: 'Healthy', label: 'Healthy', color: '#2DC50E', isFixed: true },
-  { value: 'Robust', label: 'Robust', color: '#2DC50E', isFixed: true },
-  { value: 'Triune', label: 'Triune', color: '#2DC50E', isFixed: true },
-  { value: 'Infused', label: 'Infused', color: '#2DC50E', isFixed: true },
-  { value: 'Protective', label: 'Protective', color: '#2DC50E', isFixed: true },
-  { value: 'Swift', label: 'Swift', color: '#2DC50E', isFixed: true },
-  { value: 'Harmony', label: 'Harmony', color: '#2DC50E', isFixed: true },
-  { value: 'Bloodthirsty', label: 'Bloodthirsty', color: '#2DC50E', isFixed: true }
+  { value: 'None', stone: 'none', label: 'None', color: '#fcb935', isFixed: true },
+  { value: 'Arcane', stone: 'Cobalt', label: 'Arcane', color: '#2DC50E', isFixed: true },
+  { value: 'Bloodthirsty', stone: 'Slaughterstone', label: 'Bloodthirsty', color: '#2DC50E', isFixed: true },
+  { value: 'Harmony', stone: 'Dibellium', label: 'Harmony', color: '#2DC50E', isFixed: true },
+  { value: 'Healthy', stone: 'Antimony', label: 'Healthy', color: '#2DC50E', isFixed: true },
+  { value: 'Infused', stone: 'Aurbic Amber', label: 'Infused', color: '#2DC50E', isFixed: true },
+  { value: 'Protective', stone: 'Titanium', label: 'Protective', color: '#2DC50E', isFixed: true },
+  { value: 'Robust', stone: 'Zinc', label: 'Robust', color: '#2DC50E', isFixed: true },
+  { value: 'Swift', stone: 'Gilding Wax', label: 'Swift', color: '#2DC50E', isFixed: true },
+  { value: 'Triune', stone: 'Dawn-Prism', label: 'Triune', color: '#2DC50E', isFixed: true }
 ];
 
 export const jewelryGlyphs = [

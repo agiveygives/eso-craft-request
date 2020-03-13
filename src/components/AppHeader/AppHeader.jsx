@@ -1,28 +1,49 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import clsx from 'clsx';
 import { connect } from 'react-redux';
+import { makeStyles } from '@material-ui/core/styles';
 import Avatar from '@material-ui/core/Avatar';
-import Header from 'terra-clinical-header';
-import Heading from 'terra-heading';
-import Arrange from 'terra-arrange';
+import AppBar from '@material-ui/core/AppBar';
+import Typography from '@material-ui/core/Typography';
+import Toolbar from '@material-ui/core/Toolbar';
+import Button from '@material-ui/core/Button';
 
 const propTypes = {
   title: PropTypes.string.isRequired,
   guildHeaderColor: PropTypes.string.isRequired,
+  toggleMatsDrawer: PropTypes.func.isRequired,
+  matsDrawerOpen: PropTypes.bool,
 }
 
-const AppHeader = ({ title, guildHeaderColor }) => (
-  <Header
-    startContent={
-      <Arrange
-        fitStart={<Avatar src="/images/hammer-and-anvil.png" />}
-        fill={<Heading style={{ color: 'black' }} level={2}>{title}</Heading>}
-        align='center'
-      />
-    }
-    style={{ borderStyle: 'hidden', backgroundColor: guildHeaderColor }}
-  />
-);
+const useStyles = makeStyles(theme => ({
+  hide: {
+    display: 'none',
+  }
+}))
+
+const AppHeader = ({ title, guildHeaderColor, toggleMatsDrawer, matsDrawerOpen }) => {
+  const classes = useStyles();
+
+  return (
+    <AppBar
+      position="sticky"
+      style={{ backgroundColor: guildHeaderColor }}
+    >
+      <Toolbar>
+        <Avatar src="/images/hammer-and-anvil.png" />
+        <Typography style={{ color: 'black', paddingLeft: '0.5rem', flexGrow: '1' }} variant="h5">{title}</Typography>
+        <Button
+          variant="contained"
+          onClick={() => toggleMatsDrawer(!matsDrawerOpen)}
+          className={clsx(matsDrawerOpen && classes.hide)}
+        >
+          Mats List
+        </Button>
+      </Toolbar>
+    </AppBar>
+  );
+};
 
 AppHeader.propTypes = propTypes;
 

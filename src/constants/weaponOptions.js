@@ -22,16 +22,16 @@ export const secondaryWeapons = [
 ];
 
 export const weaponTraits = [
-  { value: 'None', label: 'None', color: '#fcb935', isFixed: true },
-  { value: 'Charged', label: 'Charged', color: '#2DC50E', isFixed: true },
-  { value: 'Defending', label: 'Defending', color: '#2DC50E', isFixed: true },
-  { value: 'Infused', label: 'Infused', color: '#2DC50E', isFixed: true },
-  { value: 'Nirnhoned', label: 'Nirnhoned', color: '#2DC50E', isFixed: true },
-  { value: 'Powered', label: 'Powered', color: '#2DC50E', isFixed: true },
-  { value: 'Precise', label: 'Precise', color: '#2DC50E', isFixed: true },
-  { value: 'Sharpened', label: 'Sharpened', color: '#2DC50E', isFixed: true },
-  { value: 'Training', label: 'Training', color: '#2DC50E', isFixed: true },
-  { value: 'Decisive', label: 'Decisive', color: '#2DC50E', isFixed: true }
+  { value: 'None', stone: 'none', label: 'None', color: '#fcb935', isFixed: true },
+  { value: 'Charged', stone: 'Amethyst', label: 'Charged', color: '#2DC50E', isFixed: true },
+  { value: 'Defending', stone: 'Turquoise', label: 'Defending', color: '#2DC50E', isFixed: true },
+  { value: 'Infused', stone: 'Jade', label: 'Infused', color: '#2DC50E', isFixed: true },
+  { value: 'Nirnhoned', stone: 'Potent Nirncrux', label: 'Nirnhoned', color: '#2DC50E', isFixed: true },
+  { value: 'Powered', stone: 'Chysolite', label: 'Powered', color: '#2DC50E', isFixed: true },
+  { value: 'Precise', stone: 'Ruby', label: 'Precise', color: '#2DC50E', isFixed: true },
+  { value: 'Sharpened', stone: 'Fire Opal', label: 'Sharpened', color: '#2DC50E', isFixed: true },
+  { value: 'Training', stone: 'Carnelian', label: 'Training', color: '#2DC50E', isFixed: true },
+  { value: 'Decisive', stone: 'Citrine', label: 'Decisive', color: '#2DC50E', isFixed: true }
 ];
 
 export const weaponGlyphs = [

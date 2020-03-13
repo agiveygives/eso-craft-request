@@ -1,44 +1,53 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Collapse, Container, Typography } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
 import ExpandMore from '@material-ui/icons/ExpandMore';
 import ExpandLess from '@material-ui/icons/ExpandLess';
 
 const propTypes = {
   title: PropTypes.string.isRequired,
+  variant: PropTypes.string,
+  align: PropTypes.string,
+  paddingTop: PropTypes.string,
   children: PropTypes.node.isRequired,
 }
 
-const headerStyles = {
+const useStyles = (paddingTop, alignment) => makeStyles(theme => ({
   container: {
     display: 'flex',
     flexWrap: 'wrap',
-    justifyContent: 'center',
-    alignItems: 'center'
+    justifyContent: alignment,
+    alignItems: 'center',
+    paddingTop
+  },
+  icon: {
+    color: '#dcddde',
   },
   text: {
     cursor: 'pointer',
     color: '#dcddde',
   }
-}
+}))
 
-const ToggleHeader = ({ title, children }) => {
+const ToggleHeader = ({ title, variant, align, paddingTop, children }) => {
   const [isOpen, setIsOpen] = React.useState(true);
+  const classes = useStyles(paddingTop, align)();
 
   const handleToggle = () => {
     setIsOpen(!isOpen);
   }
 
   return (
-    <React.Fragment>
-      <Container style={headerStyles.container}>
-        {isOpen ? <ExpandLess /> : <ExpandMore />}
+    <div>
+      <Container className={classes.container}>
+        {isOpen ? <ExpandLess className={classes.icon} /> : <ExpandMore className={classes.icon} />}
         <Typography
-          style={headerStyles.text}
+          className={classes.text}
           onClick={handleToggle}
           align='center'
           display='inline'
-          variant='h4'
+          variant={variant}
           gutterBottom
         >
           {title}
@@ -48,10 +57,15 @@ const ToggleHeader = ({ title, children }) => {
       <Collapse in={isOpen}>
         {children}
       </Collapse>
-    </React.Fragment>
+    </div>
   )
 };
 
+ToggleHeader.defaultProps = {
+  variant: 'h4',
+  align: 'center',
+  paddingTop: '0rem'
+}
 ToggleHeader.propTypes = propTypes;
 
 export default ToggleHeader;
