@@ -80,7 +80,8 @@ const styles = [
   "Stags of Z'en",
   "Critical Riposte",
   "Dauntless Combatant",
-  "Unchained Aggressor"
+  "Unchained Aggressor",
+  "Shield of Senchal"
 ];
 
 export default [
