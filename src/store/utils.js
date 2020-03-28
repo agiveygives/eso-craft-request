@@ -1,5 +1,7 @@
 import { equipmentMats, jewelryMats, ringMatCounts, necklaceMatCounts } from '../constants/materials';
 import { qualityMats } from '../constants/qualityOptions';
+import { additivePotencyRunes, subtractivePotencyRunes, aspectRunes } from '../constants/glyphMats';
+import craftableLevels from '../constants/craftableLevels';
 
 const calculateItemMats = (level, gearType, weight, piece) => {
   let initialAmount = 5;
@@ -253,6 +255,132 @@ const addRemoveQualityMats = (statePieces, stateQualityMats, attributes, type, a
   return Array.from(updatedMats);
 }
 
+const getGlyphMats = (currentStateGlyphMats, piece, level, potency, essenceRune, quality) => {
+  if (quality) {
+    const aspectRune = aspectRunes.find(aspectRune => aspectRune.quality === quality);
+
+    const aspectRuneIndex = currentStateGlyphMats.aspectRunes.findIndex(glyphMat => glyphMat.piece === piece);
+
+    if (aspectRuneIndex >= 0) {
+      currentStateGlyphMats.aspectRunes[aspectRuneIndex] = {
+        piece,
+        name: aspectRune.name
+      }
+    } else {
+      currentStateGlyphMats.aspectRunes.push({
+        piece,
+        name: aspectRune.name
+      });
+    }
+
+    currentStateGlyphMats.aspectRunes = Array.from(currentStateGlyphMats.aspectRunes);
+  }
+
+  if (potency) {
+    let potencyRunes = potency === 'additive' ? additivePotencyRunes : subtractivePotencyRunes;
+
+    const levelIndex = craftableLevels.findIndex(craftableLevel => craftableLevel === level);
+
+    const potencyRune = potencyRunes.find((rune, index) => (
+      potencyRunes.length === index + 1
+        || (
+          craftableLevels.findIndex(level => level === rune.minimumCraftableLevel) <= levelIndex
+          && craftableLevels.findIndex(level => level === potencyRunes[index + 1].minimumCraftableLevel) > levelIndex
+        )
+    ));
+
+    const potencyRuneIndex = currentStateGlyphMats.potencyRunes.findIndex(glyphMat => glyphMat.piece === piece);
+
+    if (potencyRuneIndex >= 0) {
+      currentStateGlyphMats.potencyRunes[potencyRuneIndex] = {
+        piece,
+        name: potencyRune.name,
+        potency
+      }
+    } else {
+      currentStateGlyphMats.potencyRunes.push({
+        piece,
+        name: potencyRune.name,
+        potency
+      });
+    }
+
+    currentStateGlyphMats.potencyRunes = Array.from(currentStateGlyphMats.potencyRunes);
+  }
+
+  if (essenceRune) {
+    const essenceRuneIndex = currentStateGlyphMats.essenceRunes.findIndex(glyphMat => glyphMat.piece === piece);
+
+    if (essenceRuneIndex >= 0 && currentStateGlyphMats.essenceRunes[essenceRuneIndex].name !== essenceRune) {
+      currentStateGlyphMats.essenceRunes[essenceRuneIndex] = {
+        piece,
+        name: essenceRune
+      }
+    } else if (essenceRuneIndex < 0) {
+      currentStateGlyphMats.essenceRunes.push({
+        piece,
+        name: essenceRune
+      });
+    }
+
+    currentStateGlyphMats.essenceRunes = Array.from(currentStateGlyphMats.essenceRunes);
+  }
+
+  return currentStateGlyphMats;
+}
+
+const addRemoveGlyphMats = (statePieces, gearLevel, stateGlyphMats, attributes, glyphOptions, action) => {
+  let updatedMats = stateGlyphMats;
+
+  if (action.pieces.length > statePieces.length) {
+    const addedPiece = action.pieces.filter(piece => !statePieces.includes(piece))[0];
+
+    const glyph = attributes[addedPiece].Glyph;
+    const glyphQuality = attributes[addedPiece]['Glyph Quality'];
+
+    if (glyph !== '') {
+      const currentGlyph = glyphOptions.find(glyphOption => glyphOption.value === glyph);
+
+      updatedMats = getGlyphMats(
+        updatedMats,
+        addedPiece,
+        gearLevel,
+        currentGlyph.potency,
+        currentGlyph.essenceRune
+      )
+    }
+
+    if (glyphQuality !== '') {
+      updatedMats = getGlyphMats(
+        updatedMats,
+        addedPiece,
+        gearLevel,
+        undefined,
+        undefined,
+        glyphQuality
+      )
+    }
+
+  } else {
+    const removedPiece = statePieces.filter(piece => !action.pieces.includes(piece))[0];
+
+    const essenceIndex = updatedMats.essenceRunes.findIndex(rune => rune.piece === removedPiece);
+    updatedMats.essenceRunes.splice(essenceIndex, 1);
+
+    const potencyIndex = updatedMats.potencyRunes.findIndex(rune => rune.piece === removedPiece);
+    updatedMats.potencyRunes.splice(potencyIndex, 1);
+
+    const aspectIndex = updatedMats.aspectRunes.findIndex(rune => rune.piece === removedPiece);
+    updatedMats.aspectRunes.splice(aspectIndex, 1);
+  }
+
+  return {
+    essenceRunes: Array.from(updatedMats.essenceRunes),
+    potencyRunes: Array.from(updatedMats.potencyRunes),
+    aspectRunes: Array.from(updatedMats.aspectRunes)
+  };
+}
+
 export default {
   calculateItemMats,
   updateMats,
@@ -260,5 +388,7 @@ export default {
   updateStones,
   addRemoveStones,
   updateQualityMats,
-  addRemoveQualityMats
+  addRemoveQualityMats,
+  getGlyphMats,
+  addRemoveGlyphMats
 }

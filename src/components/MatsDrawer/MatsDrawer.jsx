@@ -29,7 +29,18 @@ const propTypes = {
   ).isRequired,
   qualityMats: PropTypes.arrayOf(
     PropTypes.shape()
-  ).isRequired
+  ).isRequired,
+  glyphMats: PropTypes.shape({
+    essenceRunes: PropTypes.arrayOf(
+      PropTypes.shape({ piece: PropTypes.string.isRequired, name: PropTypes.string.isRequired })
+    ).isRequired,
+    potencyRunes:  PropTypes.arrayOf(
+      PropTypes.shape({ piece: PropTypes.string.isRequired, name: PropTypes.string.isRequired, potency: PropTypes.stirng })
+    ).isRequired,
+    aspectRunes:  PropTypes.arrayOf(
+      PropTypes.shape({ piece: PropTypes.string.isRequired, name: PropTypes.string.isRequired })
+    ).isRequired
+  }).isRequired
 };
 
 const useStyles = (drawerWidth) => makeStyles(theme => ({
@@ -66,12 +77,13 @@ const useStyles = (drawerWidth) => makeStyles(theme => ({
   }
 }))
 
-const MatsDrawer = ({ open, setDrawerOpen, width, materials, traits, styles, qualityMats }) => {
+const MatsDrawer = ({ open, setDrawerOpen, width, materials, traits, styles, qualityMats, glyphMats }) => {
   const classes = useStyles(width)();
   const [totalEquipementMats, setTotalEquipmentMats] = React.useState([]);
   const [totalTraitMats, setTotalTraitMats] = React.useState([]);
   const [totalStyleMats, setTotalStyleMats] = React.useState([]);
   const [totalQualityMats, setTotalQualityMats] = React.useState([]);
+  const [totalGlyphMats, setTotalGlyphMats] = React.useState([]);
 
   React.useEffect(() => {
     let newTotal = [];
@@ -144,6 +156,28 @@ const MatsDrawer = ({ open, setDrawerOpen, width, materials, traits, styles, qua
 
     setTotalQualityMats(newTotal);
   }, [qualityMats])
+
+  React.useEffect(() => {
+    const newTotal = [];
+
+    glyphMats.essenceRunes.forEach(essenceRune => {
+      const potencyRune = glyphMats.potencyRunes.find(potencyRune => potencyRune.piece === essenceRune.piece);
+      const aspectRune = glyphMats.aspectRunes.find(aspectRune => aspectRune.piece === essenceRune.piece);
+
+      if (potencyRune && aspectRune) {
+        const essenceIndex = newTotal.findIndex(rune => rune.name === essenceRune.name);
+        essenceIndex < 0 ? newTotal.push({ name: essenceRune.name, count: 1 }) : newTotal[essenceIndex].count +=1;
+
+        const potencyIndex = newTotal.findIndex(rune => rune.name === potencyRune.name);
+        potencyIndex < 0 ? newTotal.push({ name: potencyRune.name, count: 1 }) : newTotal[potencyIndex].count +=1;
+
+        const aspectIndex = newTotal.findIndex(rune => rune.name === aspectRune.name);
+        aspectIndex < 0 ? newTotal.push({ name: aspectRune.name, count: 1 }) : newTotal[aspectIndex].count +=1;
+      }
+    })
+
+    setTotalGlyphMats(newTotal);
+  }, [glyphMats.essenceRunes, glyphMats.potencyRunes, glyphMats.aspectRunes])
 
   return (
     <Drawer
@@ -244,6 +278,26 @@ const MatsDrawer = ({ open, setDrawerOpen, width, materials, traits, styles, qua
           </TableBody>
         </Table>
       </ToggleHeader>
+      <ToggleHeader paddingTop='1rem' className={classes.section} align='left' variant='h5' title='Glyph Runes'>
+        <Table className={classes.table} size="small">
+          <TableBody>
+            {totalGlyphMats.map(glyphMat => (
+              <TableRow key={glyphMat.name}>
+                <TableCell align='left'>
+                  <Typography variant='h6' className={classes.primaryText}>
+                    {glyphMat.count}
+                  </Typography>
+                </TableCell>
+                <TableCell align='right'>
+                  <Typography variant='h6' className={classes.primaryText}>
+                    {glyphMat.name}
+                  </Typography>
+                </TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </ToggleHeader>
     </Drawer>
   )
 };
@@ -260,7 +314,11 @@ const mapStateToProps = state => ({
   traits: state.traits,
   styles: state.styles,
   qualityMats: state.quality,
-  glyphMats: state.glyphMaterials
+  glyphMats: {
+    essenceRunes: state.glyphMaterials.essenceRunes,
+    potencyRunes: state.glyphMaterials.potencyRunes,
+    aspectRunes: state.glyphMaterials.aspectRunes,
+  }
 })
 
 export default connect(mapStateToProps)(MatsDrawer);

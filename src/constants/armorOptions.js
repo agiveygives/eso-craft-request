@@ -19,8 +19,8 @@ export const armorTraits = [
 
 export const armorGlyphs = [
   { value: 'None', label: 'None', color: '#fcb935', isFixed: true },
-  { value: 'Health', label: 'Health', color: '#2DC50E', isFixed: true },
-  { value: 'Magicka', label: 'Magicka', color: '#2DC50E', isFixed: true },
-  { value: 'Stamina', label: 'Stamina', color: '#2DC50E', isFixed: true },
-  { value: 'Prismatic Defense', label: 'Prismatic Defense', color: '#2DC50E', isFixed: true }
+  { value: 'Health', essenceRune: 'Oko', potency: 'additive', label: 'Health', color: '#2DC50E', isFixed: true },
+  { value: 'Magicka', essenceRune: 'Makko', potency: 'additive', label: 'Magicka', color: '#2DC50E', isFixed: true },
+  { value: 'Stamina', essenceRune: 'Deni', potency: 'additive', label: 'Stamina', color: '#2DC50E', isFixed: true },
+  { value: 'Prismatic Defense', essenceRune: 'Hakeijo', potency: 'additive', label: 'Prismatic Defense', color: '#2DC50E', isFixed: true }
 ];

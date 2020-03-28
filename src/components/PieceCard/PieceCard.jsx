@@ -242,7 +242,14 @@ const PieceCard = ({
             onChange={
               (_, child) => {
                 setSelectValue(child.props.optiondata)
-                updateAttributes(piece, child.props.piecekey, child.props.value, child.props.optiondata.stone)
+                updateAttributes(
+                  piece,
+                  child.props.piecekey,
+                  child.props.value,
+                  child.props.optiondata.stone,
+                  child.props.optiondata.essenceRune,
+                  child.props.optiondata.potency
+                )
               }
             }
           >
@@ -289,19 +296,19 @@ const mapStateToProps = (state, ownProps) => {
 const mapDispatchToProps = (dispatch, ownProps) => {
   switch(ownProps.group) {
     case 'armor':
-      return { updateAttributes: (piece, attribute, value, stone) => {
+      return { updateAttributes: (piece, attribute, value, stone, essenceRune, potency) => {
         dispatch({ type: UPDATE_ARMOR, piece, attribute, value });
-        dispatch({ type: UPDATE_ARMOR_MATS, piece, attribute, value, stone })
+        dispatch({ type: UPDATE_ARMOR_MATS, piece, attribute, value, stone, essenceRune, potency  })
       }};
     case 'jewelry':
-      return { updateAttributes: (piece, attribute, value, stone) => {
+      return { updateAttributes: (piece, attribute, value, stone, essenceRune, potency) => {
         dispatch({ type: UPDATE_JEWELRY, piece, attribute, value });
-        dispatch({ type: UPDATE_JEWELRY_MATS, piece, attribute, value, stone });
+        dispatch({ type: UPDATE_JEWELRY_MATS, piece, attribute, value, stone, essenceRune, potency });
       }};
     case 'weapon':
-      return { updateAttributes: (piece, attribute, value, stone) => {
+      return { updateAttributes: (piece, attribute, value, stone, essenceRune, potency) => {
         dispatch({ type: UPDATE_WEAPONS, piece, attribute, value });
-        dispatch({ type: UPDATE_WEAPON_MATS, piece, attribute, value, stone });
+        dispatch({ type: UPDATE_WEAPON_MATS, piece, attribute, value, stone, essenceRune, potency  });
       }};
     default:
       return { updateAttributes: (piece, attribute, value) => console.log(`Failed to update ${ownProps.group} ${piece} ${attribute} to ${value}`) }

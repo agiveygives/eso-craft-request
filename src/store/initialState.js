@@ -163,8 +163,8 @@ export default {
   styles: [],
   quality: [],
   glyphMaterials: {
-    runes: [],
+    essenceRunes: [],
     potencyRunes: [],
-    quality: []
+    aspectRunes: []
   }
 }
