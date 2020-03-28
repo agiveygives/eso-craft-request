@@ -212,17 +212,21 @@ const reducer = (state = initialState, action) => {
           }
           break;
         case 'Glyph':
-          utils.getGlyphMats(
-            newState.glyphMaterials,
-            action.piece,
-            newState.gearLevel,
-            action.potency,
-            action.essenceRune,
-            newState.armorAttributes[action.piece]['Glyph Quality']
-          )
+          if (action.value === "None") {
+            newState.glyphMaterials = utils.removeGlyph(newState.glyphMaterials, action.piece);
+          } else {
+            newState.glyphMaterials = utils.getGlyphMats(
+              newState.glyphMaterials,
+              action.piece,
+              newState.gearLevel,
+              action.potency,
+              action.essenceRune,
+              newState.armorAttributes[action.piece]['Glyph Quality']
+            )
+          }
           break;
         case 'Glyph Quality':
-          utils.getGlyphMats(
+          newState.glyphMaterials = utils.getGlyphMats(
             newState.glyphMaterials,
             action.piece,
             newState.gearLevel,
@@ -256,17 +260,21 @@ const reducer = (state = initialState, action) => {
           )
           break;
           case 'Glyph':
-            utils.getGlyphMats(
-              newState.glyphMaterials,
-              action.piece,
-              newState.gearLevel,
-              action.potency,
-              action.essenceRune,
-              newState.jewelryAttributes[action.piece]['Glyph Quality']
-            )
+            if (action.value === "None") {
+              newState.glyphMaterials = utils.removeGlyph(newState.glyphMaterials, action.piece);
+            } else {
+              newState.glyphMaterials = utils.getGlyphMats(
+                newState.glyphMaterials,
+                action.piece,
+                newState.gearLevel,
+                action.potency,
+                action.essenceRune,
+                newState.jewelryAttributes[action.piece]['Glyph Quality']
+              )
+            }
             break;
           case 'Glyph Quality':
-            utils.getGlyphMats(
+            newState.glyphMaterials = utils.getGlyphMats(
               newState.glyphMaterials,
               action.piece,
               newState.gearLevel,
@@ -345,17 +353,21 @@ const reducer = (state = initialState, action) => {
           }
           break;
         case 'Glyph':
-          utils.getGlyphMats(
-            newState.glyphMaterials,
-            action.piece,
-            newState.gearLevel,
-            action.potency,
-            action.essenceRune,
-            newState.weaponAttributes[action.piece]['Glyph Quality']
-          )
+          if (action.value === "None") {
+            newState.glyphMaterials = utils.removeGlyph(newState.glyphMaterials, action.piece);
+          } else {
+            newState.glyphMaterials = utils.getGlyphMats(
+              newState.glyphMaterials,
+              action.piece,
+              newState.gearLevel,
+              action.potency,
+              action.essenceRune,
+              newState.weaponAttributes[action.piece]['Glyph Quality']
+            )
+          }
           break;
         case 'Glyph Quality':
-          utils.getGlyphMats(
+          newState.glyphMaterials = utils.getGlyphMats(
             newState.glyphMaterials,
             action.piece,
             newState.gearLevel,

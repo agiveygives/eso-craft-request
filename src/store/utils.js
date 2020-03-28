@@ -381,6 +381,23 @@ const addRemoveGlyphMats = (statePieces, gearLevel, stateGlyphMats, attributes, 
   };
 }
 
+const removeGlyph = (glyphMaterials, piece) => {
+  const essenceIndex = glyphMaterials.essenceRunes.findIndex(rune => rune.piece === piece);
+  glyphMaterials.essenceRunes.splice(essenceIndex, 1);
+
+  const potencyIndex = glyphMaterials.potencyRunes.findIndex(rune => rune.piece === piece);
+  glyphMaterials.potencyRunes.splice(potencyIndex, 1);
+
+  const aspectIndex = glyphMaterials.aspectRunes.findIndex(rune => rune.piece === piece);
+  glyphMaterials.aspectRunes.splice(aspectIndex, 1);
+
+  return {
+    essenceRunes: Array.from(glyphMaterials.essenceRunes),
+    potencyRunes: Array.from(glyphMaterials.potencyRunes),
+    aspectRunes: Array.from(glyphMaterials.aspectRunes),
+  }
+}
+
 export default {
   calculateItemMats,
   updateMats,
@@ -390,5 +407,6 @@ export default {
   updateQualityMats,
   addRemoveQualityMats,
   getGlyphMats,
-  addRemoveGlyphMats
+  addRemoveGlyphMats,
+  removeGlyph
 }

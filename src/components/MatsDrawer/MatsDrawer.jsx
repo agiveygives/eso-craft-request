@@ -19,16 +19,32 @@ const propTypes = {
   setDrawerOpen: PropTypes.func.isRequired,
   width: PropTypes.string,
   materials: PropTypes.arrayOf(
-    PropTypes.shape()
+    PropTypes.shape({
+      requestPiece: PropTypes.string.isRequired,
+      gearType: PropTypes.string.isRequired,
+      weight: PropTypes.string.isRequired,
+      type: PropTypes.string.isRequired,
+      count: PropTypes.number.isRequired
+    })
   ).isRequired,
   traits: PropTypes.arrayOf(
-    PropTypes.shape()
+    PropTypes.shape({
+      requestPiece: PropTypes.string.isRequired,
+      stone: PropTypes.string.isRequired
+    })
   ).isRequired,
   styles: PropTypes.arrayOf(
-    PropTypes.shape()
+    PropTypes.shape({
+      requestPiece: PropTypes.string.isRequired,
+      stone: PropTypes.string.isRequired
+    })
   ).isRequired,
   qualityMats: PropTypes.arrayOf(
-    PropTypes.shape()
+    PropTypes.shape({
+      count: PropTypes.number.isRequired,
+      material: PropTypes.string.isRequired,
+      piece: PropTypes.string.isRequired
+    })
   ).isRequired,
   glyphMats: PropTypes.shape({
     essenceRunes: PropTypes.arrayOf(
@@ -179,6 +195,29 @@ const MatsDrawer = ({ open, setDrawerOpen, width, materials, traits, styles, qua
     setTotalGlyphMats(newTotal);
   }, [glyphMats.essenceRunes, glyphMats.potencyRunes, glyphMats.aspectRunes])
 
+  const generateMaterialSection = (sectionTitle, totalMats, display) => (
+    <ToggleHeader paddingTop='1rem' className={classes.section} align='left' variant='h5' title={sectionTitle}>
+      <Table className={classes.table} size="small">
+        <TableBody>
+          {totalMats.map(Mats => (
+            <TableRow key={Mats[display]}>
+              <TableCell align='left'>
+                <Typography variant='h6' className={classes.primaryText}>
+                  {Mats.count}
+                </Typography>
+              </TableCell>
+              <TableCell align='right'>
+                <Typography variant='h6' className={classes.primaryText}>
+                  {Mats[display]}
+                </Typography>
+              </TableCell>
+            </TableRow>
+          ))}
+        </TableBody>
+      </Table>
+    </ToggleHeader>
+  )
+
   return (
     <Drawer
       className={classes.drawer}
@@ -198,106 +237,11 @@ const MatsDrawer = ({ open, setDrawerOpen, width, materials, traits, styles, qua
         </Button>
       </div>
       <Divider />
-      <ToggleHeader paddingTop='1rem' className={classes.section} align='left' variant='h5' title='Equipment'>
-        <Table className={classes.table} size="small">
-          <TableBody>
-            {totalEquipementMats.map(equipMats => (
-              <TableRow key={equipMats.type}>
-                <TableCell align='left'>
-                  <Typography variant='h6' className={classes.primaryText}>
-                    {equipMats.count}
-                  </Typography>
-                </TableCell>
-                <TableCell align='right'>
-                  <Typography variant='h6' className={classes.primaryText}>
-                    {equipMats.type}
-                  </Typography>
-                </TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </ToggleHeader>
-      <ToggleHeader paddingTop='1rem' className={classes.section} align='left' variant='h5' title='Quality'>
-        <Table className={classes.table} size="small">
-          <TableBody>
-            {totalQualityMats.map(equipMats => (
-              <TableRow key={equipMats.material}>
-                <TableCell align='left'>
-                  <Typography variant='h6' className={classes.primaryText}>
-                    {equipMats.count}
-                  </Typography>
-                </TableCell>
-                <TableCell align='right'>
-                  <Typography variant='h6' className={classes.primaryText}>
-                    {equipMats.material}
-                  </Typography>
-                </TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </ToggleHeader>
-      <ToggleHeader paddingTop='1rem' className={classes.section} align='left' variant='h5' title='Traits'>
-        <Table className={classes.table} size="small">
-          <TableBody>
-            {totalTraitMats.map(equipMats => (
-              <TableRow key={equipMats.stone}>
-                <TableCell align='left'>
-                  <Typography variant='h6' className={classes.primaryText}>
-                    {equipMats.count}
-                  </Typography>
-                </TableCell>
-                <TableCell align='right'>
-                  <Typography variant='h6' className={classes.primaryText}>
-                    {equipMats.stone}
-                  </Typography>
-                </TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </ToggleHeader>
-      <ToggleHeader paddingTop='1rem' className={classes.section} align='left' variant='h5' title='Styles'>
-        <Table className={classes.table} size="small">
-          <TableBody>
-            {totalStyleMats.map(equipMats => (
-              <TableRow key={equipMats.stone}>
-                <TableCell align='left'>
-                  <Typography variant='h6' className={classes.primaryText}>
-                    {equipMats.count}
-                  </Typography>
-                </TableCell>
-                <TableCell align='right'>
-                  <Typography variant='h6' className={classes.primaryText}>
-                    {equipMats.stone}
-                  </Typography>
-                </TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </ToggleHeader>
-      <ToggleHeader paddingTop='1rem' className={classes.section} align='left' variant='h5' title='Glyph Runes'>
-        <Table className={classes.table} size="small">
-          <TableBody>
-            {totalGlyphMats.map(glyphMat => (
-              <TableRow key={glyphMat.name}>
-                <TableCell align='left'>
-                  <Typography variant='h6' className={classes.primaryText}>
-                    {glyphMat.count}
-                  </Typography>
-                </TableCell>
-                <TableCell align='right'>
-                  <Typography variant='h6' className={classes.primaryText}>
-                    {glyphMat.name}
-                  </Typography>
-                </TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </ToggleHeader>
+      {generateMaterialSection('Equipment', totalEquipementMats, 'type')}
+      {generateMaterialSection('Quality', totalQualityMats, 'material')}
+      {generateMaterialSection('Traits', totalTraitMats, 'stone')}
+      {generateMaterialSection('Styles', totalStyleMats, 'stone')}
+      {generateMaterialSection('Glyph Runes', totalGlyphMats, 'name')}
     </Drawer>
   )
 };
