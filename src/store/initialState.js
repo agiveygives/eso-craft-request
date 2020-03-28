@@ -157,5 +157,14 @@ export default {
       Set: '',
       Style: ''
     }
+  },
+  materials: [],
+  traits: [],
+  styles: [],
+  quality: [],
+  glyphMaterials: {
+    essenceRunes: [],
+    potencyRunes: [],
+    aspectRunes: []
   }
 }

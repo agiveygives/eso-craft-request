@@ -51,7 +51,10 @@ const craftedSets = [
   "Vastarie's Tutelage",
   "Ancient Dragonguard",
   "Daring Corsair",
-  "New Moon Acolyte"
+  "New Moon Acolyte",
+  "Critical Riposte",
+  "Dauntless Combatant",
+  "Unchained Aggressor"
 ];
 
 export default [

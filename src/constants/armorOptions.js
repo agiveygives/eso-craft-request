@@ -5,22 +5,22 @@ export const armorWeights = [
 ];
 
 export const armorTraits = [
-  { value: 'None', label: 'None', color: '#fcb935', isFixed: true },
-  { value: 'Divines', label: 'Divines', color: '#2DC50E', isFixed: true },
-  { value: 'Impenetrable', label: 'Impenetrable', color: '#2DC50E', isFixed: true },
-  { value: 'Infused', label: 'Infused', color: '#2DC50E', isFixed: true },
-  { value: 'Nirnhoned', label: 'Nirnhoned', color: '#2DC50E', isFixed: true },
-  { value: 'Invigorating', label: 'Invigorating', color: '#2DC50E', isFixed: true },
-  { value: 'Reinforced', label: 'Reinforced', color: '#2DC50E', isFixed: true },
-  { value: 'Sturdy', label: 'Sturdy', color: '#2DC50E', isFixed: true },
-  { value: 'Training', label: 'Training', color: '#2DC50E', isFixed: true },
-  { value: 'Well Fitted', label: 'Well Fitted', color: '#2DC50E', isFixed: true }
+  { value: 'None', stone: 'none', label: 'None', color: '#fcb935', isFixed: true },
+  { value: 'Divines', stone: 'Sapphire', label: 'Divines', color: '#2DC50E', isFixed: true },
+  { value: 'Impenetrable', stone: 'Diamond', label: 'Impenetrable', color: '#2DC50E', isFixed: true },
+  { value: 'Infused', stone: 'Bloodstone', label: 'Infused', color: '#2DC50E', isFixed: true },
+  { value: 'Invigorating', stone: 'Garnet', label: 'Invigorating', color: '#2DC50E', isFixed: true },
+  { value: 'Nirnhoned', stone: 'Fortified Nirncrux', label: 'Nirnhoned', color: '#2DC50E', isFixed: true },
+  { value: 'Reinforced', stone: 'Sardonyx', label: 'Reinforced', color: '#2DC50E', isFixed: true },
+  { value: 'Sturdy', stone: 'Quartz', label: 'Sturdy', color: '#2DC50E', isFixed: true },
+  { value: 'Training', stone: 'Emerald', label: 'Training', color: '#2DC50E', isFixed: true },
+  { value: 'Well Fitted', stone: 'Almandine', label: 'Well Fitted', color: '#2DC50E', isFixed: true }
 ];
 
 export const armorGlyphs = [
   { value: 'None', label: 'None', color: '#fcb935', isFixed: true },
-  { value: 'Health', label: 'Health', color: '#2DC50E', isFixed: true },
-  { value: 'Magicka', label: 'Magicka', color: '#2DC50E', isFixed: true },
-  { value: 'Stamina', label: 'Stamina', color: '#2DC50E', isFixed: true },
-  { value: 'Prismatic Defense', label: 'Prismatic Defense', color: '#2DC50E', isFixed: true }
+  { value: 'Health', essenceRune: 'Oko', potency: 'additive', label: 'Health', color: '#2DC50E', isFixed: true },
+  { value: 'Magicka', essenceRune: 'Makko', potency: 'additive', label: 'Magicka', color: '#2DC50E', isFixed: true },
+  { value: 'Stamina', essenceRune: 'Deni', potency: 'additive', label: 'Stamina', color: '#2DC50E', isFixed: true },
+  { value: 'Prismatic Defense', essenceRune: 'Hakeijo', potency: 'additive', label: 'Prismatic Defense', color: '#2DC50E', isFixed: true }
 ];
