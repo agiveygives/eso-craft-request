@@ -5,7 +5,6 @@ import { connect } from 'react-redux';
 import { makeStyles } from '@material-ui/core/styles';
 import ContentContainer from 'terra-content-container';
 import '../App.css';
-import Heading from 'terra-heading';
 import AppHeader from '../components/AppHeader/AppHeader';
 import AppFooter from '../components/AppFooter/AppFooter';
 import LevelSlider from '../components/LevelSlider/LevelSlider';
@@ -25,6 +24,7 @@ const propTypes = {
 
 const useStyles = makeStyles(theme => ({
   appStyle: {
+    height: '100vh',
     backgroundColor: '#26262b',
     color: '#dddacb',
     transition: theme.transitions.create(['margin', 'width'], {
@@ -53,6 +53,7 @@ const useStyles = makeStyles(theme => ({
 }))
 
 const CraftRequest = ({ termsAccepted }) => {
+  const pageRef = React.useRef(null);
   const classes = useStyles();
   const [matsDrawerOpen, setMatsDrawerOpen] = React.useState(false);
 
@@ -61,20 +62,14 @@ const CraftRequest = ({ termsAccepted }) => {
       className={clsx(classes.appStyle, {[classes.shift]: matsDrawerOpen})}
       fill
       header={
-        <AppHeader title="ESO Craft Request" matsDrawerOpen={matsDrawerOpen} toggleMatsDrawer={setMatsDrawerOpen} />}
-      footer={<AppFooter />}
+        <AppHeader title="ESO Craft Request" matsDrawerOpen={matsDrawerOpen} toggleMatsDrawer={setMatsDrawerOpen} />
+      }
+      footer={<AppFooter ref={pageRef} />}
     >
       <RequestAlert />
       <TermsOfUse />
       <Confirmation />
-      <ContentContainer
-        header={
-          <Heading level={3} style={{ textAlign: 'center', color: "rgb(220, 20, 60)" }}>
-            Crafters will supply a mats list or price prior to completing the request.
-          </Heading>
-        }
-        className={clsx(classes.appStyle, (!termsAccepted && classes.disabled))}
-      >
+      <div className={clsx(classes.appStyle, (!termsAccepted && classes.disabled))}>
         <span className={classes.wrapper}>
           <div className="centered-div">
             <FormInput label="ESO Username" helpText="example: @JukesMcGee" />
@@ -85,7 +80,7 @@ const CraftRequest = ({ termsAccepted }) => {
           <GearSection group="jewelry" />
           <GearSection group="weapon" />
         </span>
-      </ContentContainer>
+      </div>
       <MatsDrawer open={matsDrawerOpen} setDrawerOpen={setMatsDrawerOpen} width={drawerWidth} />
     </ContentContainer>
   );

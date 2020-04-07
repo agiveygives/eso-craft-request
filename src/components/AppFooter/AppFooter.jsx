@@ -3,10 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import axios from 'axios';
 import { makeStyles } from '@material-ui/core/styles';
-import ActionFooter from 'terra-action-footer';
-import Avatar from '@material-ui/core/Avatar';
-import Button from '@material-ui/core/Button';
-import { Typography } from '@material-ui/core';
+import { Typography, Toolbar, AppBar, Avatar, Button, Grid } from '@material-ui/core';
 import ReactTooltip from 'react-tooltip';
 import { RESTART, TOGGLE_REVIEW } from '../../store/constants';
 
@@ -18,7 +15,21 @@ const propTypes = {
   guildMnemonic: PropTypes.string.isRequired,
 }
 
-const useStyles = makeStyles(theme => ({
+const useStyles = (guildFooterColor) => makeStyles(theme => ({
+  appBar: {
+    paddingTop: '0.25rem',
+    top: 'auto',
+    bottom: 0,
+    borderStyle: 'hidden',
+    backgroundColor: guildFooterColor
+  },
+  disabled: {
+    color: 'white'
+  },
+  footerActions: {
+    textAlign: 'right',
+    justifyContent: 'center'
+  },
   guildBranding : {
     display: 'flex',
     alignItems: 'center'
@@ -28,7 +39,9 @@ const useStyles = makeStyles(theme => ({
     display: 'flex'
   },
   wrapper: {
-    display: 'inline-flex'
+    display: 'inline-flex',
+    paddingTop: '1rem',
+    paddingBottom: '1rem'
   }
 }))
 
@@ -42,7 +55,7 @@ const AppFooter = ({ currentState, restart, review, guildName, guildMnemonic, gu
     jewelryAttributes,
     weaponAttributes
   } = currentState;
-  const classes = useStyles();
+  const classes = useStyles(guildFooterColor)();
   const guildImagePath = `/guildImages/${guildMnemonic}.png`;
   const [imageExists, setImageExists] = React.useState(false);
 
@@ -150,50 +163,52 @@ const AppFooter = ({ currentState, restart, review, guildName, guildMnemonic, gu
   }
 
   return (
-    <ActionFooter
-      style={{ borderStyle: 'hidden', backgroundColor: guildFooterColor }}
-      start={(
-        <React.Fragment>
-          {guildBranding(guildName, guildWebsite, guildImagePath)}
-          <div>
-            <a
-              href={'https://github.com/agiveygives/eso-craft-request/issues/new/choose'}
-              rel="noopener noreferrer"
-              target="_blank"
-              style={{
-                backgroundColor: 'transparent',
-                color: 'white',
-                textDecoration: 'none',
-              }}
-            >
-              <Typography>Found an issue or want to request a feature?</Typography>
-            </a>
-          </div>
-        </React.Fragment>
-      )}
-      end={(
-        <span className={classes.wrapper}>
-          <span className={classes.rightMargin}>
-            <a data-for="submit-button" data-tip>
-              <Button
-                disabled={buttonDisabled()}
-                variant="contained"
-                color="primary"
-                onClick={() => review()}
+    <AppBar position="sticky" className={classes.appBar}>
+      <Toolbar>
+        <Grid container spacing={0}>
+          <Grid item xs={6}>
+            {guildBranding(guildName, guildWebsite, guildImagePath)}
+            <div>
+              <a
+                href={'https://github.com/agiveygives/eso-craft-request/issues/new/choose'}
+                rel="noopener noreferrer"
+                target="_blank"
+                style={{
+                  backgroundColor: 'transparent',
+                  color: 'white',
+                  textDecoration: 'none',
+                }}
               >
-                Submit
+                <Typography>Found an issue or want to request a feature?</Typography>
+              </a>
+            </div>
+          </Grid>
+          <Grid item xs={6} className={classes.footerActions}>
+            <span className={classes.wrapper}>
+              <span className={classes.rightMargin}>
+                <a data-for="submit-button" data-tip>
+                  <Button
+                    style={buttonDisabled() ? { backgroundColor: 'grey' } : {}}
+                    disabled={buttonDisabled()}
+                    variant="contained"
+                    color="primary"
+                    onClick={() => review()}
+                  >
+                    Submit
+                  </Button>
+                </a>
+                <ReactTooltip id="submit-button" type="info">
+                  Complete all selected fields to enable submission
+                </ReactTooltip>
+              </span>
+              <Button variant="outlined" color="secondary" onClick={() => restart()}>
+                Restart
               </Button>
-            </a>
-            <ReactTooltip id="submit-button" type="info">
-              Complete all selected fields to enable submission
-            </ReactTooltip>
-          </span>
-          <Button variant="outlined" color="secondary" onClick={() => restart()}>
-            Restart
-          </Button>
-        </span>
-      )}
-    />
+            </span>
+          </Grid>
+        </Grid>
+      </Toolbar>
+    </AppBar>
   );
 };
 

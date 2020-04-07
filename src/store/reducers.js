@@ -412,6 +412,15 @@ const reducer = (state = initialState, action) => {
         newState.armorPieces = [];
         newState.jewelryPieces = [];
         newState.weaponPieces = [];
+        newState.materials = [];
+        newState.traits = [];
+        newState.styles = [];
+        newState.quality = [];
+        newState.glyphMaterials = {
+          essenceRunes: [],
+          potencyRunes: [],
+          aspectRunes: []
+        };
       } else {
         newState.termsOpen = true;
       }
