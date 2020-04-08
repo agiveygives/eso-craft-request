@@ -72,11 +72,12 @@ const PieceCard = ({
   glyphVal
 }) => {
   const classes = useStyles();
-  let allOptions;
+  let allPieceOptions;
+  let shieldOptions;
 
   switch (group) {
     case 'armor':
-      allOptions = [
+      allPieceOptions = [
         { options: armorWeights, default: defaultValues.weight, key: 'Weight' },
         { options: armorTraits, default: defaultValues.trait, key: 'Trait' },
         { options: armorGlyphs, default: defaultValues.glyph, key: 'Glyph' },
@@ -86,7 +87,7 @@ const PieceCard = ({
       ];
       break;
     case 'jewelry':
-      allOptions = [
+      allPieceOptions = [
         { options: jewelryTraits, default: defaultValues.trait, key: 'Trait' },
         { options: SetOptions, default: defaultValues.set, key: 'Set' },
         { options: jewelryGlyphs, default: defaultValues.glyph, key: 'Glyph' },
@@ -95,7 +96,7 @@ const PieceCard = ({
       break;
     case 'weapon':
       let weapons = piece.includes('primary') ? primaryWeapons : secondaryWeapons;
-      allOptions = [
+      allPieceOptions = [
         { options: weapons, default: defaultValues.weapon, key: 'Weapon' },
         { options: weaponTraits, default: defaultValues.trait, key: 'Trait' },
         { options: weaponGlyphs, default: defaultValues.glyph, key: 'Glyph' },
@@ -103,11 +104,21 @@ const PieceCard = ({
         { options: SetOptions, default: defaultValues.set, key: 'Set' },
         { options: StyleOptions, default: defaultValues.style, key: 'Style' }
       ];
+      shieldOptions = [
+        { options: weapons, default: defaultValues.weapon, key: 'Weapon' },
+        { options: armorTraits, default: defaultValues.trait, key: 'Trait' },
+        { options: armorGlyphs, default: defaultValues.glyph, key: 'Glyph' },
+        { options: qualityOptions, default: defaultValues.glyphQuality, key: 'Glyph Quality' },
+        { options: SetOptions, default: defaultValues.set, key: 'Set' },
+        { options: StyleOptions, default: defaultValues.style, key: 'Style' }
+      ]
       break;
     default:
-      allOptions = [];
+      allPieceOptions = [];
       break;
   }
+
+  const [allOptions, setAllOptions] = React.useState(allPieceOptions)
 
   const createDropdown = (dropdownData, gridXs) => {
     // Load Data
@@ -250,6 +261,9 @@ const PieceCard = ({
                   child.props.optiondata.essenceRune,
                   child.props.optiondata.potency
                 )
+                child.props.piecekey === 'Weapon' && child.props.value === 'Shield'
+                  ? setAllOptions(shieldOptions)
+                  : setAllOptions(allPieceOptions)
               }
             }
           >
