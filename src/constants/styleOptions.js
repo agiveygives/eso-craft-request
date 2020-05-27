@@ -79,7 +79,8 @@ export const styles = [
   { name: "Moongrave Fane", stone: "Blood of Sahrotnax" },
   { name: "Stags of Z'en", stone: "Oath Cord" },
   { name: "Shield of Senchal", stone: "Carmine Shieldsilk" },
-  { name: "The New Moon Priest", stone: "Aeonstone Shard" }
+  { name: "The New Moon Priest", stone: "Aeonstone Shard" },
+  { name: "Blackreach Vanguard", stone: "Gloomspore Chitin" }
 ];
 
 export default [
