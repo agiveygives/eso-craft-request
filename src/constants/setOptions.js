@@ -54,7 +54,10 @@ const craftedSets = [
   "New Moon Acolyte",
   "Critical Riposte",
   "Dauntless Combatant",
-  "Unchained Aggressor"
+  "Unchained Aggressor",
+  "Dragon's Appetite",
+  "Spell Parasite",
+  "Stuhn's Favor"
 ];
 
 export default [
