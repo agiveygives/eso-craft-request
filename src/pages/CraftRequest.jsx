@@ -9,6 +9,7 @@ import AppHeader from '../components/AppHeader/AppHeader';
 import AppFooter from '../components/AppFooter/AppFooter';
 import LevelSlider from '../components/LevelSlider/LevelSlider';
 import PaymentOption from '../components/PaymentOption/PaymentOption'
+import TrainingGearTemplates from '../components/RequestTemplates/TrainingGearTemplates'
 import FormInput from '../components/FormInput/FormInput';
 import GearSection from '../components/GearSection/GearSection';
 import TermsOfUse from '../components/TermsOfUse/TermsOfUse';
@@ -76,6 +77,9 @@ const CraftRequest = ({ termsAccepted }) => {
             <LevelSlider label="Select Armor Level" craftableLevels />
           </div>
           <PaymentOption />
+          <div style={{ paddingTop: '1rem' }}>
+          <TrainingGearTemplates />
+          </div>
           <GearSection group="armor" />
           <GearSection group="jewelry" />
           <GearSection group="weapon" />
