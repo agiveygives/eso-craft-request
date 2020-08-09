@@ -24,42 +24,52 @@ const propTypes = {
       gearType: PropTypes.string.isRequired,
       weight: PropTypes.string.isRequired,
       type: PropTypes.string.isRequired,
-      count: PropTypes.number.isRequired
-    })
+      count: PropTypes.number.isRequired,
+    }),
   ).isRequired,
   traits: PropTypes.arrayOf(
     PropTypes.shape({
       requestPiece: PropTypes.string.isRequired,
-      stone: PropTypes.string.isRequired
-    })
+      stone: PropTypes.string.isRequired,
+    }),
   ).isRequired,
   styles: PropTypes.arrayOf(
     PropTypes.shape({
       requestPiece: PropTypes.string.isRequired,
-      stone: PropTypes.string.isRequired
-    })
+      stone: PropTypes.string.isRequired,
+    }),
   ).isRequired,
   qualityMats: PropTypes.arrayOf(
     PropTypes.shape({
       count: PropTypes.number.isRequired,
       material: PropTypes.string.isRequired,
-      piece: PropTypes.string.isRequired
-    })
+      piece: PropTypes.string.isRequired,
+    }),
   ).isRequired,
   glyphMats: PropTypes.shape({
     essenceRunes: PropTypes.arrayOf(
-      PropTypes.shape({ piece: PropTypes.string.isRequired, name: PropTypes.string.isRequired })
+      PropTypes.shape({
+        piece: PropTypes.string.isRequired,
+        name: PropTypes.string.isRequired,
+      }),
     ).isRequired,
-    potencyRunes:  PropTypes.arrayOf(
-      PropTypes.shape({ piece: PropTypes.string.isRequired, name: PropTypes.string.isRequired, potency: PropTypes.stirng })
+    potencyRunes: PropTypes.arrayOf(
+      PropTypes.shape({
+        piece: PropTypes.string.isRequired,
+        name: PropTypes.string.isRequired,
+        potency: PropTypes.string.isRequired,
+      }),
     ).isRequired,
-    aspectRunes:  PropTypes.arrayOf(
-      PropTypes.shape({ piece: PropTypes.string.isRequired, name: PropTypes.string.isRequired })
-    ).isRequired
-  }).isRequired
+    aspectRunes: PropTypes.arrayOf(
+      PropTypes.shape({
+        piece: PropTypes.string.isRequired,
+        name: PropTypes.string.isRequired,
+      }),
+    ).isRequired,
+  }).isRequired,
 };
 
-const useStyles = (drawerWidth) => makeStyles(theme => ({
+const useStyles = (drawerWidth) => makeStyles((theme) => ({
   drawer: {
     width: drawerWidth,
     flexShrink: 0,
@@ -76,24 +86,26 @@ const useStyles = (drawerWidth) => makeStyles(theme => ({
     justifyContent: 'flex-start',
   },
   closeIcon: {
-    color: '#fafafa'
+    color: '#fafafa',
   },
   primaryText: {
     color: '#dcddde',
-    paddingRight: '1.5rem'
+    paddingRight: '1.5rem',
   },
   sendToDiscord: {
-    display: 'none'
+    display: 'none',
   },
   table: {
-    minWidth: '100%'
+    minWidth: '100%',
   },
   section: {
-    paddingTop: '1rem'
-  }
-}))
+    paddingTop: '1rem',
+  },
+}));
 
-const MatsDrawer = ({ open, setDrawerOpen, width, materials, traits, styles, qualityMats, glyphMats }) => {
+const MatsDrawer = ({
+  open, setDrawerOpen, width, materials, traits, styles, qualityMats, glyphMats,
+}) => {
   const classes = useStyles(width)();
   const [totalEquipementMats, setTotalEquipmentMats] = React.useState([]);
   const [totalTraitMats, setTotalTraitMats] = React.useState([]);
@@ -104,62 +116,62 @@ const MatsDrawer = ({ open, setDrawerOpen, width, materials, traits, styles, qua
   React.useEffect(() => {
     let newTotal = [];
 
-    materials.forEach(material => {
-      const updateIndex = newTotal.findIndex(mat => mat.type === material.type);
+    materials.forEach((material) => {
+      const updateIndex = newTotal.findIndex((mat) => mat.type === material.type);
 
       if (updateIndex >= 0) {
         newTotal[updateIndex].count += material.count;
       } else {
         newTotal.push({ type: material.type, count: material.count });
       }
-    })
+    });
 
-    newTotal = newTotal.sort((a, b) => a.type > b.type ? 1 : -1);
+    newTotal = newTotal.sort((a, b) => (a.type > b.type ? 1 : -1));
 
     setTotalEquipmentMats(newTotal);
-  }, [materials])
+  }, [materials]);
 
   React.useEffect(() => {
     let newTotal = [];
 
-    traits.forEach(trait => {
-      const updateIndex = newTotal.findIndex(mat => mat.stone === trait.stone);
+    traits.forEach((trait) => {
+      const updateIndex = newTotal.findIndex((mat) => mat.stone === trait.stone);
 
       if (updateIndex >= 0) {
         newTotal[updateIndex].count += 1;
       } else {
         newTotal.push({ stone: trait.stone, count: 1 });
       }
-    })
+    });
 
-    newTotal = newTotal.sort((a, b) => a.stone > b.stone ? 1 : -1);
+    newTotal = newTotal.sort((a, b) => (a.stone > b.stone ? 1 : -1));
 
     setTotalTraitMats(newTotal);
-  }, [traits])
+  }, [traits]);
 
   React.useEffect(() => {
     let newTotal = [];
 
-    styles.forEach(style => {
-      const updateIndex = newTotal.findIndex(mat => mat.stone === style.stone);
+    styles.forEach((style) => {
+      const updateIndex = newTotal.findIndex((mat) => mat.stone === style.stone);
 
       if (updateIndex >= 0) {
         newTotal[updateIndex].count += 1;
       } else {
         newTotal.push({ stone: style.stone, count: 1 });
       }
-    })
+    });
 
-    newTotal = newTotal.sort((a, b) => a.stone > b.stone ? 1 : -1);
+    newTotal = newTotal.sort((a, b) => (a.stone > b.stone ? 1 : -1));
 
     setTotalStyleMats(newTotal);
-  }, [styles])
+  }, [styles]);
 
   React.useEffect(() => {
     let newTotal = [];
 
-    qualityMats.forEach(qualityMat => {
-      const updateIndex = newTotal.findIndex(newMat => newMat.material === qualityMat.material);
+    qualityMats.forEach((qualityMat) => {
+      const updateIndex = newTotal.findIndex((newMat) => newMat.material === qualityMat.material);
 
       if (updateIndex >= 0) {
         newTotal[updateIndex].count += qualityMat.count;
@@ -167,47 +179,59 @@ const MatsDrawer = ({ open, setDrawerOpen, width, materials, traits, styles, qua
         newTotal.push({ material: qualityMat.material, count: qualityMat.count });
       }
 
-      newTotal = newTotal.sort((a, b) => a.count > b.count ? 1 : -1);
-    })
+      newTotal = newTotal.sort((a, b) => (a.count > b.count ? 1 : -1));
+    });
 
     setTotalQualityMats(newTotal);
-  }, [qualityMats])
+  }, [qualityMats]);
 
   React.useEffect(() => {
     const newTotal = [];
 
-    glyphMats.essenceRunes.forEach(essenceRune => {
-      const potencyRune = glyphMats.potencyRunes.find(potencyRune => potencyRune.piece === essenceRune.piece);
-      const aspectRune = glyphMats.aspectRunes.find(aspectRune => aspectRune.piece === essenceRune.piece);
+    glyphMats.essenceRunes.forEach((essenceRune) => {
+      const potencyRune = glyphMats.potencyRunes.find((rune) => rune.piece === essenceRune.piece);
+      const aspectRune = glyphMats.aspectRunes.find((rune) => rune.piece === essenceRune.piece);
 
       if (potencyRune && aspectRune) {
-        const essenceIndex = newTotal.findIndex(rune => rune.name === essenceRune.name);
-        essenceIndex < 0 ? newTotal.push({ name: essenceRune.name, count: 1 }) : newTotal[essenceIndex].count +=1;
+        const essenceIndex = newTotal.findIndex((rune) => rune.name === essenceRune.name);
+        if (essenceIndex < 0) {
+          newTotal.push({ name: essenceRune.name, count: 1 });
+        } else {
+          newTotal[essenceIndex].count += 1;
+        }
 
-        const potencyIndex = newTotal.findIndex(rune => rune.name === potencyRune.name);
-        potencyIndex < 0 ? newTotal.push({ name: potencyRune.name, count: 1 }) : newTotal[potencyIndex].count +=1;
+        const potencyIndex = newTotal.findIndex((rune) => rune.name === potencyRune.name);
+        if (potencyIndex < 0) {
+          newTotal.push({ name: potencyRune.name, count: 1 });
+        } else {
+          newTotal[potencyIndex].count += 1;
+        }
 
-        const aspectIndex = newTotal.findIndex(rune => rune.name === aspectRune.name);
-        aspectIndex < 0 ? newTotal.push({ name: aspectRune.name, count: 1 }) : newTotal[aspectIndex].count +=1;
+        const aspectIndex = newTotal.findIndex((rune) => rune.name === aspectRune.name);
+        if (aspectIndex < 0) {
+          newTotal.push({ name: aspectRune.name, count: 1 });
+        } else {
+          newTotal[aspectIndex].count += 1;
+        }
       }
-    })
+    });
 
     setTotalGlyphMats(newTotal);
-  }, [glyphMats.essenceRunes, glyphMats.potencyRunes, glyphMats.aspectRunes])
+  }, [glyphMats.essenceRunes, glyphMats.potencyRunes, glyphMats.aspectRunes]);
 
   const generateMaterialSection = (sectionTitle, totalMats, display) => (
-    <ToggleHeader paddingTop='1rem' className={classes.section} align='left' variant='h5' title={sectionTitle}>
+    <ToggleHeader paddingTop="1rem" className={classes.section} align="left" variant="h5" title={sectionTitle}>
       <Table className={classes.table} size="small">
         <TableBody>
-          {totalMats.map(Mats => (
+          {totalMats.map((Mats) => (
             <TableRow key={Mats[display]}>
-              <TableCell align='left'>
-                <Typography variant='h6' className={classes.primaryText}>
+              <TableCell align="left">
+                <Typography variant="h6" className={classes.primaryText}>
                   {Mats.count}
                 </Typography>
               </TableCell>
-              <TableCell align='right'>
-                <Typography variant='h6' className={classes.primaryText}>
+              <TableCell align="right">
+                <Typography variant="h6" className={classes.primaryText}>
                   {Mats[display]}
                 </Typography>
               </TableCell>
@@ -216,7 +240,7 @@ const MatsDrawer = ({ open, setDrawerOpen, width, materials, traits, styles, qua
         </TableBody>
       </Table>
     </ToggleHeader>
-  )
+  );
 
   return (
     <Drawer
@@ -243,17 +267,16 @@ const MatsDrawer = ({ open, setDrawerOpen, width, materials, traits, styles, qua
       {generateMaterialSection('Styles', totalStyleMats, 'stone')}
       {generateMaterialSection('Glyph Runes', totalGlyphMats, 'name')}
     </Drawer>
-  )
+  );
 };
 
 MatsDrawer.propTypes = propTypes;
 
 MatsDrawer.defaultProps = {
-  open: false,
-  width: '20%'
-}
+  width: '20%',
+};
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   materials: state.materials,
   traits: state.traits,
   styles: state.styles,
@@ -262,7 +285,7 @@ const mapStateToProps = state => ({
     essenceRunes: state.glyphMaterials.essenceRunes,
     potencyRunes: state.glyphMaterials.potencyRunes,
     aspectRunes: state.glyphMaterials.aspectRunes,
-  }
-})
+  },
+});
 
 export default connect(mapStateToProps)(MatsDrawer);

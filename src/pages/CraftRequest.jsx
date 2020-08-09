@@ -8,21 +8,21 @@ import '../App.css';
 import AppHeader from '../components/AppHeader/AppHeader';
 import AppFooter from '../components/AppFooter/AppFooter';
 import LevelSlider from '../components/LevelSlider/LevelSlider';
-import PaymentOption from '../components/PaymentOption/PaymentOption'
+import PaymentOption from '../components/PaymentOption/PaymentOption';
 import FormInput from '../components/FormInput/FormInput';
 import GearSection from '../components/GearSection/GearSection';
 import TermsOfUse from '../components/TermsOfUse/TermsOfUse';
 import Confirmation from '../components/Confirmation/Confirmation';
 import RequestAlert from '../components/RequestAlert/RequestAlert';
-import MatsDrawer from '../components/MatsDrawer/MatsDrawer'
+import MatsDrawer from '../components/MatsDrawer/MatsDrawer';
 
-const drawerWidth = '20%'
+const drawerWidth = '20%';
 
 const propTypes = {
   termsAccepted: PropTypes.bool.isRequired,
-}
+};
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   appStyle: {
     height: '100vh',
     backgroundColor: '#26262b',
@@ -42,15 +42,15 @@ const useStyles = makeStyles(theme => ({
   },
   disabled: {
     pointerEvents: 'none',
-    opacity: 0.4
+    opacity: 0.4,
   },
   hide: {
     display: 'none',
   },
   wrapper: {
-    margin: '1.4rem'
+    margin: '1.4rem',
   },
-}))
+}));
 
 const CraftRequest = ({ termsAccepted }) => {
   const pageRef = React.useRef(null);
@@ -59,7 +59,7 @@ const CraftRequest = ({ termsAccepted }) => {
 
   return (
     <ContentContainer
-      className={clsx(classes.appStyle, {[classes.shift]: matsDrawerOpen})}
+      className={clsx(classes.appStyle, { [classes.shift]: matsDrawerOpen })}
       fill
       header={
         <AppHeader title="ESO Craft Request" matsDrawerOpen={matsDrawerOpen} toggleMatsDrawer={setMatsDrawerOpen} />
@@ -73,7 +73,7 @@ const CraftRequest = ({ termsAccepted }) => {
         <span className={classes.wrapper}>
           <div className="centered-div">
             <FormInput label="ESO Username" helpText="example: @JukesMcGee" />
-            <LevelSlider label="Select Armor Level" craftableLevels />
+            <LevelSlider label="Select Armor Level" />
           </div>
           <PaymentOption />
           <GearSection group="armor" />
@@ -88,8 +88,8 @@ const CraftRequest = ({ termsAccepted }) => {
 
 CraftRequest.propTypes = propTypes;
 
-const mapStateToProps = state => ({
-  termsAccepted: state.termsAccepted
+const mapStateToProps = (state) => ({
+  termsAccepted: state.termsAccepted,
 });
 
 export default connect(mapStateToProps)(CraftRequest);

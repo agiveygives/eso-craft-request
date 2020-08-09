@@ -9,16 +9,16 @@ import { additivePotencyRunes, subtractivePotencyRunes } from '../constants/glyp
 import craftableLevels from '../constants/craftableLevels';
 
 const reducer = (state = initialState, action) => {
-  let newState = { ...state };
+  const newState = { ...state };
 
-  switch(action.type) {
+  switch (action.type) {
     case constants.UPDATE_ARMOR_PIECES:
       newState.materials = utils.addRemovePieceMats(
         newState.armorPieces,
         newState.materials,
         newState.armorAttributes,
         newState.gearLevel,
-        action
+        action,
       );
       newState.traits = utils.addRemoveStones(
         newState.armorPieces,
@@ -26,7 +26,7 @@ const reducer = (state = initialState, action) => {
         newState.armorAttributes,
         armorTraits,
         'Trait',
-        action
+        action,
       );
       newState.styles = utils.addRemoveStones(
         newState.armorPieces,
@@ -34,14 +34,14 @@ const reducer = (state = initialState, action) => {
         newState.armorAttributes,
         styleOptions,
         'Style',
-        action
+        action,
       );
       newState.quality = utils.addRemoveQualityMats(
         newState.armorPieces,
         newState.quality,
         newState.armorAttributes,
         'armor',
-        action
+        action,
       );
       newState.glyphMaterials = utils.addRemoveGlyphMats(
         newState.armorPieces,
@@ -49,7 +49,7 @@ const reducer = (state = initialState, action) => {
         newState.glyphMaterials,
         newState.armorAttributes,
         armorGlyphs,
-        action
+        action,
       );
       newState.armorPieces = action.pieces;
       break;
@@ -59,7 +59,7 @@ const reducer = (state = initialState, action) => {
         newState.materials,
         newState.jewelryAttributes,
         newState.gearLevel,
-        action
+        action,
       );
       newState.traits = utils.addRemoveStones(
         newState.jewelryPieces,
@@ -67,14 +67,14 @@ const reducer = (state = initialState, action) => {
         newState.jewelryAttributes,
         jewelryTraits,
         'Trait',
-        action
+        action,
       );
       newState.quality = utils.addRemoveQualityMats(
         newState.jewelryPieces,
         newState.quality,
         newState.jewelryAttributes,
         'Jewelry',
-        action
+        action,
       );
       newState.glyphMaterials = utils.addRemoveGlyphMats(
         newState.jewelryPieces,
@@ -82,7 +82,7 @@ const reducer = (state = initialState, action) => {
         newState.glyphMaterials,
         newState.jewelryAttributes,
         jewelryGlyphs,
-        action
+        action,
       );
       newState.jewelryPieces = action.pieces;
       break;
@@ -92,7 +92,7 @@ const reducer = (state = initialState, action) => {
         newState.materials,
         newState.weaponAttributes,
         newState.gearLevel,
-        action
+        action,
       );
       newState.traits = utils.addRemoveStones(
         newState.weaponPieces,
@@ -100,7 +100,7 @@ const reducer = (state = initialState, action) => {
         newState.weaponAttributes,
         weaponTraits,
         'Trait',
-        action
+        action,
       );
       newState.styles = utils.addRemoveStones(
         newState.weaponPieces,
@@ -108,14 +108,14 @@ const reducer = (state = initialState, action) => {
         newState.weaponAttributes,
         styleOptions,
         'Style',
-        action
+        action,
       );
       newState.quality = utils.addRemoveQualityMats(
         newState.weaponPieces,
         newState.quality,
         newState.weaponAttributes,
         'weapon',
-        action
+        action,
       );
       newState.glyphMaterials = utils.addRemoveGlyphMats(
         newState.weaponPieces,
@@ -123,47 +123,46 @@ const reducer = (state = initialState, action) => {
         newState.glyphMaterials,
         newState.weaponAttributes,
         weaponGlyphs,
-        action
+        action,
       );
       newState.weaponPieces = action.pieces;
       break;
     case constants.SET_ESO_NAME:
-        newState.esoName = action.username;
+      newState.esoName = action.username;
       break;
     case constants.UPDATE_GEAR_LEVEL:
       newState.gearLevel = action.level;
 
-      const newMaterials = newState.materials.map(mats => (
+      newState.materials = newState.materials.map((mats) => (
         utils.calculateItemMats(
           action.level,
           mats.gearType,
           mats.weight,
-          mats.requestPiece
+          mats.requestPiece,
         )
-      ))
-      newState.materials = newMaterials;
+      ));
 
-      const newPotencyRunes = newState.glyphMaterials.potencyRunes.map(rune => {
+      newState.glyphMaterials.potencyRunes = newState.glyphMaterials.potencyRunes.map((rune) => {
         const potencyRunes = rune.potency === 'additive' ? additivePotencyRunes : subtractivePotencyRunes;
 
-        const levelIndex = craftableLevels.findIndex(craftableLevel => craftableLevel === newState.gearLevel);
+        const levelIndex = craftableLevels.findIndex((craftableLevel) => craftableLevel === newState.gearLevel);
 
-        const potencyRune = potencyRunes.find((rune, index) => (
+        const potencyRune = potencyRunes.find((pRune, index) => (
           potencyRunes.length === index + 1
             || (
-              craftableLevels.findIndex(level => level === rune.minimumCraftableLevel) <= levelIndex
-              && craftableLevels.findIndex(level => level === potencyRunes[index + 1].minimumCraftableLevel) > levelIndex
+              craftableLevels.findIndex((level) => level === pRune.minimumCraftableLevel) <= levelIndex
+              && craftableLevels.findIndex(
+                (level) => level === potencyRunes[index + 1].minimumCraftableLevel,
+              ) > levelIndex
             )
         ));
 
         return {
           piece: rune.piece,
           name: potencyRune.name,
-          potency: rune.potency
+          potency: rune.potency,
         };
       });
-
-      newState.glyphMaterials.potencyRunes = newPotencyRunes;
 
       break;
     case constants.UPDATE_ARMOR:
@@ -176,30 +175,30 @@ const reducer = (state = initialState, action) => {
             newState.materials,
             newState.armorAttributes,
             newState.gearLevel,
-            action
+            action,
           );
           if (newState.armorAttributes[action.piece].Quality) {
             newState.quality = utils.updateQualityMats(
               newState.quality,
               newState.armorAttributes[action.piece].Quality,
               action.value,
-              action.piece
-            )
+              action.piece,
+            );
           }
           break;
         case 'Style':
           newState.styles = utils.updateStones(
             newState.styles,
             action.piece,
-            action.stone
-          )
+            action.stone,
+          );
           break;
         case 'Trait':
           newState.traits = utils.updateStones(
             newState.traits,
             action.piece,
-            action.stone
-          )
+            action.stone,
+          );
           break;
         case 'Quality':
           if (newState.armorAttributes[action.piece].Weight) {
@@ -207,12 +206,12 @@ const reducer = (state = initialState, action) => {
               newState.quality,
               action.value,
               newState.armorAttributes[action.piece].Weight,
-              action.piece
-            )
+              action.piece,
+            );
           }
           break;
         case 'Glyph':
-          if (action.value === "None") {
+          if (action.value === 'None') {
             newState.glyphMaterials = utils.removeGlyph(newState.glyphMaterials, action.piece);
           } else {
             newState.glyphMaterials = utils.getGlyphMats(
@@ -221,8 +220,8 @@ const reducer = (state = initialState, action) => {
               newState.gearLevel,
               action.potency,
               action.essenceRune,
-              newState.armorAttributes[action.piece]['Glyph Quality']
-            )
+              newState.armorAttributes[action.piece]['Glyph Quality'],
+            );
           }
           break;
         case 'Glyph Quality':
@@ -232,8 +231,8 @@ const reducer = (state = initialState, action) => {
             newState.gearLevel,
             action.potency,
             action.essenceRune,
-            action.value
-          )
+            action.value,
+          );
           break;
         default:
           break;
@@ -248,41 +247,41 @@ const reducer = (state = initialState, action) => {
           newState.traits = utils.updateStones(
             newState.traits,
             action.piece,
-            action.stone
-          )
+            action.stone,
+          );
           break;
         case 'Quality':
           newState.quality = utils.updateQualityMats(
             newState.quality,
             action.value,
             'Jewelry',
-            action.piece
-          )
+            action.piece,
+          );
           break;
-          case 'Glyph':
-            if (action.value === "None") {
-              newState.glyphMaterials = utils.removeGlyph(newState.glyphMaterials, action.piece);
-            } else {
-              newState.glyphMaterials = utils.getGlyphMats(
-                newState.glyphMaterials,
-                action.piece,
-                newState.gearLevel,
-                action.potency,
-                action.essenceRune,
-                newState.jewelryAttributes[action.piece]['Glyph Quality']
-              )
-            }
-            break;
-          case 'Glyph Quality':
+        case 'Glyph':
+          if (action.value === 'None') {
+            newState.glyphMaterials = utils.removeGlyph(newState.glyphMaterials, action.piece);
+          } else {
             newState.glyphMaterials = utils.getGlyphMats(
               newState.glyphMaterials,
               action.piece,
               newState.gearLevel,
               action.potency,
               action.essenceRune,
-              action.value
-            )
-            break;
+              newState.jewelryAttributes[action.piece]['Glyph Quality'],
+            );
+          }
+          break;
+        case 'Glyph Quality':
+          newState.glyphMaterials = utils.getGlyphMats(
+            newState.glyphMaterials,
+            action.piece,
+            newState.gearLevel,
+            action.potency,
+            action.essenceRune,
+            action.value,
+          );
+          break;
         default:
           break;
       }
@@ -297,15 +296,15 @@ const reducer = (state = initialState, action) => {
             newState.materials,
             newState.weaponAttributes,
             newState.gearLevel,
-            action
+            action,
           );
           if (newState.weaponAttributes[action.piece].Quality) {
             let type;
 
-            if(['axe', 'mace', 'sword', 'battle axe', 'maul', 'greatsword', 'dagger']
-                .includes(action.value.toLowerCase())
-              ) {
-                type = 'Heavy';
+            if (['axe', 'mace', 'sword', 'battle axe', 'maul', 'greatsword', 'dagger']
+              .includes(action.value.toLowerCase())
+            ) {
+              type = 'Heavy';
             } else {
               type = 'wood';
             }
@@ -314,32 +313,32 @@ const reducer = (state = initialState, action) => {
               newState.quality,
               newState.weaponAttributes[action.piece].Quality,
               type,
-              action.piece
-            )
+              action.piece,
+            );
           }
           break;
         case 'Style':
           newState.styles = utils.updateStones(
             newState.styles,
             action.piece,
-            action.stone
-          )
+            action.stone,
+          );
           break;
         case 'Trait':
           newState.traits = utils.updateStones(
             newState.traits,
             action.piece,
-            action.stone
-          )
+            action.stone,
+          );
           break;
         case 'Quality':
           if (newState.weaponAttributes[action.piece].Weapon) {
             let type;
 
-            if(['axe', 'mace', 'sword', 'battle axe', 'maul', 'greatsword', 'dagger']
-                .includes(newState.weaponAttributes[action.piece].Weapon.toLowerCase())
-              ) {
-                type = 'Heavy';
+            if (['axe', 'mace', 'sword', 'battle axe', 'maul', 'greatsword', 'dagger']
+              .includes(newState.weaponAttributes[action.piece].Weapon.toLowerCase())
+            ) {
+              type = 'Heavy';
             } else {
               type = 'wood';
             }
@@ -348,12 +347,12 @@ const reducer = (state = initialState, action) => {
               newState.quality,
               action.value,
               type,
-              action.piece
-            )
+              action.piece,
+            );
           }
           break;
         case 'Glyph':
-          if (action.value === "None") {
+          if (action.value === 'None') {
             newState.glyphMaterials = utils.removeGlyph(newState.glyphMaterials, action.piece);
           } else {
             newState.glyphMaterials = utils.getGlyphMats(
@@ -362,8 +361,8 @@ const reducer = (state = initialState, action) => {
               newState.gearLevel,
               action.potency,
               action.essenceRune,
-              newState.weaponAttributes[action.piece]['Glyph Quality']
-            )
+              newState.weaponAttributes[action.piece]['Glyph Quality'],
+            );
           }
           break;
         case 'Glyph Quality':
@@ -373,8 +372,8 @@ const reducer = (state = initialState, action) => {
             newState.gearLevel,
             action.potency,
             action.essenceRune,
-            action.value
-          )
+            action.value,
+          );
           break;
         default:
           break;
@@ -384,7 +383,7 @@ const reducer = (state = initialState, action) => {
       newState.levelSliderValue = action.value;
       break;
     case constants.UPDATE_PAYMENT_TYPE:
-      newState.payment = action.value
+      newState.payment = action.value;
       break;
     case constants.TERMS_RESPONSE:
       newState.termsAccepted = action.response;
@@ -402,8 +401,8 @@ const reducer = (state = initialState, action) => {
       newState.success = false;
       break;
     case constants.RETRY:
-        newState.failed = false;
-        newState.success = false;
+      newState.failed = false;
+      newState.success = false;
       break;
     case constants.RESTART:
       if (newState.termsAccepted) {
@@ -419,7 +418,7 @@ const reducer = (state = initialState, action) => {
         newState.glyphMaterials = {
           essenceRunes: [],
           potencyRunes: [],
-          aspectRunes: []
+          aspectRunes: [],
         };
       } else {
         newState.termsOpen = true;
@@ -435,7 +434,7 @@ const reducer = (state = initialState, action) => {
       newState.guildRequestCode = action.statusCode;
       break;
     default:
-      if (action.type !== "@@INIT") {
+      if (action.type !== '@@INIT') {
         console.log(`WARNING: ${action.type} is not a reducer`);
       }
       break;

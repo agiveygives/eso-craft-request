@@ -11,15 +11,15 @@ const propTypes = {
   align: PropTypes.string,
   paddingTop: PropTypes.string,
   children: PropTypes.node.isRequired,
-}
+};
 
-const useStyles = (paddingTop, alignment) => makeStyles(theme => ({
+const useStyles = (paddingTop, alignment) => makeStyles(() => ({
   container: {
     display: 'flex',
     flexWrap: 'wrap',
     justifyContent: alignment,
     alignItems: 'center',
-    paddingTop
+    paddingTop,
   },
   icon: {
     color: '#dcddde',
@@ -27,16 +27,18 @@ const useStyles = (paddingTop, alignment) => makeStyles(theme => ({
   text: {
     cursor: 'pointer',
     color: '#dcddde',
-  }
-}))
+  },
+}));
 
-const ToggleHeader = ({ title, variant, align, paddingTop, children }) => {
+const ToggleHeader = ({
+  title, variant, align, paddingTop, children,
+}) => {
   const [isOpen, setIsOpen] = React.useState(true);
   const classes = useStyles(paddingTop, align)();
 
   const handleToggle = () => {
     setIsOpen(!isOpen);
-  }
+  };
 
   return (
     <div>
@@ -45,8 +47,8 @@ const ToggleHeader = ({ title, variant, align, paddingTop, children }) => {
         <Typography
           className={classes.text}
           onClick={handleToggle}
-          align='center'
-          display='inline'
+          align="center"
+          display="inline"
           variant={variant}
           gutterBottom
         >
@@ -58,14 +60,14 @@ const ToggleHeader = ({ title, variant, align, paddingTop, children }) => {
         {children}
       </Collapse>
     </div>
-  )
+  );
 };
 
 ToggleHeader.defaultProps = {
   variant: 'h4',
   align: 'center',
-  paddingTop: '0rem'
-}
+  paddingTop: '0rem',
+};
 ToggleHeader.propTypes = propTypes;
 
 export default ToggleHeader;

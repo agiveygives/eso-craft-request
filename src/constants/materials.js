@@ -13,8 +13,8 @@ EquipmentMat.prototype = {
   Light: '',
   Medium: '',
   Heavy: '',
-  wood: ''
-}
+  wood: '',
+};
 
 export const equipmentMats = [
   new EquipmentMat(craftLevels.slice(0, 7), 'Jute', 'Rawhide', 'Iron Ingots', 'Sanded Maple'),
@@ -26,23 +26,23 @@ export const equipmentMats = [
   new EquipmentMat(craftLevels.slice(28, 31), 'Ironthread', 'Iron Hide', 'Galatite Ingots', 'Sanded Ash'),
   new EquipmentMat(craftLevels.slice(31, 33), 'Silverweave', 'Superb Hide', 'Quicksilver Ingots', 'Sanded Mahogany'),
   new EquipmentMat(craftLevels.slice(33, 39), 'Void Cloth', 'Shadowhide', 'Voidstone Ingots', 'Sanded Nightwood'),
-  new EquipmentMat(craftLevels.slice(39, 41), 'Ancestor Silk', 'Rubedo Hide', 'Rubedite Ingots', 'Sanded Ruby Ash')
-]
+  new EquipmentMat(craftLevels.slice(39, 41), 'Ancestor Silk', 'Rubedo Hide', 'Rubedite Ingots', 'Sanded Ruby Ash'),
+];
 
 export const jewelryMats = [
   { levels: craftLevels.slice(0, 12), material: 'Pewter Ounce' },
   { levels: craftLevels.slice(12, 25), material: 'Copper Ounce' },
   { levels: craftLevels.slice(25, 31), material: 'Silver Ounce' },
   { levels: craftLevels.slice(31, 39), material: 'Electrum Ounce' },
-  { levels: craftLevels.slice(39, 41), material: 'Platinum Ounce' }
-]
+  { levels: craftLevels.slice(39, 41), material: 'Platinum Ounce' },
+];
 
 export const ringMatCounts = [
-  [2, 3, 4, 5, 6, 7, 8, 9 ,10, 11, 12, 13],
+  [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13],
   [3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15],
   [4, 6, 8, 10, 12, 14, 16],
   [6, 8, 10, 12, 14, 16, 18],
-  [10, 100]
+  [10, 100],
 ];
 
 export const necklaceMatCounts = [
@@ -50,5 +50,5 @@ export const necklaceMatCounts = [
   [5, 6, 8, 9, 11, 12, 14, 15, 17, 18, 20, 21, 23],
   [6, 9, 12, 15, 18, 21, 24],
   [8, 12, 16, 20, 24, 28, 32],
-  [15, 150]
+  [15, 150],
 ];

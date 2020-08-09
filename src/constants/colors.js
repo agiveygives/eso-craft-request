@@ -6,6 +6,6 @@ export default {
     fine: '#2DC50E',
     superior: '#3A92FF',
     epic: '#A02EF7',
-    legendary: '#CCAA1A'
-  }
+    legendary: '#CCAA1A',
+  },
 };

@@ -14,7 +14,7 @@ export const additivePotencyRunes = [
   { name: 'Rekura', minimumCraftableLevel: 'CP 70' },
   { name: 'Kura', minimumCraftableLevel: 'CP 100' },
   { name: 'Rejera', minimumCraftableLevel: 'CP 150' },
-  { name: 'Repora', minimumCraftableLevel: 'CP 160' }
+  { name: 'Repora', minimumCraftableLevel: 'CP 160' },
 ];
 
 export const subtractivePotencyRunes = [
@@ -33,7 +33,7 @@ export const subtractivePotencyRunes = [
   { name: 'Rede', minimumCraftableLevel: 'CP 70' },
   { name: 'Kude', minimumCraftableLevel: 'CP 100' },
   { name: 'Jehade', minimumCraftableLevel: 'CP 150' },
-  { name: 'Itade', minimumCraftableLevel: 'CP 160' }
+  { name: 'Itade', minimumCraftableLevel: 'CP 160' },
 ];
 
 export const aspectRunes = [
@@ -41,7 +41,5 @@ export const aspectRunes = [
   { name: 'Jejera', quality: 'Fine' },
   { name: 'Denara', quality: 'Superior' },
   { name: 'Rekuta', quality: 'Epic' },
-  { name: 'Kuta', quality: 'Legendary' }
-]
-
-
+  { name: 'Kuta', quality: 'Legendary' },
+];

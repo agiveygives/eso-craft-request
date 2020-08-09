@@ -25,7 +25,7 @@ export default {
       Glyph: '',
       'Glyph Quality': '',
       Set: '',
-      Style: ''
+      Style: '',
     },
     shoulder: {
       display: 'Shoulder',
@@ -35,7 +35,7 @@ export default {
       Glyph: '',
       'Glyph Quality': '',
       Set: '',
-      Style: ''
+      Style: '',
     },
     chest: {
       display: 'Chest',
@@ -45,7 +45,7 @@ export default {
       Glyph: '',
       'Glyph Quality': '',
       Set: '',
-      Style: ''
+      Style: '',
     },
     legs: {
       display: 'Legs',
@@ -55,7 +55,7 @@ export default {
       Glyph: '',
       'Glyph Quality': '',
       Set: '',
-      Style: ''
+      Style: '',
     },
     waist: {
       display: 'Waist',
@@ -65,7 +65,7 @@ export default {
       Glyph: '',
       'Glyph Quality': '',
       Set: '',
-      Style: ''
+      Style: '',
     },
     hands: {
       display: 'Hands',
@@ -75,7 +75,7 @@ export default {
       Glyph: '',
       'Glyph Quality': '',
       Set: '',
-      Style: ''
+      Style: '',
     },
     feet: {
       display: 'Feet',
@@ -85,8 +85,8 @@ export default {
       Glyph: '',
       'Glyph Quality': '',
       Set: '',
-      Style: ''
-    }
+      Style: '',
+    },
   },
   jewelryAttributes: {
     display: 'Jewelry',
@@ -96,7 +96,7 @@ export default {
       Trait: '',
       Glyph: '',
       'Glyph Quality': '',
-      Set: ''
+      Set: '',
     },
     ring1: {
       display: 'Ring',
@@ -104,7 +104,7 @@ export default {
       Trait: '',
       Glyph: '',
       'Glyph Quality': '',
-      Set: ''
+      Set: '',
     },
     ring2: {
       display: 'Ring',
@@ -112,8 +112,8 @@ export default {
       Trait: '',
       Glyph: '',
       'Glyph Quality': '',
-      Set: ''
-    }
+      Set: '',
+    },
   },
   weaponAttributes: {
     display: 'Weapons',
@@ -125,7 +125,7 @@ export default {
       Glyph: '',
       'Glyph Quality': '',
       Set: '',
-      Style: ''
+      Style: '',
     },
     secondary1: {
       display: 'Secondary Weapon',
@@ -135,7 +135,7 @@ export default {
       Glyph: '',
       'Glyph Quality': '',
       Set: '',
-      Style: ''
+      Style: '',
     },
     primary2: {
       display: 'Primary Weapon',
@@ -145,7 +145,7 @@ export default {
       Glyph: '',
       'Glyph Quality': '',
       Set: '',
-      Style: ''
+      Style: '',
     },
     secondary2: {
       display: 'Secondary Weapon',
@@ -155,8 +155,8 @@ export default {
       Glyph: '',
       'Glyph Quality': '',
       Set: '',
-      Style: ''
-    }
+      Style: '',
+    },
   },
   materials: [],
   traits: [],
@@ -165,6 +165,6 @@ export default {
   glyphMaterials: {
     essenceRunes: [],
     potencyRunes: [],
-    aspectRunes: []
-  }
-}
+    aspectRunes: [],
+  },
+};

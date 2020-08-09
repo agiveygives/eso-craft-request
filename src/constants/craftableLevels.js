@@ -39,5 +39,5 @@ export default [
   'CP 130',
   'CP 140',
   'CP 150',
-  'CP 160'
-]
+  'CP 160',
+];

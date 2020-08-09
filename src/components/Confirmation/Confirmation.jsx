@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { makeStyles } from '@material-ui/core/styles';
-import { TOGGLE_REVIEW } from '../../store/constants';
 import Image from 'material-ui-image';
 import Fab from '@material-ui/core/Fab';
 import EditIcon from '@material-ui/icons/Edit';
@@ -16,24 +15,38 @@ import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableRow from '@material-ui/core/TableRow';
+import { TOGGLE_REVIEW } from '../../store/constants';
 import { sendRequest } from '../../store/actions';
+import armorAttributesShape from '../../propShapes/armorAttributes';
+import jewelryAttributesShape from '../../propShapes/jewelryAttributes';
+import weaponAttributesShape from '../../propShapes/weaponAttributes';
 
 const propTypes = {
   // from redux
-  currentState: PropTypes.shape({}).isRequired,
+  currentState: PropTypes.shape({
+    review: PropTypes.bool.isRequired,
+    esoName: PropTypes.string.isRequired,
+    gearLevel: PropTypes.string.isRequired,
+    payment: PropTypes.string.isRequired,
+    armorPieces: PropTypes.arrayOf(PropTypes.string).isRequired,
+    jewelryPieces: PropTypes.arrayOf(PropTypes.string).isRequired,
+    weaponPieces: PropTypes.arrayOf(PropTypes.string).isRequired,
+    armorAttributes: armorAttributesShape.isRequired,
+    jewelryAttributes: jewelryAttributesShape.isRequired,
+    weaponAttributes: weaponAttributesShape.isRequired,
+  }).isRequired,
   sendMessage: PropTypes.func.isRequired,
-  closeReview: PropTypes.func.isRequired
+  closeReview: PropTypes.func.isRequired,
 };
 
-const Transition = React.forwardRef(function Transition(props, ref) {
-  return <Slide direction="up" ref={ref} {...props} />;
-});
+// eslint-disable-next-line react/jsx-props-no-spreading
+const Transition = React.forwardRef((props, ref) => <Slide direction="up" ref={ref} {...props} />);
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   subheader: {
     backgroundColor: '#e0e0e0',
     fontSize: '1em',
-    fontColor: 'black'
+    fontColor: 'black',
   },
   buttonMargin: {
     margin: theme.spacing(1),
@@ -54,7 +67,7 @@ const Confirmation = ({ currentState, sendMessage, closeReview }) => {
     weaponPieces,
     armorAttributes,
     jewelryAttributes,
-    weaponAttributes
+    weaponAttributes,
   } = currentState;
   const classes = useStyles();
 
@@ -63,40 +76,39 @@ const Confirmation = ({ currentState, sendMessage, closeReview }) => {
 
     if (selected.length) {
       returnVal = (
-        <React.Fragment>
+        <>
           <TableRow>
-            <TableCell className={classes.subheader} key={`${attributes.display}_subheader`} align='center' colSpan={3}>
+            <TableCell className={classes.subheader} key={`${attributes.display}_subheader`} align="center" colSpan={3}>
               {attributes.display}
             </TableCell>
           </TableRow>
-          {selected.map(piece => (
-              Object.keys(attributes[piece]).map(attribute => {
-                if (attribute !== 'display') {
-                  let tableRow;
-                  var pieceLabel = attribute === 'Quality' ? attributes[piece]['display'] : ''
+          {selected.map((piece) => (
+            Object.keys(attributes[piece]).map((attribute) => {
+              if (attribute !== 'display') {
+                let tableRow;
+                const pieceLabel = attribute === 'Quality' ? attributes[piece].display : '';
 
-                  if (attribute === 'Glyph Quality' && attributes[piece].Glyph === 'None') {
-                    tableRow = null;
-                  } else {
-                    tableRow = (
-                      <TableRow key={`${piece}-${attribute}-row`}>
-                        <TableCell key={`${piece}-${attribute}-piece`}>{pieceLabel}</TableCell>
-                        <TableCell key={`${piece}-${attribute}-attribute`}>{attribute}</TableCell>
-                        <TableCell key={`${piece}-${attribute}-input`}>{attributes[piece][attribute]}</TableCell>
-                      </TableRow>
-                    );
-                  }
-
-                  return tableRow;
+                if (attribute === 'Glyph Quality' && attributes[piece].Glyph === 'None') {
+                  tableRow = null;
                 } else {
-                  return null
+                  tableRow = (
+                    <TableRow key={`${piece}-${attribute}-row`}>
+                      <TableCell key={`${piece}-${attribute}-piece`}>{pieceLabel}</TableCell>
+                      <TableCell key={`${piece}-${attribute}-attribute`}>{attribute}</TableCell>
+                      <TableCell key={`${piece}-${attribute}-input`}>{attributes[piece][attribute]}</TableCell>
+                    </TableRow>
+                  );
                 }
-              })
+
+                return tableRow;
+              }
+              return null;
+            })
           ))}
-        </React.Fragment>
-      )
+        </>
+      );
     } else {
-      returnVal = <React.Fragment></React.Fragment>;
+      returnVal = <></>;
     }
 
     return returnVal;
@@ -119,8 +131,8 @@ const Confirmation = ({ currentState, sendMessage, closeReview }) => {
       >
         <div style={{ paddingRight: '5em', paddingLeft: '5em' }}>
           <Image
-            src='/images/confirmation.png'
-            aspectRatio={(16/9)}
+            src="/images/confirmation.png"
+            aspectRatio={(16 / 9)}
           />
           <Table>
             <TableBody>
@@ -174,13 +186,13 @@ const Confirmation = ({ currentState, sendMessage, closeReview }) => {
 
 Confirmation.propTypes = propTypes;
 
-const mapStateToProps = state => ({
-  currentState: state
+const mapStateToProps = (state) => ({
+  currentState: state,
 });
 
-const mapDispatchToProps = dispatch => ({
-  sendMessage: currentState => sendRequest(currentState)(dispatch),
-  closeReview: () => dispatch({ type: TOGGLE_REVIEW, show: false })
+const mapDispatchToProps = (dispatch) => ({
+  sendMessage: (currentState) => sendRequest(currentState)(dispatch),
+  closeReview: () => dispatch({ type: TOGGLE_REVIEW, show: false }),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Confirmation);
