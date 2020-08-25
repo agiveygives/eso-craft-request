@@ -132,18 +132,6 @@ export const sendRequest = (currentState) => dispatch => {
       dispatch({ type: FAILED_REQUEST });
     })
 
-  if (discordMessage().requestNotes) {
-    axios.post(guildData.webhook, {
-      content: discordMessage().requestNotes
-    })
-      .then(() => {
-        dispatch({ type: SUCCESSFUL_REQUEST });
-      })
-      .catch(() => {
-        dispatch({ type: FAILED_REQUEST });
-      })
-  }
-
   axios.post(
     'https://us-central1-eso-craft-request.cloudfunctions.net/api/craft-requests',
     requestLog
