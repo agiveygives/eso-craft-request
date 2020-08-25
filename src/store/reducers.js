@@ -407,6 +407,7 @@ const reducer = (state = initialState, action) => {
       break;
     case constants.RESTART:
       if (newState.termsAccepted) {
+        newState.notes = '';
         newState.success = false;
         newState.failed = false;
         newState.armorPieces = [];
@@ -433,6 +434,9 @@ const reducer = (state = initialState, action) => {
       break;
     case constants.SET_GUILD_REQUEST_CODE:
       newState.guildRequestCode = action.statusCode;
+      break;
+    case constants.UPDATE_NOTES:
+      newState.notes = action.notes;
       break;
     default:
       if (action.type !== "@@INIT") {

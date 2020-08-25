@@ -32,12 +32,13 @@ export const getGuildData = (guildMemonic) => dispatch => {
     })
 }
 
-export const sendRequest = (currentState, retryMessage) => dispatch => {
+export const sendRequest = (currentState) => dispatch => {
   const {
     guildData,
     esoName,
     gearLevel,
     payment,
+    notes,
     armorPieces,
     jewelryPieces,
     weaponPieces,
@@ -51,7 +52,8 @@ export const sendRequest = (currentState, retryMessage) => dispatch => {
     url: window.location.href,
     username: esoName,
     level: gearLevel,
-    payment: payment
+    payment: payment,
+    notes: notes,
   };
 
   function buildGearMessage(selected, attributes) {
@@ -80,25 +82,67 @@ export const sendRequest = (currentState, retryMessage) => dispatch => {
     return returnVal;
   }
 
-  const discordMessage = retryMessage
-    ? retryMessage
-    : `ESO UserName:\t\t${esoName}\n` +
+  const discordMessage = () => {
+    let request = (
+      `${guildData.crafterTag}\n` +
+      `ESO UserName:\t\t${esoName}\n` +
       `Gear Level:\t\t\t\t${gearLevel}\n` +
       `Payment Method:\t${payment}\n` +
       buildGearMessage(armorPieces, armorAttributes) +
       buildGearMessage(jewelryPieces, jewelryAttributes) +
-      buildGearMessage(weaponPieces, weaponAttributes) +
-      `\n${guildData.crafterTag}`;
+      buildGearMessage(weaponPieces, weaponAttributes)
+    );
+
+    let requestNotes = `**Request Notes**: ${notes}`;
+
+    const requestWithNotes = `${request}\n\n${requestNotes}`;
+
+    if (requestWithNotes.length < 2000 && notes.length > 0) {
+      request = requestWithNotes;
+      requestNotes = undefined;
+    } else if (notes.length <= 0) {
+      requestNotes = undefined;
+    }
+
+    return {
+      request,
+      requestNotes,
+    }
+  };
 
   axios.post(guildData.webhook, {
-    content: discordMessage
+    content: discordMessage().request
   })
     .then(() => {
-      dispatch({ type: SUCCESSFUL_REQUEST });
+      if (discordMessage().requestNotes) {
+        axios.post(guildData.webhook, {
+          content: discordMessage().requestNotes
+        })
+          .then(() => {
+            dispatch({ type: SUCCESSFUL_REQUEST });
+          })
+          .catch(() => {
+            dispatch({ type: FAILED_REQUEST });
+          })
+      } else {
+        dispatch({ type: SUCCESSFUL_REQUEST });
+      }
     })
     .catch(() => {
       dispatch({ type: FAILED_REQUEST });
     })
+
+  if (discordMessage().requestNotes) {
+    axios.post(guildData.webhook, {
+      content: discordMessage().requestNotes
+    })
+      .then(() => {
+        dispatch({ type: SUCCESSFUL_REQUEST });
+      })
+      .catch(() => {
+        dispatch({ type: FAILED_REQUEST });
+      })
+  }
 
   axios.post(
     'https://us-central1-eso-craft-request.cloudfunctions.net/api/craft-requests',

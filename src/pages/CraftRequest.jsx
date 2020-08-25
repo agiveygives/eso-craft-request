@@ -15,6 +15,7 @@ import TermsOfUse from '../components/TermsOfUse/TermsOfUse';
 import Confirmation from '../components/Confirmation/Confirmation';
 import RequestAlert from '../components/RequestAlert/RequestAlert';
 import MatsDrawer from '../components/MatsDrawer/MatsDrawer'
+import RequestNotes from '../components/RequestNotes';
 
 const drawerWidth = '20%'
 
@@ -76,6 +77,7 @@ const CraftRequest = ({ termsAccepted }) => {
             <LevelSlider label="Select Armor Level" craftableLevels />
           </div>
           <PaymentOption />
+          <RequestNotes />
           <GearSection group="armor" />
           <GearSection group="jewelry" />
           <GearSection group="weapon" />
