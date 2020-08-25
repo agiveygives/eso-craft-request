@@ -12,6 +12,7 @@ export default {
   levelSliderValue: 0,
   payment: 'Materials',
   gearLevel: '1',
+  notes: '',
   armorPieces: [],
   jewelryPieces: [],
   weaponPieces: [],
