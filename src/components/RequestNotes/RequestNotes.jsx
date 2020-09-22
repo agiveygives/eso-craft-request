@@ -14,6 +14,7 @@ const RequestNotes = ({ notes, updateNotes }) => (
   <div className="wrapper">
     <div className="centered-div">
       <Typography variant='h5'>Request Notes ({notes.length}/1000)</Typography>
+      <Typography variant='p'><i>*optional</i></Typography>
     </div>
     <div className="centered-div">
       <textarea

@@ -93,14 +93,12 @@ export const sendRequest = (currentState) => dispatch => {
       buildGearMessage(weaponPieces, weaponAttributes)
     );
 
-    let requestNotes = `**Request Notes**: ${notes}`;
+    let requestNotes = `${notes.length > 0 ? `**Request Notes**: ${notes}\n\n` : ''}**Sent From**: ${requestLog.url}`;
 
     const requestWithNotes = `${request}\n\n${requestNotes}`;
 
-    if (requestWithNotes.length < 2000 && notes.length > 0) {
+    if (requestWithNotes.length < 2000) {
       request = requestWithNotes;
-      requestNotes = undefined;
-    } else if (notes.length <= 0) {
       requestNotes = undefined;
     }
 
