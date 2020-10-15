@@ -12,7 +12,7 @@ assignees: agiveygives
 
 2. What discord webhook would you like the requests to send to?
 
-3. What Discord role would you like the request to tag? You can get the role id by typing `\@roleName` into your discord server.
+3. What is the ID for the role would you like the request to tag? (Example: `<@&123456789123456789>`) You can get the role id by typing `\@roleName` into your discord server.
 
 ### Optional
 4. What image would you like displayed on your guild branding in the footer?
