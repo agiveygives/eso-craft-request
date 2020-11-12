@@ -1,70 +1,46 @@
-# ESO Craft Request
+# Getting Started with Create React App
 
-ESO Craft Request is a small application that allows people to build out crafting requests and send them to discord.
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Getting Started
+## Available Scripts
 
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
+In the project directory, you can run:
 
-### Prerequisites
+### `yarn start`
 
-What things you need to install the software and how to install them:
-* [node](https://nodejs.org/en/)
+Runs the app in the development mode.\
+Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-### Installing
+The page will reload if you make edits.\
+You will also see any lint errors in the console.
 
-A step by step series of examples that tell you how to get a development env running
+### `yarn test`
 
-clone the repository
+Launches the test runner in the interactive watch mode.\
+See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-```
-git clone https://github.com/agiveygives/eso-craft-request.git
-```
+### `yarn build`
 
-cd into the cloned directory
+Builds the app for production to the `build` folder.\
+It correctly bundles React in production mode and optimizes the build for the best performance.
 
-```
-cd eso-craft-request
-```
+The build is minified and the filenames include the hashes.\
+Your app is ready to be deployed!
 
-install node packages
+See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-```
-npm install
-```
+### `yarn eject`
 
-start local server (you will automatically be directed to localhost:3000)
+**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
 
-```
-npm run start
-```
+If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
 
-## Deployment
+Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
 
-Deployment it automated with AWS Amplify. A deployment pipeline will start on a merge to master, and be deployed to https://esocraftrequest.com
+You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
 
-## Built With
+## Learn More
 
-* [Node](https://nodejs.org/en/) - an open source server environment
-* [React](https://reactjs.org/) - The web framework used
-* [Material-UI](https://material-ui.com/) - open source React Component
-* [Terra](https://engineering.cerner.com/terra-ui/#/home/terra-ui/index) - Cerner Open Source React Components
-* [Webpack](https://webpack.js.org/)
+You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
-## Contributing
-
-Please read [CONTRIBUTING.md]() for details on our code of conduct, and the process for submitting pull requests to us.
-
-## Versioning
-
-We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/agiveygives/eso-craft-request/tags).
-
-## Authors
-
-* **Andrew Givens** - main contributor
-
-See also the list of [contributors](https://github.com/agiveygives/eso-craft-request/graphs/contributors) who participated in this project.
-
-## License
-
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
+To learn React, check out the [React documentation](https://reactjs.org/).
