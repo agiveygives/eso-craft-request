@@ -11,7 +11,8 @@ import { Home } from './pages/Home';
 import { ThemeWrapper } from './components/ThemeWrapper';
 import { Layout } from './components/Layout';
 import ScrollToTop from './utils/ScrollToTop';
-import { DiscordAvatarUrl } from './utils/LinkTemplates'
+import { DiscordAvatarUrl } from './utils/LinkTemplates';
+import NavLinks from './constants/NavigationLinks';
 
 interface StateProps {
   session: SessionType;
@@ -80,11 +81,14 @@ const App = ({ session, setSession, setUserInfo }: Props): JSX.Element => {
           <Layout>
             <>
               <ScrollToTop />
-              <Route path="/" component={Home} />
-              <Route path="/login" component={() => {
+              <Route path="/" component={Home} exact />
+              <Route path="/login" exact component={() => {
                   window.location.href = process.env.REACT_APP_IDENTITY_URI || 'esocraftrequest.com';
                   return null;
               }}/>
+              {NavLinks.map((navLink) => (
+                <Route path={navLink.location} component={navLink.component} exact />
+              ))}
             </>
           </Layout>
         </BrowserRouter>

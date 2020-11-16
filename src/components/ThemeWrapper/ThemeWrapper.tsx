@@ -49,7 +49,7 @@ const ThemeWrapper = ({ themeColors, children }: Props): JSX.Element => {
             color: themeColors.primary,
           },
           'a:hover': {
-            color: themeColors.primary,
+            color: themeColors.secondary,
           },
         },
       },
