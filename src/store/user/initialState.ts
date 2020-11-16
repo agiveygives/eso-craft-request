@@ -1,5 +1,3 @@
-import { string } from "yargs";
-
 import { StateType } from './types';
 
 const initialState: StateType = {
@@ -8,6 +6,11 @@ const initialState: StateType = {
     accessToken: '',
     refreshToken: '',
   },
+  info: {
+    userId: '',
+    username: '',
+    avatarUrl: '',
+  }
 }
 
 export default initialState;

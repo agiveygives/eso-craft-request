@@ -6,7 +6,7 @@ import { ErrorType } from '../types';
 class OauthClient extends DiscordApi {
   /**
    * Get Token
-   * @code - string
+   * @param code - string
    */
   public async getToken(code: string): Promise<GetOauthTokenResponse> {
     const request: GetOauthTokenRequest = {
@@ -36,7 +36,7 @@ class OauthClient extends DiscordApi {
 
   /**
    * Refresh Token
-   * @token - string
+   * @param token - string
    */
   public async refreshToken(token: string): Promise<RefreshOauthTokenResponse> {
     const request: RefreshOauthTokenRequest = {

@@ -6,11 +6,25 @@ export interface SessionType {
   refreshToken: string;
 }
 
-export interface UpdateSessionAction {
+interface UpdateSessionAction {
   type: typeof constants.SET_SESSION;
   payload: SessionType
 }
 
+export interface InfoType {
+  userId: string;
+  username: string;
+  avatarUrl: string;
+}
+
+interface UpdateInfoAction {
+  type: typeof constants.SET_USER_INFO;
+  payload: InfoType
+}
+
+export type UserActionType = UpdateSessionAction | UpdateInfoAction
+
 export interface StateType {
-  session: SessionType
+  session: SessionType;
+  info: InfoType;
 }
