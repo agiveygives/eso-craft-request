@@ -1,3 +1,5 @@
+// https://en.uesp.net/wiki/Online:Craftable_Sets
+
 const craftedSets = [
   "Adept Rider",
   "Alessia's Bulwark",
@@ -57,7 +59,10 @@ const craftedSets = [
   "Unchained Aggressor",
   "Dragon's Appetite",
   "Spell Parasite",
-  "Stuhn's Favor"
+  "Stuhn's Favor",
+  "Legacy of Karth",
+  "Red Eagle’s Fury",
+  "Aetherial Ascension",
 ];
 
 export default [
