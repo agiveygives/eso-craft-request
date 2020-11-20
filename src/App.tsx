@@ -91,8 +91,9 @@ const App = ({ session, userInfo, setSession, setUserInfo, setAdminGuilds }: Pro
             <ScrollToTop />
             <Route path="/" component={Home} exact />
             <Route path="/login" exact component={() => {
-                window.location.href = process.env.REACT_APP_IDENTITY_URI || 'esocraftrequest.com';
-                return null;
+              console.log(process.env.REACT_APP_IDENTITY_URI);
+              window.location.href = process.env.REACT_APP_IDENTITY_URI || 'esocraftrequest.com';
+              return null;
             }}/>
             {NavLinks.map((navLink) => (
               <Route key={navLink.location} path={navLink.location} component={navLink.component} exact />
