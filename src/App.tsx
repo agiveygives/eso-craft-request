@@ -4,6 +4,8 @@ import QueryString from 'query-string';
 import { BrowserRouter, Route } from 'react-router-dom';
 import { OauthClient, UserClient } from './api/discord';
 import { GetOauthTokenResponse, RefreshOauthTokenResponse } from './api/discord/response/OauthResponses';
+import { GetUserGuildsResponse } from './api/discord/response/UserResponses';
+import { GetAdminGuilds } from './store/user/actions';
 import { SET_SESSION, SET_USER_INFO } from './store/user/constants';
 import { SessionType, InfoType } from './store/user/types';
 import { StateType } from './store/types';
@@ -16,18 +18,20 @@ import NavLinks from './constants/NavigationLinks';
 
 interface StateProps {
   session: SessionType;
+  userInfo: InfoType;
 }
 
 interface DispatchProps {
-  setSession: (session_token: SessionType) => void;
-  setUserInfo: (session_token: InfoType) => void;
+  setSession: (sessionToken: SessionType) => void;
+  setUserInfo: (userInfo: InfoType) => void;
+  setAdminGuilds: (guilds: GetUserGuildsResponse[]) => void;
 }
 
 interface OwnProps {}
 
 type Props = StateProps & DispatchProps & OwnProps
 
-const App = ({ session, setSession, setUserInfo }: Props): JSX.Element => {
+const App = ({ session, userInfo, setSession, setUserInfo, setAdminGuilds }: Props): JSX.Element => {
   useEffect(() => {
     const uriCode = QueryString.parse(window.location.search).code?.toString();
 
@@ -51,14 +55,6 @@ const App = ({ session, setSession, setUserInfo }: Props): JSX.Element => {
             .catch((err: Error) => {
               console.log(err.message);
             })
-
-          UserClient.getUserGuilds(`${res.token_type} ${res.access_token}`)
-            .then((res) => {
-              console.log(res);
-            })
-            .catch((err: Error) => {
-              console.log(err.message);
-            })
         })
         .catch((err: Error) => {
           console.log(err.message);
@@ -75,34 +71,48 @@ const App = ({ session, setSession, setUserInfo }: Props): JSX.Element => {
     }
   }, [session, setSession, setUserInfo]);
 
+  useEffect(() => {
+    if (userInfo.userId && session.tokenType && session.accessToken)
+      UserClient.getUserGuilds(`${session.tokenType} ${session.accessToken}`)
+        .then((res) => {
+          console.log(res);
+          setAdminGuilds(res);
+        })
+        .catch((err: Error) => {
+          console.log(err.message);
+        })
+  }, [session, userInfo, setAdminGuilds])
+
   return (
     <ThemeWrapper>
-        <BrowserRouter>
-          <Layout>
-            <>
-              <ScrollToTop />
-              <Route path="/" component={Home} exact />
-              <Route path="/login" exact component={() => {
-                  window.location.href = process.env.REACT_APP_IDENTITY_URI || 'esocraftrequest.com';
-                  return null;
-              }}/>
-              {NavLinks.map((navLink) => (
-                <Route path={navLink.location} component={navLink.component} exact />
-              ))}
-            </>
-          </Layout>
-        </BrowserRouter>
+      <BrowserRouter>
+        <Layout>
+          <>
+            <ScrollToTop />
+            <Route path="/" component={Home} exact />
+            <Route path="/login" exact component={() => {
+                window.location.href = process.env.REACT_APP_IDENTITY_URI || 'esocraftrequest.com';
+                return null;
+            }}/>
+            {NavLinks.map((navLink) => (
+              <Route key={navLink.location} path={navLink.location} component={navLink.component} exact />
+            ))}
+          </>
+        </Layout>
+      </BrowserRouter>
     </ThemeWrapper>
   );
 }
 
 const mapStateToProps: MapStateToProps<StateProps, OwnProps, StateType> = state => ({
   session: state.user.session,
+  userInfo: state.user.info,
 });
 
 const mapDispatchToProps: MapDispatchToProps<DispatchProps, OwnProps> = dispatch => ({
-  setSession: (session_token: SessionType) => dispatch({ type: SET_SESSION, payload: session_token }),
-  setUserInfo: (session_token: InfoType) => dispatch({ type: SET_USER_INFO, payload: session_token })
+  setSession: (sessionToken: SessionType) => dispatch({ type: SET_SESSION, payload: sessionToken }),
+  setUserInfo: (userInfo: InfoType) => dispatch({ type: SET_USER_INFO, payload: userInfo }),
+  setAdminGuilds: (guilds: GetUserGuildsResponse[]) => dispatch(GetAdminGuilds(guilds))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

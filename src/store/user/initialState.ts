@@ -10,7 +10,8 @@ const initialState: StateType = {
     userId: '',
     username: '',
     avatarUrl: '',
-  }
+  },
+  guilds: [],
 }
 
 export default initialState;

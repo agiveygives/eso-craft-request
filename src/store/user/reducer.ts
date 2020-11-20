@@ -12,6 +12,9 @@ const userReducer = (state = initialState, action: types.UserActionType) => {
     case constants.SET_USER_INFO:
       newState.info = action.payload;
       break;
+    case constants.UPDATE_GUILDS:
+      newState.guilds = action.payload;
+      break;
     default:
       break;
   }
