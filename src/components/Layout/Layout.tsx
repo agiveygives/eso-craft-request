@@ -115,7 +115,7 @@ const Layout = ({ session, userInfo, children, guilds }: Props): JSX.Element => 
   } else {
     accountElement = (
       <Grid item>
-        <Button color="secondary" href="/login">Login</Button>
+        <Button color="secondary" href={process.env.REACT_APP_IDENTITY_URI || 'https://manage.esocraftrequest.com'}>Login</Button>
       </Grid>
     )
   }
