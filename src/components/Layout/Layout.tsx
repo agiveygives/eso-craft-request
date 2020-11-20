@@ -115,7 +115,7 @@ const Layout = ({ session, userInfo, children, guilds }: Props): JSX.Element => 
   } else {
     accountElement = (
       <Grid item>
-        <Button color="secondary" href="/Login">Login</Button>
+        <Button color="secondary" href="/login">Login</Button>
       </Grid>
     )
   }
