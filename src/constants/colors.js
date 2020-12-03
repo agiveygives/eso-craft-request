@@ -1,4 +1,4 @@
-export default {
+const colors = {
   warning: '#db9e4a',
   info: '#2e6ea5',
   qualityColors: {
@@ -9,3 +9,5 @@ export default {
     legendary: '#CCAA1A'
   }
 };
+
+export default colors;

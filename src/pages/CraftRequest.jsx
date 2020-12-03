@@ -1,4 +1,5 @@
 import React from 'react';
+import { useIntl } from 'react-intl';
 import PropTypes from 'prop-types';
 import clsx from 'clsx';
 import { connect } from 'react-redux';
@@ -54,6 +55,7 @@ const useStyles = makeStyles(theme => ({
 }))
 
 const CraftRequest = ({ termsAccepted }) => {
+  const intl = useIntl();
   const pageRef = React.useRef(null);
   const classes = useStyles();
   const [matsDrawerOpen, setMatsDrawerOpen] = React.useState(false);
@@ -63,7 +65,11 @@ const CraftRequest = ({ termsAccepted }) => {
       className={clsx(classes.appStyle, {[classes.shift]: matsDrawerOpen})}
       fill
       header={
-        <AppHeader title="ESO Craft Request" matsDrawerOpen={matsDrawerOpen} toggleMatsDrawer={setMatsDrawerOpen} />
+        <AppHeader
+          title={intl.formatMessage({ id: 'AppName' })}
+          matsDrawerOpen={matsDrawerOpen}
+          toggleMatsDrawer={setMatsDrawerOpen}
+        />
       }
       footer={<AppFooter ref={pageRef} />}
     >
@@ -73,8 +79,14 @@ const CraftRequest = ({ termsAccepted }) => {
       <div className={clsx(classes.appStyle, (!termsAccepted && classes.disabled))}>
         <span className={classes.wrapper}>
           <div className="centered-div">
-            <FormInput label="ESO Username" helpText="example: @JukesMcGee" />
-            <LevelSlider label="Select Armor Level" craftableLevels />
+            <FormInput
+              label={intl.formatMessage({ id: 'user.username' })}
+              helpText={intl.formatMessage({ id: 'user.usernameExample' })}
+            />
+            <LevelSlider
+              label={intl.formatMessage({ id: 'user.levelSliderLabel' })}
+              craftableLevels
+            />
           </div>
           <PaymentOption />
           <RequestNotes />
@@ -91,7 +103,7 @@ const CraftRequest = ({ termsAccepted }) => {
 CraftRequest.propTypes = propTypes;
 
 const mapStateToProps = state => ({
-  termsAccepted: state.termsAccepted
+  termsAccepted: state.termsAccepted,
 });
 
 export default connect(mapStateToProps)(CraftRequest);

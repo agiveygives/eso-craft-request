@@ -1,0 +1,10 @@
+{
+  "AppName": "ESO Craft Request",
+  "user.username": "ESO Username",
+  "user.usernameExample": "example: @JukesMcGee",
+  "user.levelSliderLabel": "Select Armor Level",
+  "user.payment.text": "I will be paying with ",
+  "user.payment.tooltip": "Crafters are more likely to accept material payments",
+  "user.payment.materials": "Materials",
+  "user.payment.gold": "Gold"
+}

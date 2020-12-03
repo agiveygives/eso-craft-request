@@ -398,7 +398,7 @@ const removeGlyph = (glyphMaterials, piece) => {
   }
 }
 
-export default {
+const utils = {
   calculateItemMats,
   updateMats,
   addRemovePieceMats,
@@ -409,4 +409,6 @@ export default {
   getGlyphMats,
   addRemoveGlyphMats,
   removeGlyph
-}
+};
+
+export default utils;

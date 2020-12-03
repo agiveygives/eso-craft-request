@@ -1,4 +1,4 @@
-export default [
+const craftableLevels = [
   '1',
   '4',
   '6',
@@ -40,4 +40,6 @@ export default [
   'CP 140',
   'CP 150',
   'CP 160'
-]
+];
+
+export default craftableLevels;

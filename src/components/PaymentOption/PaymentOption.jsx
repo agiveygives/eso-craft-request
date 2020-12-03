@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { useIntl } from 'react-intl';
 import { Typography } from '@material-ui/core';
 
 // Material-UI
@@ -32,30 +33,38 @@ const styles = createStyles({
   }
 });
 
-const PaymentOption = ({ options, paymentType, updatePaymentOption }) => (
-  <span className="centered-div">
-    <Typography variant='h5'>I will be paying with </Typography>
-    <span style={styles.wrapper}>
-      <Tooltip
-        title="Crafters are more likely to accept material payments"
-        placement="right"
-      >
-        <Select
-          style={styles.select}
-          value={paymentType}
-          onChange={event => updatePaymentOption(event.target.value)}
+const PaymentOption = ({ paymentType, updatePaymentOption }) => {
+  const intl = useIntl();
+  const paymentOptions = [
+    intl.formatMessage({ id: 'user.payment.materials' }),
+    intl.formatMessage({ id: 'user.payment.gold' }),
+  ]
+
+  return (
+    <span className="centered-div">
+      <Typography variant='h5'>{intl.formatMessage({ id: 'user.payment.text' })}</Typography>
+      <span style={styles.wrapper}>
+        <Tooltip
+          title={intl.formatMessage({ id: 'user.payment.tooltip' })}
+          placement="right"
         >
-          {options.map(Utils.generateSelectOptions)}
-        </Select>
-      </Tooltip>
+          <Select
+            style={styles.select}
+            value={paymentType}
+            onChange={event => updatePaymentOption(event.target.value)}
+          >
+            {paymentOptions.map(Utils.generateSelectOptions)}
+          </Select>
+        </Tooltip>
+      </span>
     </span>
-  </span>
-);
+  )
+};
 
 PaymentOption.propTypes = propTypes;
 
 PaymentOption.defaultProps = {
-  options: ['Materials', 'Gold']
+
 };
 
 const mapStateToProps = state => ({

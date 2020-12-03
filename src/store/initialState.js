@@ -1,4 +1,5 @@
-export default {
+const initialState = {
+  locale: 'en',
   guildMnemonic: '',
   guildRequestCode: '',
   guildData: {},
@@ -168,4 +169,6 @@ export default {
     potencyRunes: [],
     aspectRunes: []
   }
-}
+};
+
+export default initialState;

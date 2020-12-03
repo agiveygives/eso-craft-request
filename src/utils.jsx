@@ -5,6 +5,8 @@ export const generateSelectOptions = (option, key = 'Payment Option', optiondata
   <MenuItem key={option} optiondata={optiondata} piecekey={key} value={option}>{option}</MenuItem>
 );
 
-export default {
+const utils = {
   generateSelectOptions
 };
+
+export default utils;
