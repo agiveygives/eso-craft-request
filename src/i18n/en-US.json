@@ -1,10 +1,23 @@
 {
   "AppName": "ESO Craft Request",
+
+  "tou.title": "Read This!",
+  "tou.header": "Notice",
+  "tou.demo": "This is a demo.",
+  "tou.line1": "The requests submitted through this will not be fulfilled by any crafter.",
+  "tou.line2": "To view requests sent, join the {discordInvite} discord server.",
+  "tou.line3": "If you're trying to submit a craft request to your guild, please contact your guild leaders for the correct url.",
+  "tou.line4": "If you want to use this for your guild, please submit an {onboardingLink} on github.",
+  "tou.line5": "Any questions can be directed to the {questionsLink} channel on the discord server or to JukesMcGee#4228 on Discord.",
+
   "user.username": "ESO Username",
   "user.usernameExample": "example: @JukesMcGee",
   "user.levelSliderLabel": "Select Armor Level",
   "user.payment.text": "I will be paying with ",
   "user.payment.tooltip": "Crafters are more likely to accept material payments",
   "user.payment.materials": "Materials",
-  "user.payment.gold": "Gold"
+  "user.payment.gold": "Gold",
+  "user.requestNotes.header": "Request Notes ({total}/1000)",
+  "user.requestNotes.optional": "optional",
+  "user.requestNotes.placeholder": "Notes to the crafter about the request or payment."
 }
