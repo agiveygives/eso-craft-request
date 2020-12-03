@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { useIntl } from 'react-intl';
 import { makeStyles } from '@material-ui/core/styles';
 import ToggleHeader from '../ToggleHeader/ToggleHeader';
 import CheckboxRow from '../CheckboxRow/CheckboxRow';
@@ -24,21 +25,38 @@ const useStyles = makeStyles(theme => ({
 
 const GearSection = ({ group, selectedPieces }) => {
   const classes = useStyles();
+  const intl = useIntl();
 
-    return (
-      <div className={classes.wrapper}>
-        <ToggleHeader
-          title={`${group.charAt(0).toUpperCase() + group.slice(1)} Pieces`}
-        >
-          <CheckboxRow id={group} />
-          <span className={classes.cardWrapper}>
-            <div className="centered-div">
-              {selectedPieces.map(piece => <PieceCard group={group} piece={piece} key={`${group}-${piece}`} />)}
-            </div>
-          </span>
-        </ToggleHeader>
-      </div>
-    );
+  let groupTitle;
+  switch (group) {
+    case 'armor':
+      groupTitle = intl.formatMessage({ id: 'gear.armor.title' });
+      break;
+    case 'jewelry':
+      groupTitle = intl.formatMessage({ id: 'gear.jewelry.title' });
+      break;
+    case 'weapon':
+      groupTitle = intl.formatMessage({ id: 'gear.weapon.title' });
+      break;
+    default:
+      groupTitle = '';
+      break;
+  }
+
+  return (
+    <div className={classes.wrapper}>
+      <ToggleHeader
+        title={groupTitle}
+      >
+        <CheckboxRow id={group} />
+        <span className={classes.cardWrapper}>
+          <div className="centered-div">
+            {selectedPieces.map(piece => <PieceCard group={group} piece={piece} key={`${group}-${piece}`} />)}
+          </div>
+        </span>
+      </ToggleHeader>
+    </div>
+  );
 };
 
 GearSection.propTypes = propTypes;

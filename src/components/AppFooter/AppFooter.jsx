@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { useIntl } from 'react-intl';
 import axios from 'axios';
 import { makeStyles } from '@material-ui/core/styles';
 import { Typography, Toolbar, AppBar, Avatar, Button, Grid } from '@material-ui/core';
@@ -56,6 +57,7 @@ const AppFooter = ({ currentState, restart, review, guildName, guildMnemonic, gu
     weaponAttributes
   } = currentState;
   const classes = useStyles(guildFooterColor)();
+  const intl = useIntl();
   const guildImagePath = `/guildImages/${guildMnemonic}.png`;
   const [imageExists, setImageExists] = React.useState(false);
 
@@ -179,7 +181,7 @@ const AppFooter = ({ currentState, restart, review, guildName, guildMnemonic, gu
                   textDecoration: 'none',
                 }}
               >
-                <Typography>Found an issue or want to request a feature?</Typography>
+                <Typography>{intl.formatMessage({ id: 'footer.report' })}</Typography>
               </a>
             </div>
           </Grid>
@@ -194,15 +196,15 @@ const AppFooter = ({ currentState, restart, review, guildName, guildMnemonic, gu
                     color="primary"
                     onClick={() => review()}
                   >
-                    Submit
+                    {intl.formatMessage({ id: 'footer.submit' })}
                   </Button>
                 </a>
                 <ReactTooltip id="submit-button" type="info">
-                  Complete all selected fields to enable submission
+                  {intl.formatMessage({ id: 'footer.tooltip' })}
                 </ReactTooltip>
               </span>
               <Button variant="outlined" color="secondary" onClick={() => restart()}>
-                Restart
+                {intl.formatMessage({ id: 'footer.restart' })}
               </Button>
             </span>
           </Grid>

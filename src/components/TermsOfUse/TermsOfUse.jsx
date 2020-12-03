@@ -109,7 +109,7 @@ const TermsOfUse = ({ termsOpen, acceptTerms }) => {
             className={classes.buttonMargin}
           >
             <ThumbsUp className={classes.iconMargin} />
-            Accept
+            {intl.formatMessage({ id: 'tou.accept' })}
           </Fab>
           <Fab
             variant="extended"
@@ -120,7 +120,7 @@ const TermsOfUse = ({ termsOpen, acceptTerms }) => {
             className={classes.buttonMargin}
           >
             <ThumbsDown className={classes.iconMargin} />
-            Decline
+            {intl.formatMessage({ id: 'tou.decline' })}
           </Fab>
         </div>
       </DialogActions>

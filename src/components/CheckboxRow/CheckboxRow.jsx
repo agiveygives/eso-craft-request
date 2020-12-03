@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { useIntl } from 'react-intl';
 import { makeStyles } from '@material-ui/core/styles';
 import { FormControl, FormGroup, FormControlLabel, Switch, Typography } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
@@ -36,20 +37,21 @@ const useStyles = makeStyles(theme => ({
 
 const CheckboxRow = ({ id, selectedPieces, updatePieces }) => {
   const classes = useStyles();
+  const intl = useIntl();
 
   const armorBoxes = [
-    { id: 'head', label: 'Head' },
-    { id: 'shoulder', label: 'Shoulder' },
-    { id: 'chest', label: 'Chest' },
-    { id: 'legs', label: 'Legs' },
-    { id: 'waist', label: 'Waist' },
-    { id: 'hands', label: 'Hands' },
-    { id: 'feet', label: 'Feet' }
+    { id: 'head', label: intl.formatMessage({ id: 'gear.armor.head' }) },
+    { id: 'shoulder', label: intl.formatMessage({ id: 'gear.armor.shoulder' }) },
+    { id: 'chest', label: intl.formatMessage({ id: 'gear.armor.chest' }) },
+    { id: 'legs', label: intl.formatMessage({ id: 'gear.armor.legs' }) },
+    { id: 'waist', label: intl.formatMessage({ id: 'gear.armor.waist' }) },
+    { id: 'hands', label: intl.formatMessage({ id: 'gear.armor.hands' }) },
+    { id: 'feet', label: intl.formatMessage({ id: 'gear.armor.feet' }) }
   ]
   const jewelryBoxes = [
-    { id: 'necklace', label: 'Necklace' },
-    { id: 'ring1', label: 'Ring' },
-    { id: 'ring2', label: 'Ring' }
+    { id: 'necklace', label: intl.formatMessage({ id: 'gear.jewelry.necklace' }) },
+    { id: 'ring1', label: intl.formatMessage({ id: 'gear.jewelry.ring' }) },
+    { id: 'ring2', label: intl.formatMessage({ id: 'gear.jewelry.ring' }) }
   ]
   const weaponBoxes = [
     { id: 'primary1', label: 'Primary' },

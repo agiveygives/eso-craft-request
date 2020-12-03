@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Circle } from 'react-shapes';
+import { useIntl } from 'react-intl';
 import { Grid, Select, Typography, FormControl } from '@material-ui/core';
 import Utils from '../../utils';
 
@@ -50,6 +51,8 @@ const Dropdown = ({
   allPieceOptions,
   shieldOptions,
 }) => {
+  const intl = useIntl();
+
   // Load Data
   switch (dropdownData.key) {
     case 'Quality':
@@ -174,7 +177,9 @@ const Dropdown = ({
               <React.Fragment>
                 <span style={{ display: 'flex', alignItems: 'center' }}>
                   <Circle r={5} fill={{color: selectValue.color}} />
-                  <Typography variant='body1' style={{ padding: '0.5rem', minWidth: '5rem' }}>{selectValue.label}</Typography>
+                  <Typography variant='body1' style={{ padding: '0.5rem', minWidth: '5rem' }}>
+                    {intl.formatMessage({  id: selectValue.label })}
+                  </Typography>
                 </span>
               </React.Fragment>
             )

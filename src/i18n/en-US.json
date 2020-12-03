@@ -9,6 +9,8 @@
   "tou.line3": "If you're trying to submit a craft request to your guild, please contact your guild leaders for the correct url.",
   "tou.line4": "If you want to use this for your guild, please submit an {onboardingLink} on github.",
   "tou.line5": "Any questions can be directed to the {questionsLink} channel on the discord server or to JukesMcGee#4228 on Discord.",
+  "tou.accept": "Accept",
+  "tou.decline": "Decline",
 
   "user.username": "ESO Username",
   "user.usernameExample": "example: @JukesMcGee",
@@ -19,5 +21,36 @@
   "user.payment.gold": "Gold",
   "user.requestNotes.header": "Request Notes ({total}/1000)",
   "user.requestNotes.optional": "optional",
-  "user.requestNotes.placeholder": "Notes to the crafter about the request or payment."
+  "user.requestNotes.placeholder": "Notes to the crafter about the request or payment.",
+
+  "gear.glyph": "Glyph",
+  "gear.glypgQuanlity": "Glyph Quality",
+  "gear.trait": "Trait",
+  "gear.quality": "Quality",
+  "gear.set": "Set",
+  "gear.style": "Style",
+  "gear.weapon": "Weapon",
+  "gear.weight": "Weight",
+
+  "gear.armor.title": "Armor Pieces",
+  "gear.armor.head": "Head",
+  "gear.armor.shoulder": "Shoulder",
+  "gear.armor.chest": "Chest",
+  "gear.armor.legs": "Legs",
+  "gear.armor.waist": "Waist",
+  "gear.armor.hands": "Hands",
+  "gear.armor.feet": "Feet",
+
+  "gear.jewelry.title": "Jewelry Pieces",
+  "gear.jewelry.necklace": "Necklace",
+  "gear.jewelry.ring": "Ring",
+
+  "gear.weapon.title": "Weapon Pieces",
+
+  "header.materials": "Materials",
+
+  "footer.report": "Found an issue or want to request a feature?",
+  "footer.submit": "Submit",
+  "footer.tooltip": "Complete all selected fields to enable submission",
+  "footer.restart": "Restart"
 }
