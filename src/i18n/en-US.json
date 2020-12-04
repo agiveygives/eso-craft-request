@@ -29,6 +29,9 @@
   "confirmation.confirm": "Confirm",
   "confirmation.edit": "Edit",
 
+  "alert.success": "Your request was sent to discord.",
+  "alert.failure": "Failed to send request, please try again. If the problem persists, contact @JukesMcGee#4228 on discord.",
+
   "gear.glyph": "Glyph",
   "gear.glypgQuanlity": "Glyph Quality",
   "gear.trait": "Trait",
