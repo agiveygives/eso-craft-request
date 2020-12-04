@@ -54,10 +54,10 @@ const CheckboxRow = ({ id, selectedPieces, updatePieces }) => {
     { id: 'ring2', label: intl.formatMessage({ id: 'gear.jewelry.ring' }) }
   ]
   const weaponBoxes = [
-    { id: 'primary1', label: 'Primary' },
-    { id: 'secondary1', label: 'Secondary' },
-    { id: 'primary2', label: 'Primary' },
-    { id: 'secondary2', label: 'Secondary' }
+    { id: 'primary1', label: intl.formatMessage({ id: 'gear.weapon.primary' }) },
+    { id: 'secondary1', label: intl.formatMessage({ id: 'gear.weapon.secondary' }) },
+    { id: 'primary2', label: intl.formatMessage({ id: 'gear.weapon.primary' }) },
+    { id: 'secondary2', label: intl.formatMessage({ id: 'gear.weapon.secondary' }) }
   ]
   let checkboxes;
 
