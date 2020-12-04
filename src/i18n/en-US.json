@@ -23,6 +23,12 @@
   "user.requestNotes.optional": "optional",
   "user.requestNotes.placeholder": "Notes to the crafter about the request or payment.",
 
+  "confirmation": "Request Confirmation",
+  "confirmation.gearLevel": "Gear Level",
+  "confirmation.payment": "Payment",
+  "confirmation.confirm": "Confirm",
+  "confirmation.edit": "Edit",
+
   "gear.glyph": "Glyph",
   "gear.glypgQuanlity": "Glyph Quality",
   "gear.trait": "Trait",

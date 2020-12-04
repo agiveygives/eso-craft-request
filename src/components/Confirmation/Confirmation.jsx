@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { useIntl } from 'react-intl';
 import { makeStyles } from '@material-ui/core/styles';
 import { TOGGLE_REVIEW } from '../../store/constants';
 import Image from 'material-ui-image';
@@ -57,6 +58,7 @@ const Confirmation = ({ currentState, sendMessage, closeReview }) => {
     weaponAttributes
   } = currentState;
   const classes = useStyles();
+  const intl = useIntl();
 
   function pieceRows(selected, attributes) {
     let returnVal = null;
@@ -112,7 +114,7 @@ const Confirmation = ({ currentState, sendMessage, closeReview }) => {
       disableEscapeKeyDown
     >
       <DialogTitle id="confirmation-dialog-title">
-        Request Confirmation
+        {intl.formatMessage({ id: 'confirmation' })}
       </DialogTitle>
       <DialogContent
         dividers
@@ -125,15 +127,15 @@ const Confirmation = ({ currentState, sendMessage, closeReview }) => {
           <Table>
             <TableBody>
               <TableRow key="eso_username">
-                <TableCell key="username_label" colSpan={2}>ESO Username</TableCell>
+                <TableCell key="username_label" colSpan={2}>{intl.formatMessage({ id: 'user.username' })}</TableCell>
                 <TableCell key="username">{esoName}</TableCell>
               </TableRow>
               <TableRow key="gear_level">
-                <TableCell key="level_label" colSpan={2}>Gear Level</TableCell>
+                <TableCell key="level_label" colSpan={2}>{intl.formatMessage({ id: 'confirmation.gearLevel' })}</TableCell>
                 <TableCell key="level">{gearLevel}</TableCell>
               </TableRow>
               <TableRow key="payment_option">
-                <TableCell key="payment_label" colSpan={2}>Payment</TableCell>
+                <TableCell key="payment_label" colSpan={2}>{intl.formatMessage({ id: 'confirmation.payment' })}</TableCell>
                 <TableCell key="payment">{payment}</TableCell>
               </TableRow>
               {pieceRows(armorPieces, armorAttributes)}
@@ -154,7 +156,7 @@ const Confirmation = ({ currentState, sendMessage, closeReview }) => {
             className={classes.buttonMargin}
           >
             <ThumbsUp className={classes.iconMargin} />
-            Confirm
+            {intl.formatMessage({ id: 'confirmation.confirm' })}
           </Fab>
           <Fab
             variant="extended"
@@ -164,7 +166,7 @@ const Confirmation = ({ currentState, sendMessage, closeReview }) => {
             className={classes.buttonMargin}
           >
             <EditIcon className={classes.iconMargin} />
-            Edit
+            {intl.formatMessage({ id: 'confirmation.edit' })}
           </Fab>
         </span>
       </DialogActions>
