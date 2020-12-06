@@ -1,3 +1,471 @@
 {
+	"AppName": "ESO Craft Request",
 
+	"tou.title": "Lisez ceci!",
+	"tou.header": "Informations",
+	"tou.demo": "Ceci est une demo.",
+	"tou.line1": "Une commande postee avec cette demo ne pourra pas etre effectuee.",
+	"tou.line2": "Pour visualiser la publication de la commande, rejoignez le server discord de  {discordInvite}.",
+	"tou.line3": "Si vous essayez de passer une commande dans votre guilde, contactez les dirigeants de votre guilde pour avoir le lien vers la version de l'appli dediee a la guilde.",
+	"tou.line4": "Si vous voulez creer une version de l'appli dediee a votre guilde, soumettez une requete dans l'{onboardingLink} sur github.",
+	"tou.line5": "Toutes les questions peuvent etre directement adressees sur le channel {questionsLink} du server Discord ou a JukesMcGee#4228 sur Discord.",
+	"tou.accept": "Accepter",
+	"tou.decline": "Decliner",
+
+	"user.username": "Pseudo ESO",
+	"user.usernameExample": "exemple: @JukesMcGee",
+	"user.levelSliderLabel": "Niveau de l'equipement",
+	"user.payment.text": "Je paierai en ",
+	"user.payment.tooltip": "Les crafters preferent generalement etre payes en materiaux",
+	"user.payment.materials": "Materiaux",
+	"user.payment.gold": "Or",
+	"user.requestNotes.header": "Remarques ({total}/1000)",
+	"user.requestNotes.optional": "optionnel",
+	"user.requestNotes.placeholder": "Informations pour le crafter a propos de la commande ou du paiement.",
+
+	"confirmation": "Confirmation de la commande",
+	"confirmation.gearLevel": "Niveau de l'equipement",
+	"confirmation.payment": "Paiement",
+	"confirmation.confirm": "Confirmer",
+	"confirmation.edit": "Modifier",
+
+	"alert.success": "Votre commande a ete publiee sur Discord.",
+	"alert.failure": "Votre commande n'a pas pu etre publiee, veuillez reessayer. Si le probleme persiste, contactez @JukesMcGee#4228 sur discord.",
+
+	"gear.glyph": "Glyphe",
+	"gear.glypgQuanlity": "Qualite du glyphe",
+	"gear.trait": "Trait",
+	"gear.quality": "Qualite",
+	"gear.set": "Set",
+	"gear.style": "Style",
+	"gear.weapon": "Arme",
+	"gear.weight": "Poids",
+	"gear.armor.title": "Pieces d'armure",
+	"gear.armor.head": "Casque",
+	"gear.armor.shoulder": "Epaulettes",
+	"gear.armor.chest": "Plastron",
+	"gear.armor.legs": "Jambieres",
+	"gear.armor.waist": "Ceinture",
+	"gear.armor.hands": "Gants",
+	"gear.armor.feet": "Bottes",
+	"gear.armor.weight.light": "Leger",
+	"gear.armor.weight.medium": "Moyen",
+	"gear.armor.weight.heavy": "Lourd",
+	"gear.armor.traits.divines": "Divin",
+	"gear.armor.traits.impenetrable": "Impenetrable",
+	"gear.armor.traits.invigorating": "Revigorant",
+	"gear.armor.traits.reinforced": "Renforce",
+	"gear.armor.traits.sturdy": "Solide",
+	"gear.armor.traits.wellFitted": "Ajuste",
+	"gear.armor.glyphs.health": "Sante",
+	"gear.armor.glyphs.magicka": "Magie",
+	"gear.armor.glyphs.stamina": "Vigueur",
+	"gear.armor.glyphs.prismaticDefense": "Defense Prismatique",
+
+	"gear.jewelry.title": "Pieces de joaillerie",
+	"gear.jewelry.necklace": "Collier",
+	"gear.jewelry.ring": "Anneau",
+	"gear.jewelry.traits.arcane": "Arcane",
+	"gear.jewelry.traits.bloodthirsty": "Assoiffe de sang",
+	"gear.jewelry.traits.harmony": "Harmonie",
+	"gear.jewelry.traits.healthy": "Sain",
+	"gear.jewelry.traits.protective": "Protecteur",
+	"gear.jewelry.traits.robust": "Robuste",
+	"gear.jewelry.traits.swift": "Vif",
+	"gear.jewelry.traits.triune": "Triune",
+	"gear.jewelry.glyphs.healthRecovery": "Recuperation de sante",
+	"gear.jewelry.glyphs.magickaRecovery": "Recuperation de magie",
+	"gear.jewelry.glyphs.staminaRecovery": "Recuperation de vigueur",
+	"gear.jewelry.glyphs.reduceSpellCost": "Reduction du cout en magie des competences",
+	"gear.jewelry.glyphs.reduceFeatCost": "Reduction du cout en vigueur des competences",
+	"gear.jewelry.glyphs.increasePhysicalHarm": "Augmentation des degats des armes",
+	"gear.jewelry.glyphs.increaseMagicalHarm": "Augmentation des degats des sorts",
+	"gear.jewelry.glyphs.decreasePhysicalHarm": "Reduction des degats des armes",
+	"gear.jewelry.glyphs.decreaseMagicalHarm": "Reduction des degats des sorts",
+	"gear.jewelry.glyphs.frostResist": "Resistance au froid",
+	"gear.jewelry.glyphs.flameResist": "Resistance au feu",
+	"gear.jewelry.glyphs.shockResist": "Resistance a la foudre",
+	"gear.jewelry.glyphs.poisonResist": "Resistance aux poisons",
+	"gear.jewelry.glyphs.diseaseResist": "Resistance aux maladies",
+	"gear.jewelry.glyphs.bashing": "Augmentation des degats de l'interruption",
+	"gear.jewelry.glyphs.shielding": "Reduction du cout de l'interruption et du blocage",
+	"gear.jewelry.glyphs.potionBoost": "Augmentation de la duree des effets des potions",
+	"gear.jewelry.glyphs.potionSpeed": "Reduction du temps de recharge des potions",
+
+	"gear.weapon.title": "Types d'armes",
+	"gear.weapon.primary": "Principale",
+	"gear.weapon.secondary": "Secondaire",
+	"gear.weapon.axe": "Hache",
+	"gear.weapon.mace": "Masse",
+	"gear.weapon.sword": "Epee",
+	"gear.weapon.battleAxe": "Hache de bataille",
+	"gear.weapon.maul": "Masse d arme",
+	"gear.weapon.greatsword": "Epee longue",
+	"gear.weapon.dagger": "Dague",
+	"gear.weapon.bow": "Arc",
+	"gear.weapon.infernoStaff": "Baton infernal",
+	"gear.weapon.frostStaff": "Baton de glace",
+	"gear.weapon.lightningStaff": "Baton de foudre",
+	"gear.weapon.restorationStaff": "Baton de retablissement",
+	"gear.weapon.shield": "Bouclier",
+	"gear.weapon.traits.charged": "Charge",
+	"gear.weapon.traits.defending": "Defenseur",
+	"gear.weapon.traits.powered": "Energise",
+	"gear.weapon.traits.precise": "Precis",
+	"gear.weapon.traits.sharpened": "Acere",
+	"gear.weapon.traits.decisive": "Decisif",
+	"gear.weapon.glyphs.flame": "Degats de feu",
+	"gear.weapon.glyphs.frost": "Degats de froid",
+	"gear.weapon.glyphs.shock": "Degats de foudre",
+	"gear.weapon.glyphs.poison": "Degats de poison",
+	"gear.weapon.glyphs.foulness": "Degats de maladie",
+	"gear.weapon.glyphs.decreaseHealth": "Sante declinante",
+	"gear.weapon.glyphs.hardening": "Bouclier protecteur",
+	"gear.weapon.glyphs.absordHealth": "Absorption de vie",
+	"gear.weapon.glyphs.absordMagicka": "Absorpion de vigueur",
+	"gear.weapon.glyphs.absorbStamina": "Absorption de magie",
+	"gear.weapon.glyphs.weaponDamage": "Degat des armes",
+	"gear.weapon.glyphs.weakening": "Reduction des degats de la cible",
+	"gear.weapon.glyphs.crushing": "Reduction de la resistance de la cible",
+	"gear.weapon.glyphs.primaticOnslaught": "Attaque prismatique",
+
+	"header.materials": "Materiaux",
+
+	"materialsList.equipment": "Equipement",
+	"materialsList.traits": "Traits",
+	"materialsList.styles": "Styles",
+	"materialsList.glyphRunes": "Runes",
+
+	"materials.light.jute": "Jute",
+	"materials.light.flax": "Lin",
+	"materials.light.cotton": "Coton",
+	"materials.light.spidersilk": "Soie d'araignee",
+	"materials.light.ebonthread": "Fil d'ebonite",
+	"materials.light.kreshFiber": "Fibre de kresh",
+	"materials.light.ironthread": "Fil de fer",
+	"materials.light.silverweave": "Fil d'argent",
+	"materials.light.voidCloth": "Toile du neant",
+	"materials.light.ancestorSilk": "Soie ancestrale",
+	"materials.light.quality.fine": "Galon",
+	"materials.light.quality.superior": "Broderie",
+	"materials.light.quality.epic": "Doublure elegante",
+	"materials.light.quality.legendary": "Cire de dreug",
+
+	"materials.medium.rawhide": "Peau brute",
+	"materials.medium.hide": "Peau",
+	"materials.medium.leather": "Cuir",
+	"materials.medium.thickLeather": "Cuir epais",
+	"materials.medium.fellHide": "Peau impie",
+	"materials.medium.topgrainHide": "Peau de qualite",
+	"materials.medium.ironHide": "Peau de fer",
+	"materials.medium.superbHide": "Peau superbe",
+	"materials.medium.shadowhide": "Peau d'ombre",
+	"materials.medium.rubedoHide": "Cuir pourpre",
+
+	"materials.heavy.ironIngots": "Lingots de fer",
+	"materials.heavy.steel": "Lingots de fer noble",
+	"materials.heavy.orichalcumIngots": "Lingots d'orichalque",
+	"materials.heavy.dwarvenIngots": "Lingots dwemer",
+	"materials.heavy.ebonyIngots": "Lingots d'ebonite",
+	"materials.heavy.calciniumIngots": "Lingots de calcinium",
+	"materials.heavy.galatiteIngots": "Lingots de galatite",
+	"materials.heavy.quicksilverIngots": "Lingots de mercure",
+	"materials.heavy.voidstoneIngots": "Lingots de pierre de vide",
+	"materials.heavy.rubediteIngots": "Lingots de culprite",
+	"materials.heavy.quality.fine": "Pierre a affuter",
+	"materials.heavy.quality.superior": "Huile Dwemer",
+	"materials.heavy.quality.epic": "Acide",
+	"materials.heavy.quality.legendary": "Alliage de Trempe",
+
+	"materials.wood.sandedMaple": "Erable ponce",
+	"materials.wood.sandedOak": "Chene ponce",
+	"materials.wood.sandedBeech": "Hetre ponce",
+	"materials.wood.sandedHickory": "Noyer ponce",
+	"materials.wood.sandedYew": "If ponce",
+	"materials.wood.sandedBirch": "Bouleau ponce",
+	"materials.wood.sandedAsh": "Frene ponce",
+	"materials.wood.sandedMahogany": "Acajou ponce",
+	"materials.wood.sandedNightwood": "Bois de nuit ponce",
+	"materials.wood.sandedRuby Ash": "Frene roux ponce",
+	"materials.wood.quality.fine": "Poix",
+	"materials.wood.quality.superior": "Terebenthine",
+	"materials.wood.quality.epic": "Mastic",
+	"materials.wood.quality.legendary": "Resine",
+
+	"materials.jewelry.pewterOunce": "Once d'etain",
+	"materials.jewelry.copperOunce": "Once de cuivre",
+	"materials.jewelry.silverOunce": "Once d'argent",
+	"materials.jewelry.electrumOunce": "Once d electrum",
+	"materials.jewelry.platinumOunce": "Once de platine",
+	"materials.jewelry.quality.fine": "Placage terne",
+	"materials.jewelry.quality.superior": "Placage en iridium",
+	"materials.jewelry.quality.epic": "Placage en zircon",
+	"materials.jewelry.quality.legendary": "Placage en chromium",
+
+	"quality.normal": "Normal",
+	"quality.fine": "Raffine",
+	"quality.superior": "Superieur",
+	"quality.epic": "Epique",
+	"quality.legendary": "Legendaire",
+
+	"footer.report": "Vous voulez signaler un bug ou faire des suggestions ?",
+	"footer.submit": "Soumettre",
+	"footer.tooltip": "Remplir tous les champs pour pouvoir soumettre la commande.",
+	"footer.restart": "Recommencer",
+
+	"common.quality": "Qualite",
+	"common.none": "Aucun",
+	"common.traits.infused": "Infuse",
+	"common.traits.nirnhoned": "Trempe de Nirn",
+	"common.traits.training": "Entrainement",
+
+	"style.altmer": "Haut elfe (Altmer)",									 // Crafting Motif 1
+	"stone.altmer": "Adamantite",               
+	"style.dunmer": "Elfe noir (Dunmer)",         							 // Crafting Motif 2
+	"stone.dunmer": "Obsidienne",                 							 
+	"style.bosmer": "Elfe des bois (Bosmer)",         							 // Crafting Motif 3
+	"stone.bosmer": "Os",                     							 
+	"style.nord": "Nordique",                                                 // Crafting Motif 4
+	"stone.nord": "Corindon",                                            
+	"style.breton": "Breton",                              				 // Crafting Motif 5
+	"stone.breton": "Molybdene",                          				 
+	"style.redguard": "Rougegarde",                           					 // Crafting Motif 6
+	"stone.redguard": "Stellite",                         					 
+	"style.khajiit": "Khajiit",                         				     // Crafting Motif 7
+	"stone.khajiit": "Pierre de lune",                       				 
+	"style.orcish": "Orque",                                               // Crafting Motif 8
+	"stone.orcish": "Manganese",                                           
+	"style.argonian": "Argonien",                                             // Crafting Motif 9
+	"stone.argonian": "Silex",                                               
+	"style.imperial": "Imperial",                                             // Crafting Motif 10
+	"stone.imperial": "Nickel",                                              
+	"style.ancientElf": "Elfe Antique",                                          // Crafting Motif 11
+	"stone.ancientElf": "Palladium",                                           
+	"style.barbaric": "Barbare",                                             // Crafting Motif 12
+	"stone.barbaric": "Bronze",                                              
+	"style.primal": "Primitif",                                               // Crafting Motif 13
+	"stone.primal": "Argentum",                                            
+	"style.daedric": "Daedrique",                                              // Crafting Motif 14
+	"stone.daedric": "Coeur de daedra",                                        
+	"style.dwemer": "Dwemer",                                               // Crafting Motif 15
+	"stone.dwemer": "Mecanisme dwemer",                                        
+	"style.glass": "Verre",                                                // Crafting Motif 16
+	"stone.glass": "Malachite",                                           
+	"style.xivkyn": "Xivkyn",                                               // Crafting Motif 17
+	"stone.xivkyn": "Charbon du remord",                                 
+	"style.akaviri": "Akavirois",                                              // Crafting Motif 18
+	"stone.akaviri": "Ecaille d or",                                           
+	"style.mercenary": "Mercenaire",                                            // Crafting Motif 19
+	"stone.mercenary": "Laurier",                                              
+	"style.yokudan": "Yokudan",                                              // Crafting Motif 20
+	"stone.yokudan": "Sels ferreux",                                       
+	"style.ancientOrc": "Orque ancien",                                          // Crafting Motif 21
+	"stone.ancientOrc": "Cassiterite",                                         
+	"style.trinimac": "Trinimac",                                             // Crafting Motif 22
+	"stone.trinimac": "Defense aurique",                                          
+	"style.malacath": "Malacath",                                             // Crafting Motif 23
+	"stone.malacath": "Potasse",                                              
+	"style.outlaw": "Outlaw",                                               // Crafting Motif 24
+	"stone.outlaw": "Suie de fripouille",                                        
+	"style.aldmeriDominion": "Domaine Aldmeri",                                     // Crafting Motif 25
+	"stone.aldmeriDominion": "Plume d'aigle",                                       
+	"style.daggerfallCovenant": "Alliance de Daguefilante",                                  // Crafting Motif 26
+	"stone.daggerfallCovenant": "Croc de lion",                                           
+	"style.ebonheartPact": "Pacte de Coeurebene",                                       // Crafting Motif 27
+	"stone.ebonheartPact": "Ecaille de dragon",                                        
+	"style.raGada": "Ra Gada",                                              // Crafting Motif 28
+	"stone.raGada": "Gres antique",                                
+	"style.soulShriven": "Absous",                                         // Crafting Motif 29
+	"stone.soulShriven": "Plasma Azure",                                         
+	"style.moragTong": "Morag Tong",                                          // Crafting Motif 30
+	"stone.moragTong": "Carapace bouillie",                                     
+	"style.skinchanger": "Changepeau",                                          // Crafting Motif 31
+	"stone.skinchanger": "Encens d'aconit",                                   
+	"style.abahsWatch": "Garde d'Abah",                                         // Crafting Motif 32
+	"stone.abahsWatch": "Sou lustre",                                   
+	"style.thievesGuild": "Guilde des voleurs",                                        // Crafting Motif 33
+	"stone.thievesGuild": "Craie Fine",                                          
+	"style.assassinsLeague": "Ligue des assassins",                                     // Crafting Motif 34
+	"stone.assassinsLeague": "Sang souille",                                       
+	"style.dromAthra": "Dro-m’Athra",                     					 // Crafting Motif 35
+	"stone.dromAthra": "Vibrisses maculees",               					 
+	"style.darkBrotherhood": "Confrerie Noire",           							 // Crafting Motif 36
+	"stone.darkBrotherhood": "Cire d'abeille noire",             							 
+	"style.ebony": "Ebonite",                               			     // Crafting Motif 37
+	"stone.ebony": "Pierre ponce nocturne",                       			     
+	"style.draugr": "Draugr",                               				 // Crafting Motif 38
+	"stone.draugr": "Liceul immacule",                     				 
+	"style.minotaur": "Minotaure",                           					 // Crafting Motif 39
+	"stone.minotaur": "Champignon sang-de-boeuf",                    					 
+	"style.orderOfTheHour": "Ordre des Heures",         							 // Crafting Motif 40
+	"stone.orderOfTheHour": "Sable de perle",               							 
+	"style.celestial": "Celeste",                         					 // Crafting Motif 41
+	"stone.celestial": "Saphir etoile",                    					 
+	"style.hollowjack": "Hallowjack",                         					 // Crafting Motif 42
+	"stone.hollowjack": "Marbre Ambre",                      					 
+	"style.grimHarlequin": "Arlequin",               						 // Crafting Motif 43
+	"stone.grimHarlequin": "Pierre rictus",                  						 
+	"style.silkenRing": "Anneau de soie",                     					 // Crafting Motif 44
+	"stone.silkenRing": "Lent-argent distille",           					 
+	"style.mazzatun": "Mazzatun",                           					 // Crafting Motif 45
+	"stone.mazzatun": "Ecume de Leviathan",               					 
+	"style.stalhrimFrostcaster": "Eclat de stalhrim",   								 // Crafting Motif 46
+	"stone.stalhrimFrostcaster": "Lancegivre",        								 
+	"style.buoyantArmiger": "Exalte",             						 // Crafting Motif 47
+	"stone.buoyantArmiger": "Viridienne volcanique",           						
+	"style.ashlander": "Cendrais",                         					 // Crafting Motif 48
+	"stone.ashlander": "Toile de cendres",                       					 
+	"style.militantOrdonnateur": "Ordonnateur militant",       							 // Crafting Motif 49
+	"stone.militantOrdonnateur": "Sphalerite veloutee",     							 
+	"style.telvanni": "Telvanni",                           					 // Crafting Motif 50
+	"stone.telvanni": "Fer-fongique forge",               					 
+	"style.hlaalu": "Hlaalu",                               				 // Crafting Motif 51
+	"stone.hlaalu": "Resine d'os moule raffinee",                      				 
+	"style.redoran": "Redoran",                             				 // Crafting Motif 52
+	"stone.redoran": "Elytre de scarabee polie",             				 
+	"style.tsaesci": "Tsaesci",                             				 // Crafting Motif 53
+	"stone.tsaesci": "Croc de serpent",                         				 
+	"style.bloodforge": "Forgesang",                       					 // Crafting Motif 54
+	"stone.bloodforge": "Flux de sangracine",                  					 
+	"style.dreadhorn": "Corneffroi",                         					 // Crafting Motif 55
+	"stone.dreadhorn": "Bezoar de minotaure",                  					 
+	"style.apostle": "Apotre",                             				 // Crafting Motif 56
+	"stone.apostle": "Bronze trempe",                     				 
+	"style.ebonshadow": "Ombrebene",                       					 // Crafting Motif 57
+	"stone.ebonshadow": "Cordelette tenebreuse",                  					 
+	"style.fangLair": "Repaire du croc",                         					 // Crafting Motif 58
+	"stone.fangLair": "Os de dragon",                      					 
+	"style.scalecaller": "Mandecaille",                     					 // Crafting Motif 59
+	"stone.scalecaller": "Chair infectee",                 					 
+	"style.wormCult": "Culte du ver",                         					 // Crafting Motif 60
+	"stone.wormCult": "Sol funeraire profane",            					 
+	"style.psijic": "Psijique",                                				 // Crafting Motif 61
+	"stone.psijic": "Malondo vitrifie",                    				 
+	"style.sapiarch": "Sapiarque",                           					 // Crafting Motif 62
+	"stone.sapiarch": "Laque de culanda",                   					 
+	"style.dremora": "Dremora",                             				 // Crafting Motif 63
+	"stone.dremora": "Cendres du coeur de guerrier",              				 
+	"style.pyandonean": "Pyandoneen",                       					 // Crafting Motif 64
+	"stone.pyandonean": "Peau de serpent de mer",                					 
+	"style.huntsman": "Chasseur",                           					 // Crafting Motif 65
+	"stone.huntsman": "Rosee du pisteur",                    					 
+	"style.silverDawn": "Aube d'argent",                     					 // Crafting Motif 66
+	"stone.silverDawn": "Fourrure d'argent",                  					 
+	"style.welkynar": "Welkynar",                           					 // Crafting Motif 67
+	"stone.welkynar": "Plume de griffon",                     					 
+	"style.honorGuard": "Garde d'honneur",                      					 // Crafting Motif 68
+	"stone.honorGuard": "Sceau du diamant rouge",              					 
+	"style.deadWater": "Aiguemortes",                       					 // Crafting Motif 69
+	"stone.deadWater": "Cuir de crocodile",               					 
+	"style.elderArgonian": "Aines argoniens",               						 // Crafting Motif 70
+	"stone.elderArgonian": "Plumage de tranchaile",
+	"style.coldsnapGoblin": "Glaciation",             						 // Crafting Motif 71
+	"stone.coldsnapGoblin": "Laniere de tissu de gobelin",         						 
+	"style.meridian": "Meridia",                           					 // Crafting Motif 72
+	"stone.meridian": "Poussiere aurorienne",                      					 
+	"style.anequina": "Anequina",                           					 // Crafting Motif 73
+	"stone.anequina": "Sable scintillant",                   					 
+	"style.pellitine": "Pellitine",                         					 // Crafting Motif 74
+	"stone.pellitine": "Fil de dragon",                     					 
+	"style.sunspire": "Sollance",                           					 // Crafting Motif 75
+	"stone.sunspire": "Braises de givre",                      					 
+	"style.dragonguard": "Garde-dragon",                     					 // Crafting Motif 76
+	"stone.dragonguard": "Sels dores",                  					 
+	"style.stagesOfZen": "Cerfs de Z'en",                 						 // Crafting Motif 77
+	"stone.stagesOfZen": "Cordelette a serments",                    						 
+	"style.moongraveFane": "Reliquaire des Lunes funebres",               						 // Crafting Motif 78
+	"stone.moongraveFane": "Le sang de Sahrotnax",          						 
+	"style.refabricated": "Refabriques",                   						 // Crafting Motif 79
+	"stone.refabricated": "Rivets polis",               						 
+	"style.shieldOfSenchal": "Boucliers de Senchal",         							 // Crafting Motif 80
+	"stone.shieldOfSenchal": "Soie-ecu carmine",       							 
+	"style.newMoonPriest": "Pretre de la Nouvelle Lune",             						 // Crafting Motif 81
+	"stone.newMoonPriest": "Fragment de pierre d'eon",            						 
+	"style.icereachCoven": "Sorcieres de Creve-Neve",               						 // Crafting Motif 82
+	"stone.icereachCoven": "Saule de Fryse",                						 
+	"style.pyreWatch": "Vigie du bucher",                       					 // Crafting Motif 83
+	"stone.pyreWatch": "Myrrhe consacree",               					 
+	"style.blackreachVanguard": "Avant-garde de Griffenoire",     							 // Crafting Motif 84
+	"stone.blackreachVanguard": "Chitine de tristespore",      							 
+	"style.greymoor": "Griselande",                           					 // Crafting Motif 85
+	"stone.greymoor": "Huile de chauve-souris",                           					 
+	"style.seaGiant": "Geants des mers",                         					 // Crafting Motif 86
+	"stone.seaGiant": "Croc de serpent de mer",                 					 
+	"style.ancestralNord": "Nordique ancestral",               						 // Crafting Motif 87
+	"stone.ancestralNord": "Corindon grave",             						 
+	"style.ancestralOrc": "Orque ancestral",                 						 // Crafting Motif 88
+	"stone.ancestralOrc": "Manganese grave",             						 
+	"style.ancestralHighElf": "Haut-elfe ancestral",       							 // Crafting Motif 89
+	"stone.ancestralHighElf": "Adamantite gravee",       							 
+	"style.thornLegion": "Legion de Ronce",                   						 // Crafting Motif 90
+	"stone.thornLegion": "Sigil de Ronce",                   						 
+	"style.hazardousAlchemy": "Alchimiste hasardeuse",           					     // Crafting Motif 91
+	"stone.hazardousAlchemy": "Fiole viridienne",           							 
+	"style.ancestralReach": "Crevassais ancestral",             						 // Crafting Motif 94
+	"stone.ancestralReach": "Bronze grave",              						 
+	//   "style.arkthzandArmory": "Armurerie d'Arkthzand",        						 // Crafting Motif 96
+	//   "stone.arkthzandArmory": "Don't know yet",         						 
+
+	"set.adeptRider": "L’adepte cavalier",
+	"set.aetherialAscension": "Ascension Aetherienne",
+	"set.alessiasBulwark": "Rempart d’Alessia",
+	"set.ancientDragonguard": "Garde du dragon antique",
+	"set.armorMaster": "Maitre armurier",
+	"set.armorOfTheSeducer": "Armure de la Seductrice",
+	"set.ashenGrip": "Poigne des Cendres",
+	"set.assassinsGuile": "Duplicite de l’assassin",
+	"set.cleverAlchemist": "Alchimiste astucieux",
+	"set.coldharboursFavorite": "Elu de Havreglace",
+	"set.criticalRiposte": "Riposte critique",
+	"set.daedricTrickery": "Tromperie daedrique",
+	"set.daringCorsair": "Corsaire intrepide",
+	"set.dauntlessCombatant": "Le combattant indompte",
+	"set.deathsWind": "Vent mortel",
+	"set.dragonsAppetite": "L’appetit du dragon",
+	"set.eternalHunt": "Chasse éternelle",
+	"set.eyesOfMara": "Yeux de Mara",
+	"set.fortifiedBrass": "Airain fortifie",
+	"set.graveStakeCollector": "Collectionneur de marqueurs funeraires",
+	"set.histBark": "Ecorce d’Hist",
+	"set.hundingsRage": "Rage de Hunding",
+	"set.innateAxiom": "Axiome inne",
+	"set.kaegrenacsHope": "Espoir de Kagrenac",
+	"set.kvatchGladiator": "Gladiateur de Kvatch",
+	"set.lawOfJulianos": "Loi de Julianos",
+	"set.legacyOfKarth": "Heritage de Karth",
+	"set.magnusGift": "Present de Magnus",
+	"set.mechanicalAcuity": "Acuite mecanique",
+	"set.mightOfTheLostLegion": "Puissance de la legion perdue",
+	"set.morkuldin": "Morkuldin",
+	"set.nagaShaman": "Le Chaman Naga",
+	"set.newMoonAcolyte": "Acolyte de la Nouvelle Lune",
+	"set.nightMothersGaze": "Regard de la Mere de la Nuit",
+	"set.nightsSilence": "Silence de la Nuit",
+	"set.noblesConquest": "Butin du Noble",
+	"set.nocturnalsFavor": "Faveur de Nocturne",
+	"set.oblivionsFoe": "Adversaire d’Oblivion",
+	"set.orgnumsScales": "Ecailles d’Orgnum",
+	"set.pelinialsAptitude": "Aptitude de Pelinal",
+	"set.redEaglesFury": "Fureur de l’Aigle rouge",
+	"set.redistributor": "Redistributeur",
+	"set.sencheRahtsGrit": "Determination du Senche-raht",
+	"set.shacklebreaker": "Brise-entraves",
+	"set.shalidorsCurse": "Malediction de Shalidor",
+	"set.sloadsSemblance": "Aspect du sload",
+	"set.songOfLamae": "Chant de Lamae",
+	"set.spectresEye": "Oeil du Spectre",
+	"set.spellParasite": "Le parasite magique",
+	"set.stuhnsFavor": "La faveur de Stuhn",
+	"set.tavasFavor": "Faveur de Tava",
+	"set.torugsPact": "Pacte de Torug",
+	"set.trialByFire": "Epreuve du Feu",
+	"set.twiceBornStar": "Etoile Gemellaire",
+	"set.twilightsEmbrace": "Etreinte de Crepuscule",
+	"set.unchainedAggressor": "L’Agresseur dechaine",
+	"set.vampiresKiss": "Baiser du Vampire",
+	"set.varensLegacy": "Heritage de Varen",
+	"set.vastariesTutelage": "Tutelle de Vastarie",
+	"set.wayOfArena": "Voie de l’arene",
+	"set.whitestrakesRetribution": "Retribution de Blancserpent",
+	"set.willowsPath": "Sentier des Saules"
 }
