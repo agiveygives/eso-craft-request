@@ -5,7 +5,7 @@ import { IntlProvider } from 'react-intl';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import './App.css';
 import CraftRequest from './pages/CraftRequest';
-import messages from './i18n';
+import messages, { supportedLocales } from './i18n';
 
 const propTypes = {
   guildData: PropTypes.object.isRequired,
@@ -21,7 +21,13 @@ const App = ({ guildData }) => {
   const [locale, setLocale] = React.useState('en-US');
 
   React.useEffect(() => {
-    if (guildData.locale) setLocale(guildData.locale);
+    if (supportedLocales.includes(window.navigator.language)) {
+      setLocale(window.navigator.language);
+    } else if (guildData.locale) {
+      setLocale(guildData.locale);
+    } else {
+      setLocale('en-US')
+    }
   }, [guildData])
 
   let renderComponent;
@@ -38,7 +44,6 @@ const App = ({ guildData }) => {
   }
 
   return (
-
     <IntlProvider locale={locale} messages={messages[locale]}>
       {renderComponent}
     </IntlProvider>

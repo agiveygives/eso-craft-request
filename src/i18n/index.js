@@ -1,11 +1,9 @@
 import en_US from './en-US.json';
 import fr from './fr.json';
 
-export const langOptions = [
-  {
-    locale: 'en-US',
-    name: 'English',
-  }
+export const supportedLocales = [
+  'en-US',
+  'fr',
 ]
 
 const messages = {
