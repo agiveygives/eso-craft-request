@@ -15,6 +15,7 @@
   "user.username": "ESO Username",
   "user.usernameExample": "example: @JukesMcGee",
   "user.levelSliderLabel": "Select Armor Level",
+  "user.level": "Level",
   "user.payment.text": "I will be paying with ",
   "user.payment.tooltip": "Crafters are more likely to accept material payments",
   "user.payment.materials": "Materials",

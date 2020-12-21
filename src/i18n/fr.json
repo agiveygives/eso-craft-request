@@ -15,6 +15,7 @@
   "user.username": "Pseudo ESO",
   "user.usernameExample": "exemple: @JukesMcGee",
   "user.levelSliderLabel": "Niveau de l'equipement",
+  "user.level": "Niveau",
   "user.payment.text": "Je paierai en ",
   "user.payment.tooltip": "Les crafters preferent generalement etre payes en materiaux",
   "user.payment.materials": "Materiaux",
