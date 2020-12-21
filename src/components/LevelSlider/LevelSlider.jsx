@@ -1,5 +1,6 @@
 import 'rc-slider/assets/index.css';
 import React from 'react';
+import { useIntl } from 'react-intl';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Slider from 'rc-slider';
@@ -16,17 +17,18 @@ const propTypes = {
 };
 
 const LevelSlider = ({ label, craftableLevels, updateGearLevel }) => {
+  const intl = useIntl();
   const TooltipSlider = Slider.createSliderWithTooltip(Slider);
   const levels = [];
 
   const sliderLevels = craftableLevels ? craftLevels: levels;
 
   function updateLevelLabel(level) {
-     document.getElementById('level-label').innerHTML = `Level ${level}`;
+     document.getElementById('level-label').innerHTML = `${intl.formatMessage({ id: 'user.level' })} ${level}`;
   }
 
   return (
-    <div style={{ width: 200, marginLeft: 50 }}>
+    <div style={{ width: 'fit-content', marginLeft: 50 }}>
       <Typography variant='h6'>{label}</Typography>
       <TooltipSlider
         id="level-slider"
@@ -34,7 +36,7 @@ const LevelSlider = ({ label, craftableLevels, updateGearLevel }) => {
         style={{ width: 200, 'marginTop': 10, 'marginBottom': 10 }}
         min={0}
         max={sliderLevels.length - 1}
-        tipFormatter={value => `Level ${sliderLevels[value]}`}
+        tipFormatter={value => `${intl.formatMessage({ id: 'user.level' })} ${sliderLevels[value]}`}
         onChange={value => {
           updateLevelLabel(sliderLevels[value]);
           updateGearLevel(sliderLevels[value]);
@@ -44,7 +46,7 @@ const LevelSlider = ({ label, craftableLevels, updateGearLevel }) => {
         id='level-label'
         variant='body1'
       >
-        Level {sliderLevels[0]}
+        {`${intl.formatMessage({ id: 'user.level' })} ${sliderLevels[0]}`}
       </Typography>
     </div>
   );

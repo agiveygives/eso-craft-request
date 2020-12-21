@@ -1,115 +1,115 @@
 export const qualityMats = {
-  Light: {
-    Normal: [],
-    Fine: [
-      { count: 2, material: 'Hemming' }
+  'gear.armor.weight.light': {
+    'quality.normal': [],
+    'quality.fine': [
+      { count: 2, material: 'materials.light.quality.fine' }
     ],
-    Superior: [
-      { count: 2, material: 'Hemming' },
-      { count: 3, material: 'Embroidery' }
+    'quality.superior': [
+      { count: 2, material: 'materials.light.quality.fine' },
+      { count: 3, material: 'materials.light.quality.superior' }
     ],
-    Epic: [
-      { count: 2, material: 'Hemming' },
-      { count: 3, material: 'Embroidery' },
-      { count: 4, material: 'Elegant Lining' }
+    'quality.epic': [
+      { count: 2, material: 'materials.light.quality.fine' },
+      { count: 3, material: 'materials.light.quality.superior' },
+      { count: 4, material: 'materials.light.quality.epic' }
     ],
-    Legendary: [
-      { count: 2, material: 'Hemming' },
-      { count: 3, material: 'Embroidery' },
-      { count: 4, material: 'Elegant Lining' },
-      { count: 8, material: 'Dreagh Wax' }
+    'quality.legendary': [
+      { count: 2, material: 'materials.light.quality.fine' },
+      { count: 3, material: 'materials.light.quality.superior' },
+      { count: 4, material: 'materials.light.quality.epic' },
+      { count: 8, material: 'materials.light.quality.legendary' }
     ]
   },
-  Medium: {
-    Normal: [],
-    Fine: [
-      { count: 2, material: 'Hemming' }
+  'gear.armor.weight.medium': {
+    'quality.normal': [],
+    'quality.fine': [
+      { count: 2, material: 'materials.light.quality.fine' }
     ],
-    Superior: [
-      { count: 2, material: 'Hemming' },
-      { count: 3, material: 'Embroidery' }
+    'quality.superior': [
+      { count: 2, material: 'materials.light.quality.fine' },
+      { count: 3, material: 'materials.light.quality.superior' }
     ],
-    Epic: [
-      { count: 2, material: 'Hemming' },
-      { count: 3, material: 'Embroidery' },
-      { count: 4, material: 'Elegant Lining' }
+    'quality.epic': [
+      { count: 2, material: 'materials.light.quality.fine' },
+      { count: 3, material: 'materials.light.quality.superior' },
+      { count: 4, material: 'materials.light.quality.epic' }
     ],
-    Legendary: [
-      { count: 2, material: 'Hemming' },
-      { count: 3, material: 'Embroidery' },
-      { count: 4, material: 'Elegant Lining' },
-      { count: 8, material: 'Dreagh Wax' }
+    'quality.legendary': [
+      { count: 2, material: 'materials.light.quality.fine' },
+      { count: 3, material: 'materials.light.quality.superior' },
+      { count: 4, material: 'materials.light.quality.epic' },
+      { count: 8, material: 'materials.light.quality.legendary' }
     ]
   },
-  Heavy: {
-    Normal: [],
-    Fine: [
-      { count: 2, material: 'Honing Stone' }
+  'gear.armor.weight.heavy': {
+    'quality.normal': [],
+    'quality.fine': [
+      { count: 2, material: 'materials.heavy.quality.fine' }
     ],
-    Superior: [
-      { count: 2, material: 'Honing Stone' },
-      { count: 3, material: 'Dwarven Oil' }
+    'quality.superior': [
+      { count: 2, material: 'materials.heavy.quality.fine' },
+      { count: 3, material: 'materials.heavy.quality.superior' }
     ],
-    Epic: [
-      { count: 2, material: 'Honing Stone' },
-      { count: 3, material: 'Dwarven Oil' },
-      { count: 4, material: 'Grain Solvent' }
+    'quality.epic': [
+      { count: 2, material: 'materials.heavy.quality.fine' },
+      { count: 3, material: 'materials.heavy.quality.superior' },
+      { count: 4, material: 'materials.heavy.quality.epic' }
     ],
-    Legendary: [
-      { count: 2, material: 'Honing Stone' },
-      { count: 3, material: 'Dwarven Oil' },
-      { count: 4, material: 'Grain Solvent' },
-      { count: 8, material: 'Tempering Alloy' }
+    'quality.legendary': [
+      { count: 2, material: 'materials.heavy.quality.fine' },
+      { count: 3, material: 'materials.heavy.quality.superior' },
+      { count: 4, material: 'materials.heavy.quality.epic' },
+      { count: 8, material: 'materials.heavy.quality.legendary' }
     ]
   },
   wood: {
-    Normal: [],
-    Fine: [
-      { count: 2, material: 'Pitch' }
+    'quality.normal': [],
+    'quality.fine': [
+      { count: 2, material: 'materials.wood.quality.fine' }
     ],
-    Superior: [
-      { count: 2, material: 'Pitch' },
-      { count: 3, material: 'Turpen' }
+    'quality.superior': [
+      { count: 2, material: 'materials.wood.quality.fine' },
+      { count: 3, material: 'materials.wood.quality.superior' }
     ],
-    Epic: [
-      { count: 2, material: 'Pitch' },
-      { count: 3, material: 'Turpen' },
-      { count: 4, material: 'Mastic' }
+    'quality.epic': [
+      { count: 2, material: 'materials.wood.quality.fine' },
+      { count: 3, material: 'materials.wood.quality.superior' },
+      { count: 4, material: 'materials.wood.quality.epic' }
     ],
-    Legendary: [
-      { count: 2, material: 'Pitch' },
-      { count: 3, material: 'Turpen' },
-      { count: 4, material: 'Mastic' },
-      { count: 8, material: 'Rosin' }
+    'quality.legendary': [
+      { count: 2, material: 'materials.wood.quality.fine' },
+      { count: 3, material: 'materials.wood.quality.superior' },
+      { count: 4, material: 'materials.wood.quality.epic' },
+      { count: 8, material: 'materials.wood.quality.legendary' }
     ]
   },
   Jewelry: {
-    Normal: [],
-    Fine: [
-      { count: 1, material: 'Terne Plating' }
+    'quality.normal': [],
+    'quality.fine': [
+      { count: 1, material: 'materials.jewelry.quality.fine' }
     ],
-    Superior: [
-      { count: 1, material: 'Terne Plating' },
-      { count: 2, material: 'Iridium Plating' }
+    'quality.superior': [
+      { count: 1, material: 'materials.jewelry.quality.fine' },
+      { count: 2, material: 'materials.jewelry.quality.superior' }
     ],
-    Epic: [
-      { count: 1, material: 'Terne Plating' },
-      { count: 2, material: 'Iridium Plating' },
-      { count: 3, material: 'Zircon Plating' }
+    'quality.epic': [
+      { count: 1, material: 'materials.jewelry.quality.fine' },
+      { count: 2, material: 'materials.jewelry.quality.superior' },
+      { count: 3, material: 'materials.jewelry.quality.epic' }
     ],
-    Legendary: [
-      { count: 1, material: 'Terne Plating' },
-      { count: 2, material: 'Iridium Plating' },
-      { count: 3, material: 'Zircon Plating' },
-      { count: 4, material: 'Chromium Plating' }
+    'quality.legendary': [
+      { count: 1, material: 'materials.jewelry.quality.fine' },
+      { count: 2, material: 'materials.jewelry.quality.superior' },
+      { count: 3, material: 'materials.jewelry.quality.epic' },
+      { count: 4, material: 'materials.jewelry.quality.legendary' }
     ]
   }
 };
 
 export const qualityOptions = [
-  { value: 'Normal', label: 'Normal', color: '#888888', isFixed: true },
-  { value: 'Fine', label: 'Fine', color: '#2DC50E', isFixed: true },
-  { value: 'Superior', label: 'Superior', color: '#3A92FF', isFixed: true },
-  { value: 'Epic', label: 'Epic', color: '#A02EF7', isFixed: true },
-  { value: 'Legendary', label: 'Legendary', color: '#CCAA1A', isFixed: true }
+  { value: 'quality.normal', label: 'quality.normal', color: '#888888', isFixed: true },
+  { value: 'quality.fine', label: 'quality.fine', color: '#2DC50E', isFixed: true },
+  { value: 'quality.superior', label: 'quality.superior', color: '#3A92FF', isFixed: true },
+  { value: 'quality.epic', label: 'quality.epic', color: '#A02EF7', isFixed: true },
+  { value: 'quality.legendary', label: 'quality.legendary', color: '#CCAA1A', isFixed: true }
 ];

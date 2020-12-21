@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { useIntl } from 'react-intl';
 import { makeStyles } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
 import Divider from '@material-ui/core/Divider';
@@ -13,7 +14,6 @@ import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableRow from '@material-ui/core/TableRow';
 import ToggleHeader from '../ToggleHeader/ToggleHeader';
-
 const propTypes = {
   open: PropTypes.bool.isRequired,
   setDrawerOpen: PropTypes.func.isRequired,
@@ -95,6 +95,7 @@ const useStyles = (drawerWidth) => makeStyles(theme => ({
 
 const MatsDrawer = ({ open, setDrawerOpen, width, materials, traits, styles, qualityMats, glyphMats }) => {
   const classes = useStyles(width)();
+  const intl = useIntl();
   const [totalEquipementMats, setTotalEquipmentMats] = React.useState([]);
   const [totalTraitMats, setTotalTraitMats] = React.useState([]);
   const [totalStyleMats, setTotalStyleMats] = React.useState([]);
@@ -195,7 +196,7 @@ const MatsDrawer = ({ open, setDrawerOpen, width, materials, traits, styles, qua
     setTotalGlyphMats(newTotal);
   }, [glyphMats.essenceRunes, glyphMats.potencyRunes, glyphMats.aspectRunes])
 
-  const generateMaterialSection = (sectionTitle, totalMats, display) => (
+  const generateMaterialSection = (sectionTitle, totalMats, display, i18n = true) => (
     <ToggleHeader paddingTop='1rem' className={classes.section} align='left' variant='h5' title={sectionTitle}>
       <Table className={classes.table} size="small">
         <TableBody>
@@ -208,7 +209,7 @@ const MatsDrawer = ({ open, setDrawerOpen, width, materials, traits, styles, qua
               </TableCell>
               <TableCell align='right'>
                 <Typography variant='h6' className={classes.primaryText}>
-                  {Mats[display]}
+                  {i18n ? intl.formatMessage({ id: Mats[display] }) : Mats[display]}
                 </Typography>
               </TableCell>
             </TableRow>
@@ -237,11 +238,11 @@ const MatsDrawer = ({ open, setDrawerOpen, width, materials, traits, styles, qua
         </Button>
       </div>
       <Divider />
-      {generateMaterialSection('Equipment', totalEquipementMats, 'type')}
-      {generateMaterialSection('Quality', totalQualityMats, 'material')}
-      {generateMaterialSection('Traits', totalTraitMats, 'stone')}
-      {generateMaterialSection('Styles', totalStyleMats, 'stone')}
-      {generateMaterialSection('Glyph Runes', totalGlyphMats, 'name')}
+      {generateMaterialSection(intl.formatMessage({ id: 'materialsList.equipment' }), totalEquipementMats, 'type')}
+      {generateMaterialSection(intl.formatMessage({ id: 'common.quality' }), totalQualityMats, 'material')}
+      {generateMaterialSection(intl.formatMessage({ id: 'materialsList.traits' }), totalTraitMats, 'stone')}
+      {generateMaterialSection(intl.formatMessage({ id: 'materialsList.styles' }), totalStyleMats, 'stone')}
+      {generateMaterialSection(intl.formatMessage({ id: 'materialsList.glyphRunes' }), totalGlyphMats, 'name', false)}
     </Drawer>
   )
 };

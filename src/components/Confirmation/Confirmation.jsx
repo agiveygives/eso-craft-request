@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { useIntl } from 'react-intl';
 import { makeStyles } from '@material-ui/core/styles';
 import { TOGGLE_REVIEW } from '../../store/constants';
 import Image from 'material-ui-image';
@@ -57,6 +58,7 @@ const Confirmation = ({ currentState, sendMessage, closeReview }) => {
     weaponAttributes
   } = currentState;
   const classes = useStyles();
+  const intl = useIntl();
 
   function pieceRows(selected, attributes) {
     let returnVal = null;
@@ -66,7 +68,7 @@ const Confirmation = ({ currentState, sendMessage, closeReview }) => {
         <React.Fragment>
           <TableRow>
             <TableCell className={classes.subheader} key={`${attributes.display}_subheader`} align='center' colSpan={3}>
-              {attributes.display}
+              {intl.formatMessage({ id: attributes.display})}
             </TableCell>
           </TableRow>
           {selected.map(piece => (
@@ -75,14 +77,14 @@ const Confirmation = ({ currentState, sendMessage, closeReview }) => {
                   let tableRow;
                   var pieceLabel = attribute === 'Quality' ? attributes[piece]['display'] : ''
 
-                  if (attribute === 'Glyph Quality' && attributes[piece].Glyph === 'None') {
+                  if (attribute === 'Glyph Quality' && attributes[piece].Glyph === 'common.none') {
                     tableRow = null;
                   } else {
                     tableRow = (
                       <TableRow key={`${piece}-${attribute}-row`}>
-                        <TableCell key={`${piece}-${attribute}-piece`}>{pieceLabel}</TableCell>
-                        <TableCell key={`${piece}-${attribute}-attribute`}>{attribute}</TableCell>
-                        <TableCell key={`${piece}-${attribute}-input`}>{attributes[piece][attribute]}</TableCell>
+                        <TableCell key={`${piece}-${attribute}-piece`}>{pieceLabel ? intl.formatMessage({ id: pieceLabel }) : undefined}</TableCell>
+                        <TableCell key={`${piece}-${attribute}-attribute`}>{attribute ? intl.formatMessage({ id: attribute }) : undefined}</TableCell>
+                        <TableCell key={`${piece}-${attribute}-input`}>{attributes[piece][attribute] ? intl.formatMessage({ id: attributes[piece][attribute] }) : undefined}</TableCell>
                       </TableRow>
                     );
                   }
@@ -112,7 +114,7 @@ const Confirmation = ({ currentState, sendMessage, closeReview }) => {
       disableEscapeKeyDown
     >
       <DialogTitle id="confirmation-dialog-title">
-        Request Confirmation
+        {intl.formatMessage({ id: 'confirmation' })}
       </DialogTitle>
       <DialogContent
         dividers
@@ -125,16 +127,16 @@ const Confirmation = ({ currentState, sendMessage, closeReview }) => {
           <Table>
             <TableBody>
               <TableRow key="eso_username">
-                <TableCell key="username_label" colSpan={2}>ESO Username</TableCell>
+                <TableCell key="username_label" colSpan={2}>{intl.formatMessage({ id: 'user.username' })}</TableCell>
                 <TableCell key="username">{esoName}</TableCell>
               </TableRow>
               <TableRow key="gear_level">
-                <TableCell key="level_label" colSpan={2}>Gear Level</TableCell>
+                <TableCell key="level_label" colSpan={2}>{intl.formatMessage({ id: 'confirmation.gearLevel' })}</TableCell>
                 <TableCell key="level">{gearLevel}</TableCell>
               </TableRow>
               <TableRow key="payment_option">
-                <TableCell key="payment_label" colSpan={2}>Payment</TableCell>
-                <TableCell key="payment">{payment}</TableCell>
+                <TableCell key="payment_label" colSpan={2}>{intl.formatMessage({ id: 'confirmation.payment' })}</TableCell>
+                <TableCell key="payment">{intl.formatMessage({ id: payment })}</TableCell>
               </TableRow>
               {pieceRows(armorPieces, armorAttributes)}
               {pieceRows(jewelryPieces, jewelryAttributes)}
@@ -150,11 +152,11 @@ const Confirmation = ({ currentState, sendMessage, closeReview }) => {
             size="medium"
             style={{ backgroundColor: '#27a745' }}
             aria-label="confirm"
-            onClick={() => sendMessage(currentState)}
+            onClick={() => sendMessage(currentState, intl)}
             className={classes.buttonMargin}
           >
             <ThumbsUp className={classes.iconMargin} />
-            Confirm
+            {intl.formatMessage({ id: 'confirmation.confirm' })}
           </Fab>
           <Fab
             variant="extended"
@@ -164,7 +166,7 @@ const Confirmation = ({ currentState, sendMessage, closeReview }) => {
             className={classes.buttonMargin}
           >
             <EditIcon className={classes.iconMargin} />
-            Edit
+            {intl.formatMessage({ id: 'confirmation.edit' })}
           </Fab>
         </span>
       </DialogActions>
@@ -179,7 +181,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  sendMessage: currentState => sendRequest(currentState)(dispatch),
+  sendMessage: (currentState, intl) => sendRequest(currentState, intl)(dispatch),
   closeReview: () => dispatch({ type: TOGGLE_REVIEW, show: false })
 });
 

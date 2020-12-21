@@ -1,26 +1,26 @@
 export const armorWeights = [
-  { value: 'Light', label: 'Light', color: '#2DC50E', isFixed: true },
-  { value: 'Medium', label: 'Medium', color: '#2DC50E', isFixed: true },
-  { value: 'Heavy', label: 'Heavy', color: '#2DC50E', isFixed: true }
+  { value: 'gear.armor.weight.light', label: 'gear.armor.weight.light', color: '#2DC50E', isFixed: true },
+  { value: 'gear.armor.weight.medium', label: 'gear.armor.weight.medium', color: '#2DC50E', isFixed: true },
+  { value: 'gear.armor.weight.heavy', label: 'gear.armor.weight.heavy', color: '#2DC50E', isFixed: true }
 ];
 
 export const armorTraits = [
-  { value: 'None', stone: 'none', label: 'None', color: '#fcb935', isFixed: true },
-  { value: 'Divines', stone: 'Sapphire', label: 'Divines', color: '#2DC50E', isFixed: true },
-  { value: 'Impenetrable', stone: 'Diamond', label: 'Impenetrable', color: '#2DC50E', isFixed: true },
-  { value: 'Infused', stone: 'Bloodstone', label: 'Infused', color: '#2DC50E', isFixed: true },
-  { value: 'Invigorating', stone: 'Garnet', label: 'Invigorating', color: '#2DC50E', isFixed: true },
-  { value: 'Nirnhoned', stone: 'Fortified Nirncrux', label: 'Nirnhoned', color: '#2DC50E', isFixed: true },
-  { value: 'Reinforced', stone: 'Sardonyx', label: 'Reinforced', color: '#2DC50E', isFixed: true },
-  { value: 'Sturdy', stone: 'Quartz', label: 'Sturdy', color: '#2DC50E', isFixed: true },
-  { value: 'Training', stone: 'Emerald', label: 'Training', color: '#2DC50E', isFixed: true },
-  { value: 'Well Fitted', stone: 'Almandine', label: 'Well Fitted', color: '#2DC50E', isFixed: true }
+  { value: 'common.none', stone: 'common.none', label: 'common.none', color: '#fcb935', isFixed: true },
+  { value: 'gear.armor.traits.divines', stone: 'gear.armor.traits.divines.stone', label: 'gear.armor.traits.divines', color: '#2DC50E', isFixed: true },
+  { value: 'gear.armor.traits.impenetrable', stone: 'gear.armor.traits.impenetrable.stone', label: 'gear.armor.traits.impenetrable', color: '#2DC50E', isFixed: true },
+  { value: 'common.traits.infused', stone: 'gear.armor.traits.infused.stone', label: 'common.traits.infused', color: '#2DC50E', isFixed: true },
+  { value: 'gear.armor.traits.invigorating', stone: 'gear.armor.traits.invigorating.stone', label: 'gear.armor.traits.invigorating', color: '#2DC50E', isFixed: true },
+  { value: 'common.traits.nirnhoned', stone: 'gear.armor.traits.nirnhoned.stone', label: 'common.traits.nirnhoned', color: '#2DC50E', isFixed: true },
+  { value: 'gear.armor.traits.reinforced', stone: 'gear.armor.traits.reinforced.stone', label: 'gear.armor.traits.reinforced', color: '#2DC50E', isFixed: true },
+  { value: 'gear.armor.traits.sturdy', stone: 'gear.armor.traits.sturdy.stone', label: 'gear.armor.traits.sturdy', color: '#2DC50E', isFixed: true },
+  { value: 'common.traits.training', stone: 'gear.armor.traits.training.stone', label: 'common.traits.training', color: '#2DC50E', isFixed: true },
+  { value: 'gear.armor.traits.wellFitted', stone: 'gear.armor.traits.wellFitted.stone', label: 'gear.armor.traits.wellFitted', color: '#2DC50E', isFixed: true }
 ];
 
 export const armorGlyphs = [
-  { value: 'None', label: 'None', color: '#fcb935', isFixed: true },
-  { value: 'Health', essenceRune: 'Oko', potency: 'additive', label: 'Health', color: '#2DC50E', isFixed: true },
-  { value: 'Magicka', essenceRune: 'Makko', potency: 'additive', label: 'Magicka', color: '#2DC50E', isFixed: true },
-  { value: 'Stamina', essenceRune: 'Deni', potency: 'additive', label: 'Stamina', color: '#2DC50E', isFixed: true },
-  { value: 'Prismatic Defense', essenceRune: 'Hakeijo', potency: 'additive', label: 'Prismatic Defense', color: '#2DC50E', isFixed: true }
+  { value: 'common.none', label: 'common.none', color: '#fcb935', isFixed: true },
+  { value: 'gear.armor.glyphs.health', essenceRune: 'Oko', potency: 'additive', label: 'gear.armor.glyphs.health', color: '#2DC50E', isFixed: true },
+  { value: 'gear.armor.glyphs.magicka', essenceRune: 'Makko', potency: 'additive', label: 'gear.armor.glyphs.magicka', color: '#2DC50E', isFixed: true },
+  { value: 'gear.armor.glyphs.stamina', essenceRune: 'Deni', potency: 'additive', label: 'gear.armor.glyphs.stamina', color: '#2DC50E', isFixed: true },
+  { value: 'gear.armor.glyphs.prismaticDefense', essenceRune: 'Hakeijo', potency: 'additive', label: 'gear.armor.glyphs.prismaticDefense', color: '#2DC50E', isFixed: true }
 ];

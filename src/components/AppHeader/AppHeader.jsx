@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import clsx from 'clsx';
 import { connect } from 'react-redux';
+import { useIntl } from 'react-intl';
 import { makeStyles } from '@material-ui/core/styles';
 import Avatar from '@material-ui/core/Avatar';
 import AppBar from '@material-ui/core/AppBar';
@@ -24,6 +25,7 @@ const useStyles = makeStyles(theme => ({
 
 const AppHeader = ({ title, guildHeaderColor, toggleMatsDrawer, matsDrawerOpen }) => {
   const classes = useStyles();
+  const intl = useIntl();
 
   return (
     <AppBar
@@ -38,7 +40,7 @@ const AppHeader = ({ title, guildHeaderColor, toggleMatsDrawer, matsDrawerOpen }
           onClick={() => toggleMatsDrawer(!matsDrawerOpen)}
           className={clsx(matsDrawerOpen && classes.hide)}
         >
-          Mats List
+          {intl.formatMessage({ id: 'header.materials' })}
         </Button>
       </Toolbar>
     </AppBar>

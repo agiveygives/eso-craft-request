@@ -1,104 +1,112 @@
 // https://en.uesp.net/wiki/Online:Styles
 
 export const styles = [
-  { name: "High Elf (Altmer)", stone: "Adamantite" },            // Crafting Motif 1
-  { name: "Dark Elf (Dunmer)", stone: "Obsidian" },              // Crafting Motif 2
-  { name: "Wood Elf (Bosmer)", stone: "Bone" },                  // Crafting Motif 3
-  { name: "Nord", stone: "Corundum" },                           // Crafting Motif 4
-  { name: "Breton", stone: "Molybdenum" },                       // Crafting Motif 5
-  { name: "Redguard", stone: "Starmetal" },                      // Crafting Motif 6
-  { name: "Khajiit", stone: "Moonmaterial" },                    // Crafting Motif 7
-  { name: "Orcish", stone: "Manganese" },                        // Crafting Motif 8
-  { name: "Argonian", stone: "Flint" },                          // Crafting Motif 9
-  { name: "Imperial", stone: "Nickel" },                         // Crafting Motif 10
-  { name: "Ancient Elf", stone: "Palladium" },                   // Crafting Motif 11
-  { name: "Barbaric", stone: "Copper" },                         // Crafting Motif 12
-  { name: "Primal", stone: "Argentum" },                         // Crafting Motif 13
-  { name: "Daedric", stone: "Daedra Heart" },                    // Crafting Motif 14
-  { name: "Dwemer", stone: "Dwemer Frame" },                     // Crafting Motif 15
-  { name: "Glass", stone: "Malachite" },                         // Crafting Motif 16
-  { name: "Xivkyn", stone: "Charcoal of Remorse" },              // Crafting Motif 17
-  { name: "Akaviri", stone: "Goldscale" },                       // Crafting Motif 18
-  { name: "Mercenary", stone: "Laurel" },                        // Crafting Motif 19
-  { name: "Yokudan", stone: "Ferrous Salts" },                   // Crafting Motif 20
-  { name: "Ancient Orc", stone: "Cassiterite" },                 // Crafting Motif 21
-  { name: "Trinimac", stone: "Auric Tusk" },                     // Crafting Motif 22
-  { name: "Malacath", stone: "Potash" },                         // Crafting Motif 23
-  { name: "Outlaw", stone: "Rogue's Soot" },                     // Crafting Motif 24
-  { name: "Aldmeri Dominion", stone: "Eagle Feather" },          // Crafting Motif 25
-  { name: "Daggerfall Covenant", stone: "Lion Fang" },           // Crafting Motif 26
-  { name: "Ebonheart Pact", stone: "Dragon Scute" },             // Crafting Motif 27
-  { name: "Ra Gada", stone: "Ancient Sandmaterial" },            // Crafting Motif 28
-  { name: "Soul-Shriven", stone: "Azure Plasm" },                // Crafting Motif 29
-  { name: "Morag Tong", stone: "Boiled Carapace" },              // Crafting Motif 30
-  { name: "Skinchanger", stone: "Wolfsbane Incense" },           // Crafting Motif 31
-  { name: "Abah's Watch", stone: "Polished Shilling" },          // Crafting Motif 32
-  { name: "Thieves Guild", stone: "Fine Chalk" },                // Crafting Motif 33
-  { name: "Assassins League", stone: "Tainted Blood" },          // Crafting Motif 34
-  { name: "Dro-m’Athra", stone: "Defiled Whiskers" },            // Crafting Motif 35
-  { name: "Dark Brotherhood", stone: "Black Beeswax" },          // Crafting Motif 36
-  { name: "Ebony", stone: "Night Pumice" },                      // Crafting Motif 37
-  { name: "Draugr", stone: "Pristine Shroud" },                  // Crafting Motif 38
-  { name: "Minotaur", stone: "Oxblood Fungus" },                 // Crafting Motif 39
-  { name: "Order Of The Hour", stone: "Pearl Sand" },            // Crafting Motif 40
-  { name: "Celestial", stone: "Star Sapphire" },                 // Crafting Motif 41
-  { name: "Hollowjack", stone: "Amber Marble" },                 // Crafting Motif 42
-  { name: "Grim Harlequin", stone: "Grinstones" },               // Crafting Motif 43
-  { name: "Silken Ring", stone: "Distilled Slowsilver" },        // Crafting Motif 44
-  { name: "Mazzatun", stone: "Leviathan Scrimshaw" },            // Crafting Motif 45
-  { name: "Stalhrim Frostcaster", stone: "Stalhrim Shard" },     // Crafting Motif 46
-  { name: "Buoyant Armiger", stone: "Volcant Viridian" },        // Crafting Motif 47
-  { name: "Ashlander", stone: "Ash Canvas" },                    // Crafting Motif 48
-  { name: "Militant Ordinator", stone: "Lustrous Sphalerite" },  // Crafting Motif 49
-  { name: "Telvanni", stone: "Wrought Ferrofungus" },            // Crafting Motif 50
-  { name: "Hlaalu", stone: "Bonemold Resin" },                   // Crafting Motif 51
-  { name: "Redoran", stone: "Polished Scarab Elytra" },          // Crafting Motif 52
-  { name: "Tsaesci", stone: "Snake Fang" },                      // Crafting Motif 53
-  { name: "Bloodforge", stone: "Bloodroot Flux" },               // Crafting Motif 54
-  { name: "Dreadhorn", stone: "Minotaur Bezoar" },               // Crafting Motif 55
-  { name: "Apostle", stone: "Polished Brass" },                  // Crafting Motif 56
-  { name: "Ebonshadow", stone: "Tenebrous Cord" },               // Crafting Motif 57
-  { name: "Fang Lair", stone: "Dragon Bone" },                   // Crafting Motif 58
-  { name: "Scalecaller", stone: "Infected Flesh" },              // Crafting Motif 59
-  { name: "Worm Cult", stone: "Desecrated Grave Soil" },         // Crafting Motif 60
-  { name: "Psijic", stone: "Vitrified Malondo" },                // Crafting Motif 61
-  { name: "Sapiarch", stone: "Culanda Lacquer" },                // Crafting Motif 62
-  { name: "Dremora", stone: "Warrior's Heart Ashes" },           // Crafting Motif 63
-  { name: "Pyandonean", stone: "Sea Serpent Hide" },             // Crafting Motif 64
-  { name: "Huntsman", stone: "Bloodscent Dew" },                 // Crafting Motif 65
-  { name: "Silver Dawn", stone: "Argent Pelts" },                // Crafting Motif 66
-  { name: "Welkynar", stone: "Gryphon Plume" },                  // Crafting Motif 67
-  { name: "Honor Guard", stone: "Read Diamond Seals" },          // Crafting Motif 68
-  { name: "Dead-Water", stone: "Crocodile Leather" },            // Crafting Motif 69
-  { name: "Elder Argonian", stone: "Hackwing Plumage" },         // Crafting Motif 70
-  { name: "Coldsnap Goblin", stone: "Goblin-cloth Scrap" },      // Crafting Motif 71
-  { name: "Meridian", stone: "Auroran Dust" },                   // Crafting Motif 72
-  { name: "Anequina", stone: "Shimmering Sand" },                // Crafting Motif 73
-  { name: "Pellitine", stone: "Dragonthread" },                  // Crafting Motif 74
-  { name: "Sunspire", stone: "Frost Embers" },                   // Crafting Motif 75
-  { name: "Dragonguard", stone: "Gilding Salts" },               // Crafting Motif 76
-  { name: "Stags of Z'en", stone: "Oath Cord" },                 // Crafting Motif 77
-  { name: "Moongrave Fane", stone: "Blood of Sahrotnax" },       // Crafting Motif 78
-  { name: "Refabricated", stone: "Polished Rivets" },            // Crafting Motif 79
-  { name: "Shield of Senchal", stone: "Carmine Shieldsilk" },    // Crafting Motif 80
-  { name: "New Moon Priest", stone: "Aeonstone Shard" },         // Crafting Motif 81
-  { name: "Icereach Coven", stone: "Fryse Willow" },             // Crafting Motif 82
-  { name: "Pyre Watch", stone: "Consecrated Myrrh" },            // Crafting Motif 83
-  { name: "Blackreach Vanguard", stone: "Gloomspore Chitin" },   // Crafting Motif 84
-  { name: "Greymoor", stone: "Bat Oil" },                        // Crafting Motif 85
-  { name: "Sea Giant", stone: "Sea Serpent Fang" },              // Crafting Motif 86
-  { name: "Ancestral Nord", stone: "Etched Corundum" },          // Crafting Motif 87
-  { name: "Ancestral Orc", stone: "Etched Manganese" },          // Crafting Motif 88
-  { name: "Ancestral High Elf", stone: "Etched Adamantite" },    // Crafting Motif 89
-  { name: "Thorn Legion", stone: "Thorn Sigil" },                // Crafting Motif 90
-  { name: "Hazardous Alchemy", stone: "Viridian Phial" },        // Crafting Motif 91
-  { name: "Ancestral Reach", stone: "Etched Bronze" },           // Crafting Motif 94
-  // { name: "Arkthzand Armory", stone: "Don't know yet" },      // Crafting Motif 96
+  { name: "crafting.mofit.1.altmer",               stone: "crafting.stone.1.altmer"               },
+  { name: "crafting.mofit.2.dunmer",               stone: "crafting.stone.2.dunmer"               },
+  { name: "crafting.mofit.3.bosmer",               stone: "crafting.stone.3.bosmer"               },
+  { name: "crafting.mofit.4.nord",                 stone: "crafting.stone.4.nord"                 },
+  { name: "crafting.mofit.5.breton",               stone: "crafting.stone.5.breton"               },
+  { name: "crafting.mofit.6.redguard",             stone: "crafting.stone.6.redguard"             },
+  { name: "crafting.mofit.7.khajiit",              stone: "crafting.stone.7.khajiit"              },
+  { name: "crafting.mofit.8.orcish",               stone: "crafting.stone.8.orcish"               },
+  { name: "crafting.mofit.9.argonian",             stone: "crafting.stone.9.argonian"             },
+  { name: "crafting.mofit.10.imperial",            stone: "crafting.stone.10.imperial"            },
+  { name: "crafting.mofit.11.ancientElf",          stone: "crafting.stone.11.ancientElf"          },
+  { name: "crafting.mofit.12.barbaric",            stone: "crafting.stone.12.barbaric"            },
+  { name: "crafting.mofit.13.primal",              stone: "crafting.stone.13.primal"              },
+  { name: "crafting.mofit.14.daedric",             stone: "crafting.stone.14.daedric"             },
+  { name: "crafting.mofit.15.dwemer",              stone: "crafting.stone.15.dwemer"              },
+  { name: "crafting.mofit.16.glass",               stone: "crafting.stone.16.glass"               },
+  { name: "crafting.mofit.17.xivkyn",              stone: "crafting.stone.17.xivkyn"              },
+  { name: "crafting.mofit.18.akaviri",             stone: "crafting.stone.18.akaviri"             },
+  { name: "crafting.mofit.19.mercenary",           stone: "crafting.stone.19.mercenary"           },
+  { name: "crafting.mofit.20.yokudan",             stone: "crafting.stone.20.yokudan"             },
+  { name: "crafting.mofit.21.ancientOrc",          stone: "crafting.stone.21.ancientOrc"          },
+  { name: "crafting.mofit.22.trinimac",            stone: "crafting.stone.22.trinimac"            },
+  { name: "crafting.mofit.23.malacath",            stone: "crafting.stone.23.malacath"            },
+  { name: "crafting.mofit.24.outlaw",              stone: "crafting.stone.24.outlaw"              },
+  { name: "crafting.mofit.25.aldmeriDominion",     stone: "crafting.stone.25.aldmeriDominion"     },
+  { name: "crafting.mofit.26.daggerfallCovenant",  stone: "crafting.stone.26.daggerfallCovenant"  },
+  { name: "crafting.mofit.27.ebonheartPact",       stone: "crafting.stone.27.ebonheartPact"       },
+  { name: "crafting.mofit.28.raGada",              stone: "crafting.stone.28.raGada"              },
+  { name: "crafting.mofit.29.soulShriven",         stone: "crafting.stone.29.soulShriven"         },
+  { name: "crafting.mofit.30.moragTong",           stone: "crafting.stone.30.moragTong"           },
+  { name: "crafting.mofit.31.skinchanger",         stone: "crafting.stone.31.skinchanger"         },
+  { name: "crafting.mofit.32.abahsWatch",          stone: "crafting.stone.32.abahsWatch"          },
+  { name: "crafting.mofit.33.thievesGuild",        stone: "crafting.stone.33.thievesGuild"        },
+  { name: "crafting.mofit.34.assassinsLeague",     stone: "crafting.stone.34.assassinsLeague"     },
+  { name: "crafting.mofit.35.dromAthra",           stone: "crafting.stone.35.dromAthra"           },
+  { name: "crafting.mofit.36.darkBrotherhood",     stone: "crafting.stone.36.darkBrotherhood"     },
+  { name: "crafting.mofit.37.ebony",               stone: "crafting.stone.37.ebony"               },
+  { name: "crafting.mofit.38.draugr",              stone: "crafting.stone.38.draugr"              },
+  { name: "crafting.mofit.39.minotaur",            stone: "crafting.stone.39.minotaur"            },
+  { name: "crafting.mofit.40.orderOfTheHour",      stone: "crafting.stone.40.orderOfTheHour"      },
+  { name: "crafting.mofit.41.celestial",           stone: "crafting.stone.41.celestial"           },
+  { name: "crafting.mofit.42.hollowjack",          stone: "crafting.stone.42.hollowjack"          },
+  { name: "crafting.mofit.43.grimHarlequin",       stone: "crafting.stone.43.grimHarlequin"       },
+  { name: "crafting.mofit.44.silkenRing",          stone: "crafting.stone.44.silkenRing"          },
+  { name: "crafting.mofit.45.mazzatun",            stone: "crafting.stone.45.mazzatun"            },
+  { name: "crafting.mofit.46.stalhrimFrostcaster", stone: "crafting.stone.46.stalhrimFrostcaster" },
+  { name: "crafting.mofit.47.buoyantArmiger",      stone: "crafting.stone.47.buoyantArmiger"      },
+  { name: "crafting.mofit.48.ashlander",           stone: "crafting.stone.48.ashlander"           },
+  { name: "crafting.mofit.49.militantOrdonnateur", stone: "crafting.stone.49.militantOrdonnateur" },
+  { name: "crafting.mofit.50.telvanni",            stone: "crafting.stone.50.telvanni"            },
+  { name: "crafting.mofit.51.hlaalu",              stone: "crafting.stone.51.hlaalu"              },
+  { name: "crafting.mofit.52.redoran",             stone: "crafting.stone.52.redoran"             },
+  { name: "crafting.mofit.53.tsaesci",             stone: "crafting.stone.53.tsaesci"             },
+  { name: "crafting.mofit.54.bloodforge",          stone: "crafting.stone.54.bloodforge"          },
+  { name: "crafting.mofit.55.dreadhorn",           stone: "crafting.stone.55.dreadhorn"           },
+  { name: "crafting.mofit.56.apostle",             stone: "crafting.stone.56.apostle"             },
+  { name: "crafting.mofit.57.ebonshadow",          stone: "crafting.stone.57.ebonshadow"          },
+  { name: "crafting.mofit.58.fangLair",            stone: "crafting.stone.58.fangLair"            },
+  { name: "crafting.mofit.59.scalecaller",         stone: "crafting.stone.59.scalecaller"         },
+  { name: "crafting.mofit.60.wormCult",            stone: "crafting.stone.60.wormCult"            },
+  { name: "crafting.mofit.61.psijic",              stone: "crafting.stone.61.psijic"              },
+  { name: "crafting.mofit.62.sapiarch",            stone: "crafting.stone.62.sapiarch"            },
+  { name: "crafting.mofit.63.dremora",             stone: "crafting.stone.63.dremora"             },
+  { name: "crafting.mofit.64.pyandonean",          stone: "crafting.stone.64.pyandonean"          },
+  { name: "crafting.mofit.65.huntsman",            stone: "crafting.stone.65.huntsman"            },
+  { name: "crafting.mofit.66.silverDawn",          stone: "crafting.stone.66.silverDawn"          },
+  { name: "crafting.mofit.67.welkynar",            stone: "crafting.stone.67.welkynar"            },
+  { name: "crafting.mofit.68.honorGuard",          stone: "crafting.stone.68.honorGuard"          },
+  { name: "crafting.mofit.69.deadWater",           stone: "crafting.stone.69.deadWater"           },
+  { name: "crafting.mofit.70.elderArgonian",       stone: "crafting.stone.70.elderArgonian"       },
+  { name: "crafting.mofit.71.coldsnapGoblin",      stone: "crafting.stone.71.coldsnapGoblin"      },
+  { name: "crafting.mofit.72.meridian",            stone: "crafting.stone.72.meridian"            },
+  { name: "crafting.mofit.73.anequina",            stone: "crafting.stone.73.anequina"            },
+  { name: "crafting.mofit.74.pellitine",           stone: "crafting.stone.74.pellitine"           },
+  { name: "crafting.mofit.75.sunspire",            stone: "crafting.stone.75.sunspire"            },
+  { name: "crafting.mofit.76.dragonguard",         stone: "crafting.stone.76.dragonguard"         },
+  { name: "crafting.mofit.77.stagesOfZen",         stone: "crafting.stone.77.stagesOfZen"         },
+  { name: "crafting.mofit.78.moongraveFane",       stone: "crafting.stone.78.moongraveFane"       },
+  { name: "crafting.mofit.79.refabricated",        stone: "crafting.stone.79.refabricated"        },
+  { name: "crafting.mofit.80.shieldOfSenchal",     stone: "crafting.stone.80.shieldOfSenchal"     },
+  { name: "crafting.mofit.81.newMoonPriest",       stone: "crafting.stone.81.newMoonPriest"       },
+  { name: "crafting.mofit.82.icereachCoven",       stone: "crafting.stone.82.icereachCoven"       },
+  { name: "crafting.mofit.83.pyreWatch",           stone: "crafting.stone.83.pyreWatch"           },
+  { name: "crafting.mofit.84.blackreachVanguard",  stone: "crafting.stone.84.blackreachVanguard"  },
+  { name: "crafting.mofit.85.greymoor",            stone: "crafting.stone.85.greymoor"            },
+  { name: "crafting.mofit.86.seaGiant",            stone: "crafting.stone.86.seaGiant"            },
+  { name: "crafting.mofit.87.ancestralNord",       stone: "crafting.stone.87.ancestralNord"       },
+  { name: "crafting.mofit.88.ancestralOrc",        stone: "crafting.stone.88.ancestralOrc"        },
+  { name: "crafting.mofit.89.ancestralHighElf",    stone: "crafting.stone.89.ancestralHighElf"    },
+  { name: "crafting.mofit.90.thornLegion",         stone: "crafting.stone.90.thornLegion"         },
+  { name: "crafting.mofit.91.hazardousAlchemy",    stone: "crafting.stone.91.hazardousAlchemy"    },
+  { name: "crafting.mofit.94.ancestralReach",      stone: "crafting.stone.94.ancestralReach"      },
+  // { name: "crafting.mofit.96.arkthzandArmory", stone: "crafting.stone.96.arkthzandArmory" },
 ];
 
-export default [
-  { value: 'No Preference', stone: 'Any Style Stone', label: 'No Preference', color: '#fcb935', isFixed: true }
+export const rawMotifs = [
+  { value: 'style.none', stone: 'stone.any', label: 'style.none', color: '#fcb935', isFixed: true }
 ].concat(
-  styles.sort((a, b) => (a.name > b.name) ? 1 : -1)
+  styles.map(style => ({ value: style.name, stone: style.stone, label: style.name, color: '#2DC50E', isFixed: true }))
+)
+
+const sortedMotifs = (intl) => [
+  { value: 'style.none', stone: 'stone.any', label: 'style.none', color: '#fcb935', isFixed: true }
+].concat(
+  styles.sort((a, b) => (intl.formatMessage({ id: a.name }) > intl.formatMessage({ id: b.name })) ? 1 : -1)
   .map(style => ({ value: style.name, stone: style.stone, label: style.name, color: '#2DC50E', isFixed: true }))
 )
+
+export default sortedMotifs;

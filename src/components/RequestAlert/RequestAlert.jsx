@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { useIntl } from 'react-intl';
 import { IconButton, Snackbar, SnackbarContent, Typography } from '@material-ui/core';
 import { green, red } from '@material-ui/core/colors';
 import CloseIcon from '@material-ui/icons/Close';
@@ -19,9 +20,10 @@ const RequestAlert = ({
   reset,
   retry
 }) => {
+  const intl = useIntl();
   const [snackbarOpen, setSnackbarOpen] = React.useState(false);
   const [backgroundColor, setBackgroundColor] = React.useState(green[600]);
-  const [message, setMessage] = React.useState('Your request was sent to discord.');
+  const [message, setMessage] = React.useState(intl.formatMessage({ id: 'alert.success' }));
 
   React.useEffect(() => {
     if (isSuccessful || isFailed) {
@@ -29,17 +31,17 @@ const RequestAlert = ({
 
       if(isSuccessful) {
         setBackgroundColor(green[600]);
-        setMessage('Your request was sent to discord.');
+        setMessage(intl.formatMessage({ id: 'alert.success' }));
       }
 
       if(isFailed) {
         setBackgroundColor(red[600]);
-        setMessage('Failed to send request, please try again. If the problem persists, contact @JukesMcGee on discord.');
+        setMessage(intl.formatMessage({ id: 'alert.failure' }));
       }
     } else {
       setSnackbarOpen(false);
     }
-  }, [isSuccessful, isFailed])
+  }, [isSuccessful, isFailed, intl])
 
   const onClose = () => {
     setSnackbarOpen(false);

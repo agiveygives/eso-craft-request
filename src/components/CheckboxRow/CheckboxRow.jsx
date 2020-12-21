@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { useIntl } from 'react-intl';
 import { makeStyles } from '@material-ui/core/styles';
 import { FormControl, FormGroup, FormControlLabel, Switch, Typography } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
@@ -36,41 +37,47 @@ const useStyles = makeStyles(theme => ({
 
 const CheckboxRow = ({ id, selectedPieces, updatePieces }) => {
   const classes = useStyles();
+  const intl = useIntl();
 
   const armorBoxes = [
-    { id: 'head', label: 'Head' },
-    { id: 'shoulder', label: 'Shoulder' },
-    { id: 'chest', label: 'Chest' },
-    { id: 'legs', label: 'Legs' },
-    { id: 'waist', label: 'Waist' },
-    { id: 'hands', label: 'Hands' },
-    { id: 'feet', label: 'Feet' }
+    { id: 'head', label: intl.formatMessage({ id: 'gear.armor.head' }) },
+    { id: 'shoulder', label: intl.formatMessage({ id: 'gear.armor.shoulder' }) },
+    { id: 'chest', label: intl.formatMessage({ id: 'gear.armor.chest' }) },
+    { id: 'legs', label: intl.formatMessage({ id: 'gear.armor.legs' }) },
+    { id: 'waist', label: intl.formatMessage({ id: 'gear.armor.waist' }) },
+    { id: 'hands', label: intl.formatMessage({ id: 'gear.armor.hands' }) },
+    { id: 'feet', label: intl.formatMessage({ id: 'gear.armor.feet' }) }
   ]
   const jewelryBoxes = [
-    { id: 'necklace', label: 'Necklace' },
-    { id: 'ring1', label: 'Ring' },
-    { id: 'ring2', label: 'Ring' }
+    { id: 'necklace', label: intl.formatMessage({ id: 'gear.jewelry.necklace' }) },
+    { id: 'ring1', label: intl.formatMessage({ id: 'gear.jewelry.ring' }) },
+    { id: 'ring2', label: intl.formatMessage({ id: 'gear.jewelry.ring' }) }
   ]
   const weaponBoxes = [
-    { id: 'primary1', label: 'Primary' },
-    { id: 'secondary1', label: 'Secondary' },
-    { id: 'primary2', label: 'Primary' },
-    { id: 'secondary2', label: 'Secondary' }
+    { id: 'primary1', label: intl.formatMessage({ id: 'gear.weapon.primary' }) },
+    { id: 'secondary1', label: intl.formatMessage({ id: 'gear.weapon.secondary' }) },
+    { id: 'primary2', label: intl.formatMessage({ id: 'gear.weapon.primary' }) },
+    { id: 'secondary2', label: intl.formatMessage({ id: 'gear.weapon.secondary' }) }
   ]
   let checkboxes;
+  let sectionHeader;
 
   switch(id) {
     case 'armor':
       checkboxes = armorBoxes;
+      sectionHeader = intl.formatMessage({ id: 'gear.armor.sectionHeader' });
       break;
     case 'jewelry':
       checkboxes = jewelryBoxes;
+      sectionHeader = intl.formatMessage({ id: 'gear.jewelry.sectionHeader' });
       break;
     case 'weapon':
       checkboxes = weaponBoxes;
+      sectionHeader = intl.formatMessage({ id: 'gear.weapon.sectionHeader' });
       break;
     default:
       checkboxes = [];
+      sectionHeader = "";
       break;
   }
 
@@ -102,7 +109,7 @@ const CheckboxRow = ({ id, selectedPieces, updatePieces }) => {
     <span className={classes.spacer}>
       <div className="centered-div">
         <Typography variant='h5' gutterBottom>
-          Select Your {id.charAt(0).toUpperCase() + id.slice(1)}
+          {sectionHeader}
         </Typography>
       </div>
       <div className="centered-div">

@@ -1,4 +1,5 @@
 import React from 'react';
+import { useIntl } from 'react-intl';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { makeStyles } from '@material-ui/core/styles';
@@ -16,9 +17,6 @@ import Slide from '@material-ui/core/Slide';
 const propTypes = {
   // from redux
   termsOpen: PropTypes.bool.isRequired,
-  acceptTerms: PropTypes.func.isRequired,
-  guildName: PropTypes.string.isRequired,
-  guildMnemonic: PropTypes.string.isRequired,
 };
 
 const Transition = React.forwardRef(function Transition(props, ref) {
@@ -37,47 +35,9 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const TermsOfUse = ({ termsOpen, acceptTerms, guildName, guildMnemonic }) => {
+const TermsOfUse = ({ termsOpen, acceptTerms }) => {
   const classes = useStyles();
-  const [ToUMessage, setToUMessage] = React.useState(
-    <React.Fragment>
-      <div className='centered-div'>
-        <h4>General</h4>
-        <p>1.    Upon submitting your request, <strong>a guild-approved master crafter will contact you with a list of mats required</strong> (or a gold price if you’ve indicated that you’re paying with gold). Your gear will not be crafted or delivered until you have provided the mats or gold required, so be prepared to provide the necessary items.</p>
-        <p>2.    <strong>This app is not intended for research items</strong>. If you need items to research, please ask in guild chat.</p>
-      </div>
-
-      <div className='centered-div'>
-        <h4>Terms of Use</h4>
-        <p>1.    Please <strong>be patient</strong> and treat your crafters with respect. They have volunteered their time to help you and the guild, and are under no obligation to do so.</p>
-        <p>{`2.    This guild service is provided by ${guildName} members for other ${guildName} members. DO NOT use this app to request gear for people who are not a member of this guild.`}</p>
-      </div>
-
-      <div className="centered-div">
-        <h5>By accepting these terms and using the Crafting Request App, you agree to these terms, and failure to follow them will result in you being banned from this service for an undetermined amount of time</h5>
-      </div>
-    </React.Fragment>
-  );
-
-  React.useEffect(() => {
-    if(guildMnemonic === 'demo') {
-      setToUMessage(
-        <div className='centered-div'>
-          <div className='centered-div'>
-            <h2>Notice</h2>
-          </div>
-          <div style={{textAlign: 'center'}}>
-            <h2 style={{color:'red'}}>This is a demo. </h2>
-            <h4>The requests submitted through this will not be fulfilled by any crafter.</h4>
-            <h4>To view requests sent, join the <a href="https://discord.gg/3SFgtcA" target="_blank" rel="noopener noreferrer">ESO Craft Request Demo</a> discord server.</h4>
-            <h4>If you're trying to submit a craft request to your guild, please contact your guild leaders for the correct url.</h4>
-            <h4>If you want to use this for your guild, please submit an <a href="https://github.com/agiveygives/eso-craft-request/issues/new?assignees=agiveygives&labels=onboarding&template=onboarding-request.md&title=%5BONBOARDING%5D" target="_blank" rel="noopener noreferrer">Onboarding Request</a> on github.</h4>
-            <h4>Any questions can be directed to the <a href="https://discord.gg/uEyzbrE" target="_blank" rel="noopener noreferrer">#questions</a> channel on the discord server or to JukesMcGee#4228 on Discord.</h4>
-          </div>
-        </div>
-      )
-    }
-  }, [guildMnemonic])
+  const intl = useIntl();
 
   return (
     <Dialog
@@ -90,12 +50,49 @@ const TermsOfUse = ({ termsOpen, acceptTerms, guildName, guildMnemonic }) => {
       onClose={() => acceptTerms(false)}
     >
       <DialogTitle id="terms-of-use-dialog-title">
-        Read This!
+        {intl.formatMessage({ id: 'tou.title' })}
       </DialogTitle>
       <DialogContent>
         <div className="centered-div">
           <Image src='../../images/raised_hand.png' style={{ padding: '5em' }} />
-          {ToUMessage}
+          <div className='centered-div'>
+            <div className='centered-div'>
+              <h2>{intl.formatMessage({ id: 'tou.header' })}</h2>
+            </div>
+            <div style={{textAlign: 'center'}}>
+              <h2 style={{color:'red'}}>{intl.formatMessage({ id: 'tou.demo' })}</h2>
+              <h4>{intl.formatMessage({ id: 'tou.line1' })}</h4>
+              <h4>{
+                intl.formatMessage(
+                  { id: 'tou.line2' },
+                  { discordInvite: (
+                      <a href="https://discord.gg/3SFgtcA" target="_blank" rel="noopener noreferrer">ESO Craft Request Demo</a>
+                    )
+                  }
+                )
+              }</h4>
+              <h4>{intl.formatMessage({ id: 'tou.line3' })}</h4>
+              <h4>{
+                intl.formatMessage(
+                  { id: 'tou.line4' },
+                  { onboardingLink: (
+                      <a href="https://github.com/agiveygives/eso-craft-request/issues/new?assignees=agiveygives&labels=onboarding&template=onboarding-request.md&title=%5BONBOARDING%5D" target="_blank" rel="noopener noreferrer">Onboarding Request</a>
+                    )
+                  }
+                )
+              }</h4>
+
+              <h4>{
+                intl.formatMessage(
+                  { id: 'tou.line5' },
+                  { questionsLink: (
+                    <a href="https://discord.gg/uEyzbrE" target="_blank" rel="noopener noreferrer">#questions</a>
+                    )
+                  }
+                )
+              }</h4>
+            </div>
+          </div>
         </div>
       </DialogContent>
       <DialogActions>
@@ -109,7 +106,7 @@ const TermsOfUse = ({ termsOpen, acceptTerms, guildName, guildMnemonic }) => {
             className={classes.buttonMargin}
           >
             <ThumbsUp className={classes.iconMargin} />
-            Accept
+            {intl.formatMessage({ id: 'tou.accept' })}
           </Fab>
           <Fab
             variant="extended"
@@ -120,7 +117,7 @@ const TermsOfUse = ({ termsOpen, acceptTerms, guildName, guildMnemonic }) => {
             className={classes.buttonMargin}
           >
             <ThumbsDown className={classes.iconMargin} />
-            Decline
+            {intl.formatMessage({ id: 'tou.decline' })}
           </Fab>
         </div>
       </DialogActions>
@@ -132,8 +129,6 @@ TermsOfUse.propTypes = propTypes;
 
 const mapStateToProps = state => ({
   termsOpen: state.termsOpen,
-  guildName: state.guildData.name,
-  guildMnemonic: state.guildMnemonic,
 });
 
 const mapDispatchToProps = dispatch => ({

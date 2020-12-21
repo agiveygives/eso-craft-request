@@ -4,7 +4,7 @@ import utils from './utils';
 import { armorTraits, armorGlyphs } from '../constants/armorOptions';
 import { weaponTraits, weaponGlyphs } from '../constants/weaponOptions';
 import { jewelryTraits, jewelryGlyphs } from '../constants/jewelryOptions';
-import styleOptions from '../constants/styleOptions';
+import { rawMotifs } from '../constants/styleOptions';
 import { additivePotencyRunes, subtractivePotencyRunes } from '../constants/glyphMats';
 import craftableLevels from '../constants/craftableLevels';
 
@@ -32,7 +32,7 @@ const reducer = (state = initialState, action) => {
         newState.armorPieces,
         newState.styles,
         newState.armorAttributes,
-        styleOptions,
+        rawMotifs,
         'Style',
         action
       );
@@ -106,7 +106,7 @@ const reducer = (state = initialState, action) => {
         newState.weaponPieces,
         newState.styles,
         newState.weaponAttributes,
-        styleOptions,
+        rawMotifs,
         'Style',
         action
       );

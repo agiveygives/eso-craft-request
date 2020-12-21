@@ -1,4 +1,5 @@
 import React from 'react';
+import { useIntl } from 'react-intl';
 import PropTypes from 'prop-types';
 import clsx from 'clsx';
 import { connect } from 'react-redux';
@@ -16,6 +17,7 @@ import Confirmation from '../components/Confirmation/Confirmation';
 import RequestAlert from '../components/RequestAlert/RequestAlert';
 import MatsDrawer from '../components/MatsDrawer/MatsDrawer'
 import RequestNotes from '../components/RequestNotes';
+import { TERMS_RESPONSE } from '../store/constants';
 
 const drawerWidth = '20%'
 
@@ -53,28 +55,43 @@ const useStyles = makeStyles(theme => ({
   },
 }))
 
-const CraftRequest = ({ termsAccepted }) => {
+const CraftRequest = ({ termsAccepted, guildMnemonic, acceptTerms }) => {
+  const intl = useIntl();
   const pageRef = React.useRef(null);
   const classes = useStyles();
   const [matsDrawerOpen, setMatsDrawerOpen] = React.useState(false);
+
+  React.useEffect(() => {
+    if (guildMnemonic !== 'demo') acceptTerms(true);
+  }, [guildMnemonic, acceptTerms])
 
   return (
     <ContentContainer
       className={clsx(classes.appStyle, {[classes.shift]: matsDrawerOpen})}
       fill
       header={
-        <AppHeader title="ESO Craft Request" matsDrawerOpen={matsDrawerOpen} toggleMatsDrawer={setMatsDrawerOpen} />
+        <AppHeader
+          title={intl.formatMessage({ id: 'AppName' })}
+          matsDrawerOpen={matsDrawerOpen}
+          toggleMatsDrawer={setMatsDrawerOpen}
+        />
       }
       footer={<AppFooter ref={pageRef} />}
     >
       <RequestAlert />
-      <TermsOfUse />
+      {guildMnemonic === 'demo' ? <TermsOfUse /> : <></>}
       <Confirmation />
       <div className={clsx(classes.appStyle, (!termsAccepted && classes.disabled))}>
         <span className={classes.wrapper}>
           <div className="centered-div">
-            <FormInput label="ESO Username" helpText="example: @JukesMcGee" />
-            <LevelSlider label="Select Armor Level" craftableLevels />
+            <FormInput
+              label={intl.formatMessage({ id: 'user.username' })}
+              helpText={intl.formatMessage({ id: 'user.usernameExample' })}
+            />
+            <LevelSlider
+              label={intl.formatMessage({ id: 'user.levelSliderLabel' })}
+              craftableLevels
+            />
           </div>
           <PaymentOption />
           <RequestNotes />
@@ -91,7 +108,12 @@ const CraftRequest = ({ termsAccepted }) => {
 CraftRequest.propTypes = propTypes;
 
 const mapStateToProps = state => ({
-  termsAccepted: state.termsAccepted
+  termsAccepted: state.termsAccepted,
+  guildMnemonic: state.guildMnemonic,
 });
 
-export default connect(mapStateToProps)(CraftRequest);
+const mapDispatchToProps = dispatch => ({
+  acceptTerms: response => dispatch({ type: TERMS_RESPONSE, response })
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(CraftRequest);
