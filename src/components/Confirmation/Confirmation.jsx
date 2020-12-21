@@ -68,7 +68,7 @@ const Confirmation = ({ currentState, sendMessage, closeReview }) => {
         <React.Fragment>
           <TableRow>
             <TableCell className={classes.subheader} key={`${attributes.display}_subheader`} align='center' colSpan={3}>
-              {attributes.display}
+              {intl.formatMessage({ id: attributes.display})}
             </TableCell>
           </TableRow>
           {selected.map(piece => (
@@ -77,14 +77,14 @@ const Confirmation = ({ currentState, sendMessage, closeReview }) => {
                   let tableRow;
                   var pieceLabel = attribute === 'Quality' ? attributes[piece]['display'] : ''
 
-                  if (attribute === 'Glyph Quality' && attributes[piece].Glyph === 'None') {
+                  if (attribute === 'Glyph Quality' && attributes[piece].Glyph === 'common.none') {
                     tableRow = null;
                   } else {
                     tableRow = (
                       <TableRow key={`${piece}-${attribute}-row`}>
-                        <TableCell key={`${piece}-${attribute}-piece`}>{pieceLabel}</TableCell>
-                        <TableCell key={`${piece}-${attribute}-attribute`}>{attribute}</TableCell>
-                        <TableCell key={`${piece}-${attribute}-input`}>{attributes[piece][attribute]}</TableCell>
+                        <TableCell key={`${piece}-${attribute}-piece`}>{pieceLabel ? intl.formatMessage({ id: pieceLabel }) : undefined}</TableCell>
+                        <TableCell key={`${piece}-${attribute}-attribute`}>{attribute ? intl.formatMessage({ id: attribute }) : undefined}</TableCell>
+                        <TableCell key={`${piece}-${attribute}-input`}>{attributes[piece][attribute] ? intl.formatMessage({ id: attributes[piece][attribute] }) : undefined}</TableCell>
                       </TableRow>
                     );
                   }
@@ -136,7 +136,7 @@ const Confirmation = ({ currentState, sendMessage, closeReview }) => {
               </TableRow>
               <TableRow key="payment_option">
                 <TableCell key="payment_label" colSpan={2}>{intl.formatMessage({ id: 'confirmation.payment' })}</TableCell>
-                <TableCell key="payment">{payment}</TableCell>
+                <TableCell key="payment">{intl.formatMessage({ id: payment })}</TableCell>
               </TableRow>
               {pieceRows(armorPieces, armorAttributes)}
               {pieceRows(jewelryPieces, jewelryAttributes)}
@@ -152,7 +152,7 @@ const Confirmation = ({ currentState, sendMessage, closeReview }) => {
             size="medium"
             style={{ backgroundColor: '#27a745' }}
             aria-label="confirm"
-            onClick={() => sendMessage(currentState)}
+            onClick={() => sendMessage(currentState, intl)}
             className={classes.buttonMargin}
           >
             <ThumbsUp className={classes.iconMargin} />
@@ -181,7 +181,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  sendMessage: currentState => sendRequest(currentState)(dispatch),
+  sendMessage: (currentState, intl) => sendRequest(currentState, intl)(dispatch),
   closeReview: () => dispatch({ type: TOGGLE_REVIEW, show: false })
 });
 

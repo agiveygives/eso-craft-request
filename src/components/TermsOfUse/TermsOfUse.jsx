@@ -17,9 +17,6 @@ import Slide from '@material-ui/core/Slide';
 const propTypes = {
   // from redux
   termsOpen: PropTypes.bool.isRequired,
-  acceptTerms: PropTypes.func.isRequired,
-  guildName: PropTypes.string.isRequired,
-  guildMnemonic: PropTypes.string.isRequired,
 };
 
 const Transition = React.forwardRef(function Transition(props, ref) {

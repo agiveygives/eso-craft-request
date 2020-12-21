@@ -13,9 +13,6 @@ import { UPDATE_PAYMENT_TYPE } from '../../store/constants';
 import Utils from '../../utils';
 
 const propTypes = {
-  options: PropTypes.arrayOf(PropTypes.string).isRequired,
-
-  // from redux
   paymentType: PropTypes.string.isRequired,
   updatePaymentOption: PropTypes.func.isRequired
 };
@@ -36,8 +33,8 @@ const styles = createStyles({
 const PaymentOption = ({ paymentType, updatePaymentOption }) => {
   const intl = useIntl();
   const paymentOptions = [
-    intl.formatMessage({ id: 'user.payment.materials' }),
-    intl.formatMessage({ id: 'user.payment.gold' }),
+    'user.payment.materials',
+    'user.payment.gold',
   ]
 
   return (
@@ -53,7 +50,7 @@ const PaymentOption = ({ paymentType, updatePaymentOption }) => {
             value={paymentType}
             onChange={event => updatePaymentOption(event.target.value)}
           >
-            {paymentOptions.map(Utils.generateSelectOptions)}
+            {paymentOptions.map(option => Utils.generateSelectOptions(option, `Payment Option - ${option}`, {}, intl))}
           </Select>
         </Tooltip>
       </span>

@@ -38,54 +38,54 @@ const calculateItemMats = (level, gearType, weight, piece) => {
     itemMats.count = countList[matIndex][levelIndex];
   }
 
-  switch(gearType.toLowerCase()) {
-    case 'chest':
+  switch(gearType) {
+    case 'gear.armor.chest':
       initialAmount = 7;
       maxLevelStart = 15;
       getEquipmentMat(equipmentMats, weight);
       break;
-    case 'legs':
+    case 'gear.armor.legs':
       initialAmount = 6;
       maxLevelStart = 14;
       getEquipmentMat(equipmentMats, weight);
       break;
-    case 'shield':
+    case 'gear.weapon.shield':
       initialAmount = 6;
       maxLevelStart = 14;
       getEquipmentMat(equipmentMats, 'wood');
       break;
-    case 'greatsword':
-    case 'battle axe':
-    case 'maul':
+    case 'gear.weapon.greatsword':
+    case 'gear.weapon.battleAxe':
+    case 'gear.weapon.maul':
       initialAmount = 5;
       maxLevelStart = 14;
       getEquipmentMat(equipmentMats, 'Heavy');
       break;
-    case 'inferno staff':
-    case 'frost staff':
-    case 'lightning staff':
-    case 'restoration staff':
-    case 'bow':
+    case 'gear.weapon.infernoStaff':
+    case 'gear.weapon.frostStaff':
+    case 'gear.weapon.lightningStaff':
+    case 'gear.weapon.restorationStaff':
+    case 'gear.weapon.bow':
       initialAmount = 3;
       maxLevelStart = 12;
       getEquipmentMat(equipmentMats, 'wood')
       break;
-    case 'axe':
-    case 'mace':
-    case 'sword':
+    case 'gear.weapon.axe':
+    case 'gear.weapon.mace':
+    case 'gear.weapon.sword':
       initialAmount = 3;
       maxLevelStart = 11;
       getEquipmentMat(equipmentMats, 'Heavy');
       break;
-    case 'dagger':
+    case 'gear.weapon.dagger':
       initialAmount = 2;
       maxLevelStart = 10;
       getEquipmentMat(equipmentMats, 'Heavy');
       break;
-    case 'ring':
+    case 'gear.jewelry.ring':
       getJewelryMat(ringMatCounts);
       break;
-    case 'necklace':
+    case 'gear.jewelry.necklace':
       getJewelryMat(necklaceMatCounts);
       break;
     default:
@@ -101,7 +101,7 @@ const updateMats = (stateMats, stateAttributes, gearLevel, action) => {
     ? action.value
     : stateAttributes[action.piece].Weight;
 
-  const gearType = (stateAttributes.display === 'Weapons')
+  const gearType = (stateAttributes.display === 'gear.weapons')
     ? stateAttributes[action.piece].Weapon
     : stateAttributes[action.piece].display
 
@@ -188,11 +188,11 @@ const updateStones = (stateStones, requestPiece, stone) => {
       stone
     };
 
-    if (stoneIndex >= 0 && stone === 'none') {
+    if (stoneIndex >= 0 && stone === 'common.none') {
       stateStones.splice(stoneIndex, 1);
     } else if (stoneIndex >= 0) {
       stateStones[stoneIndex] = newStone;
-    } else if (stone !== 'none') {
+    } else if (stone !== 'common.none') {
       stateStones.push(newStone);
     }
 

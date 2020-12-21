@@ -37,11 +37,11 @@ export const subtractivePotencyRunes = [
 ];
 
 export const aspectRunes = [
-  { name: 'Ta', quality: 'Normal' },
-  { name: 'Jejera', quality: 'Fine' },
-  { name: 'Denara', quality: 'Superior' },
-  { name: 'Rekuta', quality: 'Epic' },
-  { name: 'Kuta', quality: 'Legendary' }
+  { name: 'Ta', quality: 'quality.normal' },
+  { name: 'Jejera', quality: 'quality.fine' },
+  { name: 'Denara', quality: 'quality.superior' },
+  { name: 'Rekuta', quality: 'quality.epic' },
+  { name: 'Kuta', quality: 'quality.legendary' }
 ]
 
 

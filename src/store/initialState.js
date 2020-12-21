@@ -1,5 +1,5 @@
 const initialState = {
-  locale: 'en',
+  locale: 'en-US',
   guildMnemonic: '',
   guildRequestCode: '',
   guildData: {},
@@ -11,16 +11,16 @@ const initialState = {
   lastMessage: '',
   esoName: '',
   levelSliderValue: 0,
-  payment: 'Materials',
+  payment: 'user.payment.materials',
   gearLevel: '1',
   notes: '',
   armorPieces: [],
   jewelryPieces: [],
   weaponPieces: [],
   armorAttributes: {
-    display: 'Armor',
+    display: 'gear.armor',
     head: {
-      display: 'Head',
+      display: 'gear.armor.head',
       Quality: '',
       Weight: '',
       Trait: '',
@@ -30,7 +30,7 @@ const initialState = {
       Style: ''
     },
     shoulder: {
-      display: 'Shoulder',
+      display: 'gear.armor.shoulder',
       Quality: '',
       Weight: '',
       Trait: '',
@@ -40,7 +40,7 @@ const initialState = {
       Style: ''
     },
     chest: {
-      display: 'Chest',
+      display: 'gear.armor.chest',
       Quality: '',
       Weight: '',
       Trait: '',
@@ -50,7 +50,7 @@ const initialState = {
       Style: ''
     },
     legs: {
-      display: 'Legs',
+      display: 'gear.armor.legs',
       Quality: '',
       Weight: '',
       Trait: '',
@@ -60,7 +60,7 @@ const initialState = {
       Style: ''
     },
     waist: {
-      display: 'Waist',
+      display: 'gear.armor.waist',
       Quality: '',
       Weight: '',
       Trait: '',
@@ -70,7 +70,7 @@ const initialState = {
       Style: ''
     },
     hands: {
-      display: 'Hands',
+      display: 'gear.armor.hands',
       Quality: '',
       Weight: '',
       Trait: '',
@@ -80,7 +80,7 @@ const initialState = {
       Style: ''
     },
     feet: {
-      display: 'Feet',
+      display: 'gear.armor.feet',
       Quality: '',
       Weight: '',
       Trait: '',
@@ -91,9 +91,9 @@ const initialState = {
     }
   },
   jewelryAttributes: {
-    display: 'Jewelry',
+    display: 'gear.jewelry',
     necklace: {
-      display: 'Necklace',
+      display: 'gear.jewelry.necklace',
       Quality: '',
       Trait: '',
       Glyph: '',
@@ -101,7 +101,7 @@ const initialState = {
       Set: ''
     },
     ring1: {
-      display: 'Ring',
+      display: 'gear.jewelry.ring',
       Quality: '',
       Trait: '',
       Glyph: '',
@@ -109,7 +109,7 @@ const initialState = {
       Set: ''
     },
     ring2: {
-      display: 'Ring',
+      display: 'gear.jewelry.ring',
       Quality: '',
       Trait: '',
       Glyph: '',
@@ -118,9 +118,9 @@ const initialState = {
     }
   },
   weaponAttributes: {
-    display: 'Weapons',
+    display: 'gear.weapons',
     primary1: {
-      display: 'Primary Weapon',
+      display: 'gear.weapon.primary.display',
       Quality: '',
       Weapon: '',
       Trait: '',
@@ -130,7 +130,7 @@ const initialState = {
       Style: ''
     },
     secondary1: {
-      display: 'Secondary Weapon',
+      display: 'gear.weapon.secondary.display',
       Quality: '',
       Weapon: '',
       Trait: '',
@@ -140,7 +140,7 @@ const initialState = {
       Style: ''
     },
     primary2: {
-      display: 'Primary Weapon',
+      display: 'gear.weapon.primary.display',
       Quality: '',
       Weapon: '',
       Trait: '',
@@ -150,7 +150,7 @@ const initialState = {
       Style: ''
     },
     secondary2: {
-      display: 'Secondary Weapon',
+      display: 'gear.weapon.secondary.display',
       Quality: '',
       Weapon: '',
       Trait: '',

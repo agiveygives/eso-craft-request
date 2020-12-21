@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { TOGGLE_REVIEW, SUCCESSFUL_REQUEST, FAILED_REQUEST, SET_GUILD_DATA, SET_GUILD_REQUEST_CODE } from './constants.js';
+import English from '../i18n/en-US.json';
 
 export const getGuildData = (guildMemonic) => dispatch => {
   axios.get(`https://us-central1-eso-craft-request.cloudfunctions.net/api/guilds?mnemonic=${guildMemonic}`)
@@ -24,7 +25,8 @@ export const getGuildData = (guildMemonic) => dispatch => {
           "colors": {
               "header": "#FFFFFF",
               "footer": "#000000"
-          }
+          },
+          "locale": "en-US",
         }
       });
 
@@ -32,7 +34,7 @@ export const getGuildData = (guildMemonic) => dispatch => {
     })
 }
 
-export const sendRequest = (currentState) => dispatch => {
+export const sendRequest = (currentState, intl) => dispatch => {
   const {
     guildData,
     esoName,
@@ -60,19 +62,21 @@ export const sendRequest = (currentState) => dispatch => {
     let returnVal = '';
 
     if (selected.length) {
-      returnVal = `\n__${attributes.display}__`;
-      requestLog[attributes.display.toLowerCase()] = {};
+      returnVal = `\n__${intl.formatMessage({ id: attributes.display })}__`;
+
+      const attributeGearKey = English[attributes.display].toLowerCase();
+      requestLog[attributeGearKey] = {};
 
       selected.forEach(piece => {
-        returnVal += `\n**${attributes[piece].display}**`
-        requestLog[attributes.display.toLowerCase()][piece] = attributes[piece];
+        returnVal += `\n**${intl.formatMessage({ id: attributes[piece].display })}**`
+        requestLog[attributeGearKey][piece] = attributes[piece];
 
         for (let attribute in attributes[piece]) {
           if (attribute !== 'display' && attribute !== 'Glyph Quality') {
             if (attribute === 'Glyph') {
-              returnVal += ` | ${attributes[piece][attribute] + (attributes[piece].Glyph === 'None' ? '' : ` - ${attributes[piece]['Glyph Quality']}`)}`;
+              returnVal += ` | ${intl.formatMessage({ id: attributes[piece][attribute] }) + (attributes[piece].Glyph === 'common.none' ? '' : ` - ${intl.formatMessage({ id: attributes[piece]['Glyph Quality'] })}`)}`;
             } else {
-              returnVal += ` | ${attributes[piece][attribute]}`;
+              returnVal += ` | ${intl.formatMessage({ id: attributes[piece][attribute] })}`;
             }
           }
         }
@@ -85,15 +89,36 @@ export const sendRequest = (currentState) => dispatch => {
   const discordMessage = () => {
     let request = (
       `${guildData.crafterTag}\n` +
-      `ESO UserName:\t\t${esoName}\n` +
-      `Gear Level:\t\t\t\t${gearLevel}\n` +
-      `Payment Method:\t${payment}\n` +
-      buildGearMessage(armorPieces, armorAttributes) +
-      buildGearMessage(jewelryPieces, jewelryAttributes) +
-      buildGearMessage(weaponPieces, weaponAttributes)
+      `${intl.formatMessage({ id: 'user.username' })}:\t\t${esoName}\n` +
+      `${intl.formatMessage({ id: 'confirmation.gearLevel' })}:\t\t\t\t${gearLevel}\n` +
+      `${intl.formatMessage({ id: 'confirmation.payment' })}:\t${intl.formatMessage({ id: payment })}\n`
     );
 
-    let requestNotes = `${notes.length > 0 ? `**Request Notes**: ${notes}\n\n` : ''}**Sent From**: ${requestLog.url}`;
+    let armorRequest = buildGearMessage(armorPieces, armorAttributes);
+    let requestWithArmor = request + armorRequest;
+
+    if (requestWithArmor.length < 2000) {
+      request = requestWithArmor;
+      armorRequest = undefined;
+    }
+
+    let jewelryRequest = buildGearMessage(jewelryPieces, jewelryAttributes);
+    let requestWithJewelry = request + jewelryRequest;
+
+    if (requestWithJewelry.length < 2000) {
+      request = requestWithJewelry;
+      jewelryRequest = undefined;
+    }
+
+    let weaponsRequest = buildGearMessage(weaponPieces, weaponAttributes);
+    let requestWithWeapons = request + weaponsRequest;
+
+    if (requestWithWeapons.length < 2000) {
+      request = requestWithWeapons;
+      weaponsRequest = undefined;
+    }
+
+    let requestNotes = `${notes.length > 0 ? `**${intl.formatMessage({ id: 'message.requestNotes' })}**: ${notes}\n\n` : ''}**${intl.formatMessage({ id: 'message.sentFrom' })}**: ${requestLog.url}`;
 
     const requestWithNotes = `${request}\n\n${requestNotes}`;
 
@@ -104,26 +129,44 @@ export const sendRequest = (currentState) => dispatch => {
 
     return {
       request,
+      armorRequest,
+      jewelryRequest,
+      weaponsRequest,
       requestNotes,
     }
   };
 
+  const discordMessages = discordMessage();
+
   axios.post(guildData.webhook, {
-    content: discordMessage().request
+    content: discordMessages.request
   })
-    .then(() => {
-      if (discordMessage().requestNotes) {
-        axios.post(guildData.webhook, {
-          content: discordMessage().requestNotes
-        })
-          .then(() => {
-            dispatch({ type: SUCCESSFUL_REQUEST });
-          })
-          .catch(() => {
-            dispatch({ type: FAILED_REQUEST });
-          })
-      } else {
+    .then(async () => {
+      try {
+        if (discordMessages.armorRequest) {
+          await axios.post(guildData.webhook, {
+            content: discordMessages.armorRequest
+          });
+        }
+        if (discordMessages.jewelryRequest) {
+          await axios.post(guildData.webhook, {
+            content: discordMessages.jewelryRequest
+          });
+        }
+        if (discordMessages.weaponsRequest) {
+          await axios.post(guildData.webhook, {
+            content: discordMessages.weaponsRequest
+          });
+        }
+        if (discordMessages.requestNotes) {
+          await axios.post(guildData.webhook, {
+            content: discordMessages.requestNotes
+          });
+        }
+
         dispatch({ type: SUCCESSFUL_REQUEST });
+      } catch (e) {
+        dispatch({ type: FAILED_REQUEST });
       }
     })
     .catch(() => {

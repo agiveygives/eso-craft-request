@@ -1,53 +1,53 @@
 export const primaryWeapons = [
-  { value: 'Axe', label: 'Axe', color: '#2DC50E', isFixed: true },
-  { value: 'Mace', label: 'Mace', color: '#2DC50E', isFixed: true },
-  { value: 'Sword', label: 'Sword', color: '#2DC50E', isFixed: true },
-  { value: 'Battle Axe', label: 'Battle Axe', color: '#2DC50E', isFixed: true },
-  { value: 'Maul', label: 'Maul', color: '#2DC50E', isFixed: true },
-  { value: 'Greatsword', label: 'Greatsword', color: '#2DC50E', isFixed: true },
-  { value: 'Dagger', label: 'Dagger', color: '#2DC50E', isFixed: true },
-  { value: 'Bow', label: 'Bow', color: '#2DC50E', isFixed: true },
-  { value: 'Inferno Staff', label: 'Inferno Staff', color: '#2DC50E', isFixed: true },
-  { value: 'Frost Staff', label: 'Frost Staff', color: '#2DC50E', isFixed: true },
-  { value: 'Lightning Staff', label: 'Lightning Staff', color: '#2DC50E', isFixed: true },
-  { value: 'Restoration Staff', label: 'Restoration Staff', color: '#2DC50E', isFixed: true }
+  { value: 'gear.weapon.axe', label: 'gear.weapon.axe', color: '#2DC50E', isFixed: true },
+  { value: 'gear.weapon.mace', label: 'gear.weapon.mace', color: '#2DC50E', isFixed: true },
+  { value: 'gear.weapon.sword', label: 'gear.weapon.sword', color: '#2DC50E', isFixed: true },
+  { value: 'gear.weapon.battleAxe', label: 'gear.weapon.battleAxe', color: '#2DC50E', isFixed: true },
+  { value: 'gear.weapon.maul', label: 'gear.weapon.maul', color: '#2DC50E', isFixed: true },
+  { value: 'gear.weapon.greatsword', label: 'gear.weapon.greatsword', color: '#2DC50E', isFixed: true },
+  { value: 'gear.weapon.dagger', label: 'gear.weapon.dagger', color: '#2DC50E', isFixed: true },
+  { value: 'gear.weapon.bow', label: 'gear.weapon.bow', color: '#2DC50E', isFixed: true },
+  { value: 'gear.weapon.infernoStaff', label: 'gear.weapon.infernoStaff', color: '#2DC50E', isFixed: true },
+  { value: 'gear.weapon.frostStaff', label: 'gear.weapon.frostStaff', color: '#2DC50E', isFixed: true },
+  { value: 'gear.weapon.lightningStaff', label: 'gear.weapon.lightningStaff', color: '#2DC50E', isFixed: true },
+  { value: 'gear.weapon.restorationStaff', label: 'gear.weapon.restorationStaff', color: '#2DC50E', isFixed: true }
 ];
 
 export const secondaryWeapons = [
-  { value: 'Axe', label: 'Axe', color: '#2DC50E', isFixed: true },
-  { value: 'Mace', label: 'Mace', color: '#2DC50E', isFixed: true },
-  { value: 'Sword', label: 'Sword', color: '#2DC50E', isFixed: true },
-  { value: 'Dagger', label: 'Dagger', color: '#2DC50E', isFixed: true },
-  { value: 'Shield', label: 'Shield', color: '#2DC50E', isFixed: true }
+  { value: 'gear.weapon.axe', label: 'gear.weapon.axe', color: '#2DC50E', isFixed: true },
+  { value: 'gear.weapon.mace', label: 'gear.weapon.mace', color: '#2DC50E', isFixed: true },
+  { value: 'gear.weapon.sword', label: 'gear.weapon.sword', color: '#2DC50E', isFixed: true },
+  { value: 'gear.weapon.dagger', label: 'gear.weapon.dagger', color: '#2DC50E', isFixed: true },
+  { value: 'gear.weapon.shield', label: 'gear.weapon.shield', color: '#2DC50E', isFixed: true }
 ];
 
 export const weaponTraits = [
-  { value: 'None', stone: 'none', label: 'None', color: '#fcb935', isFixed: true },
-  { value: 'Charged', stone: 'Amethyst', label: 'Charged', color: '#2DC50E', isFixed: true },
-  { value: 'Defending', stone: 'Turquoise', label: 'Defending', color: '#2DC50E', isFixed: true },
-  { value: 'Infused', stone: 'Jade', label: 'Infused', color: '#2DC50E', isFixed: true },
-  { value: 'Nirnhoned', stone: 'Potent Nirncrux', label: 'Nirnhoned', color: '#2DC50E', isFixed: true },
-  { value: 'Powered', stone: 'Chysolite', label: 'Powered', color: '#2DC50E', isFixed: true },
-  { value: 'Precise', stone: 'Ruby', label: 'Precise', color: '#2DC50E', isFixed: true },
-  { value: 'Sharpened', stone: 'Fire Opal', label: 'Sharpened', color: '#2DC50E', isFixed: true },
-  { value: 'Training', stone: 'Carnelian', label: 'Training', color: '#2DC50E', isFixed: true },
-  { value: 'Decisive', stone: 'Citrine', label: 'Decisive', color: '#2DC50E', isFixed: true }
+  { value: 'common.none', stone: 'common.none', label: 'common.none', color: '#fcb935', isFixed: true },
+  { value: 'gear.weapon.traits.charged', stone: 'gear.weapon.traits.defending.stone', label: 'gear.weapon.traits.charged', color: '#2DC50E', isFixed: true },
+  { value: 'gear.weapon.traits.defending', stone: 'gear.weapon.traits.defending.stone', label: 'gear.weapon.traits.defending', color: '#2DC50E', isFixed: true },
+  { value: 'common.traits.infused', stone: 'gear.weapon.traits.infused.stone', label: 'common.traits.infused', color: '#2DC50E', isFixed: true },
+  { value: 'common.traits.nirnhoned', stone: 'gear.weapon.traits.nirnhoned.stone', label: 'common.traits.nirnhoned', color: '#2DC50E', isFixed: true },
+  { value: 'gear.weapon.traits.powered', stone: 'gear.weapon.traits.powered.stone', label: 'gear.weapon.traits.powered', color: '#2DC50E', isFixed: true },
+  { value: 'gear.weapon.traits.precise', stone: 'gear.weapon.traits.precise.stone', label: 'gear.weapon.traits.precise', color: '#2DC50E', isFixed: true },
+  { value: 'gear.weapon.traits.sharpened', stone: 'gear.weapon.traits.sharpened.stone', label: 'gear.weapon.traits.sharpened', color: '#2DC50E', isFixed: true },
+  { value: 'common.traits.training', stone: 'gear.weapon.traits.training.stone', label: 'common.traits.training', color: '#2DC50E', isFixed: true },
+  { value: 'gear.weapon.traits.decisive', stone: 'gear.weapon.traits.decisive.stone', label: 'gear.weapon.traits.decisive', color: '#2DC50E', isFixed: true }
 ];
 
 export const weaponGlyphs = [
-  { value: 'None', label: 'None', color: '#fcb935', isFixed: true },
-  { value: 'Flame', essenceRune: 'Rakeipa', potency: 'additive', label: 'Flame', color: '#2DC50E', isFixed: true },
-  { value: 'Frost', essenceRune: 'Dekeipa', potency: 'additive', label: 'Frost', color: '#2DC50E', isFixed: true },
-  { value: 'Shock', essenceRune: 'Meip', potency: 'additive', label: 'Shock', color: '#2DC50E', isFixed: true },
-  { value: 'Poison', essenceRune: 'Kuoko', potency: 'additive', label: 'Poison', color: '#2DC50E', isFixed: true },
-  { value: 'Foulness', essenceRune: 'Haoko', potency: 'additive', label: 'Foulness', color: '#2DC50E', isFixed: true },
-  { value: 'Decrease Health', essenceRune: 'Okoma', potency: 'subtractive', label: 'Decrease Health', color: '#2DC50E', isFixed: true },
-  { value: 'Hardening', essenceRune: 'Deteri', potency: 'additive', label: 'Hardening', color: '#2DC50E', isFixed: true },
-  { value: 'Absorb Health', essenceRune: 'Oko', potency: 'subtractive', label: 'Absorb Health', color: '#2DC50E', isFixed: true },
-  { value: 'Absorb Magicka', essenceRune: 'Makko', potency: 'subtractive', label: 'Absorb Magicka', color: '#2DC50E', isFixed: true },
-  { value: 'Absorb Stamina', essenceRune: 'Deni', potency: 'subtractive', label: 'Absorb Stamina', color: '#2DC50E', isFixed: true },
-  { value: 'Weapon Damage', essenceRune: 'Okori', potency: 'additive', label: 'Weapon Damage', color: '#2DC50E', isFixed: true },
-  { value: 'Weakening', essenceRune: 'Okori', potency: 'subtractive', label: 'Weakening', color: '#2DC50E', isFixed: true },
-  { value: 'Crushing', essenceRune: 'Deteri', potency: 'subtractive', label: 'Crushing', color: '#2DC50E', isFixed: true },
-  { value: 'Prismatic Onslaught', essenceRune: 'Hakeijo', potency: 'subtractive', label: 'Prismatic Onslaught', color: '#2DC50E', isFixed: true }
+  { value: 'common.none', label: 'common.none', color: '#fcb935', isFixed: true },
+  { value: 'gear.weapon.glyphs.flame', essenceRune: 'Rakeipa', potency: 'additive', label: 'gear.weapon.glyphs.flame', color: '#2DC50E', isFixed: true },
+  { value: 'gear.weapon.glyphs.frost', essenceRune: 'Dekeipa', potency: 'additive', label: 'gear.weapon.glyphs.frost', color: '#2DC50E', isFixed: true },
+  { value: 'gear.weapon.glyphs.shock', essenceRune: 'Meip', potency: 'additive', label: 'gear.weapon.glyphs.shock', color: '#2DC50E', isFixed: true },
+  { value: 'gear.weapon.glyphs.poison', essenceRune: 'Kuoko', potency: 'additive', label: 'gear.weapon.glyphs.poison', color: '#2DC50E', isFixed: true },
+  { value: 'gear.weapon.glyphs.foulness', essenceRune: 'Haoko', potency: 'additive', label: 'gear.weapon.glyphs.foulness', color: '#2DC50E', isFixed: true },
+  { value: 'gear.weapon.glyphs.decreaseHealth', essenceRune: 'Okoma', potency: 'subtractive', label: 'gear.weapon.glyphs.decreaseHealth', color: '#2DC50E', isFixed: true },
+  { value: 'gear.weapon.glyphs.hardening', essenceRune: 'Deteri', potency: 'additive', label: 'gear.weapon.glyphs.hardening', color: '#2DC50E', isFixed: true },
+  { value: 'gear.weapon.glyphs.absordHealth', essenceRune: 'Oko', potency: 'subtractive', label: 'gear.weapon.glyphs.absordHealth', color: '#2DC50E', isFixed: true },
+  { value: 'gear.weapon.glyphs.absordMagicka', essenceRune: 'Makko', potency: 'subtractive', label: 'gear.weapon.glyphs.absordMagicka', color: '#2DC50E', isFixed: true },
+  { value: 'gear.weapon.glyphs.absorbStamina', essenceRune: 'Deni', potency: 'subtractive', label: 'gear.weapon.glyphs.absorbStamina', color: '#2DC50E', isFixed: true },
+  { value: 'gear.weapon.glyphs.weaponDamage', essenceRune: 'Okori', potency: 'additive', label: 'gear.weapon.glyphs.weaponDamage', color: '#2DC50E', isFixed: true },
+  { value: 'gear.weapon.glyphs.weakening', essenceRune: 'Okori', potency: 'subtractive', label: 'gear.weapon.glyphs.weakening', color: '#2DC50E', isFixed: true },
+  { value: 'gear.weapon.glyphs.crushing', essenceRune: 'Deteri', potency: 'subtractive', label: 'gear.weapon.glyphs.crushing', color: '#2DC50E', isFixed: true },
+  { value: 'gear.weapon.glyphs.primaticOnslaught', essenceRune: 'Hakeijo', potency: 'subtractive', label: 'gear.weapon.glyphs.primaticOnslaught', color: '#2DC50E', isFixed: true }
 ];

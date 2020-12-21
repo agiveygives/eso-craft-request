@@ -58,8 +58,12 @@ const AppFooter = ({ currentState, restart, review, guildName, guildMnemonic, gu
   } = currentState;
   const classes = useStyles(guildFooterColor)();
   const intl = useIntl();
-  const guildImagePath = `/guildImages/${guildMnemonic}.png`;
+  const [guildImagePath, setGuildImagePath] = React.useState(`/guildImages/${guildMnemonic}.png`);
   const [imageExists, setImageExists] = React.useState(false);
+
+  React.useEffect(() => {
+    setGuildImagePath(`/guildImages/${guildMnemonic}.png`);
+  }, [guildMnemonic])
 
   React.useEffect(() => {
     axios.get(guildImagePath)
@@ -74,7 +78,7 @@ const AppFooter = ({ currentState, restart, review, guildName, guildMnemonic, gu
       .catch(() => {
         setImageExists(false);
       })
-  }, [])
+  }, [guildImagePath])
 
   function buttonDisabled() {
     if (esoName[0] !== '@' || esoName.length < 2
@@ -87,7 +91,7 @@ const AppFooter = ({ currentState, restart, review, guildName, guildMnemonic, gu
       armorPieces.forEach(piece => {
         for (let attribute in armorAttributes[piece]) {
           if (!armorAttributes[piece][attribute]) {
-            if (attribute === 'Glyph Quality' && armorAttributes[piece].Glyph !== 'None') {
+            if (attribute === 'Glyph Quality' && armorAttributes[piece].Glyph !== 'common.none') {
               undefinedAttributes = true;
             } else if (attribute !== 'Glyph Quality') {
               undefinedAttributes = true;
@@ -98,8 +102,8 @@ const AppFooter = ({ currentState, restart, review, guildName, guildMnemonic, gu
 
       jewelryPieces.forEach(piece => {
         for (let attribute in jewelryAttributes[piece]) {
-          if (!jewelryAttributes[piece][attribute] && jewelryAttributes[piece].Glyph !== 'None') {
-            if (attribute === 'Glyph Quality' && jewelryAttributes[piece].Glyph !== 'None') {
+          if (!jewelryAttributes[piece][attribute] && jewelryAttributes[piece].Glyph !== 'common.none') {
+            if (attribute === 'Glyph Quality' && jewelryAttributes[piece].Glyph !== 'common.none') {
               undefinedAttributes = true;
             } else if (attribute !== 'Glyph Quality') {
               undefinedAttributes = true;
@@ -110,8 +114,8 @@ const AppFooter = ({ currentState, restart, review, guildName, guildMnemonic, gu
 
       weaponPieces.forEach(piece => {
         for (let attribute in weaponAttributes[piece]) {
-          if (!weaponAttributes[piece][attribute] && weaponAttributes[piece].Glyph !== 'None') {
-            if (attribute === 'Glyph Quality' && weaponAttributes[piece].Glyph !== 'None') {
+          if (!weaponAttributes[piece][attribute] && weaponAttributes[piece].Glyph !== 'common.none') {
+            if (attribute === 'Glyph Quality' && weaponAttributes[piece].Glyph !== 'common.none') {
               undefinedAttributes = true;
             } else if (attribute !== 'Glyph Quality') {
               undefinedAttributes = true;

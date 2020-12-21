@@ -13,6 +13,7 @@ import SetOptions from '../../constants/setOptions';
 import StyleOptions from '../../constants/styleOptions';
 import { UPDATE_ARMOR, UPDATE_JEWELRY, UPDATE_WEAPONS, UPDATE_ARMOR_MATS, UPDATE_WEAPON_MATS, UPDATE_JEWELRY_MATS } from '../../store/constants';
 import Dropdown from './Dropdown';
+import { useIntl } from 'react-intl';
 
 const propTypes = {
   group: PropTypes.oneOf(['armor', 'jewelry', 'weapon']).isRequired,
@@ -45,14 +46,14 @@ const useStyles = makeStyles({
 });
 
 const defaultValues = {
-  glyph: { value: '', label: 'gear.glyph', color: '#FF5630', isFixed: true },
-  glyphQuality: { value: '', label: 'gear.glyphQuality', color: '#FF5630', isFixed: true },
-  trait: { value: '', label: 'gear.trait', color: '#FF5630', isFixed: true },
-  quality: { value: '', label: 'gear.quality', color: '#FF5630', isFixed: true },
-  set: { value: '', label: 'gear.set', color: '#FF5630', isFixed: true },
-  style: { value: '', label: 'gear.style', color: '#FF5630', isFixed: true },
-  weapon: { value: '', label: 'gear.weapon', color: '#FF5630', isFixed: true },
-  weight: { value: '', label: 'gear.weight', color: '#FF5630', isFixed: true }
+  glyph: { value: '', label: 'Glyph', color: '#FF5630', isFixed: true },
+  glyphQuality: { value: '', label: 'Glyph Quality', color: '#FF5630', isFixed: true },
+  trait: { value: '', label: 'Trait', color: '#FF5630', isFixed: true },
+  quality: { value: '', label: 'Quality', color: '#FF5630', isFixed: true },
+  set: { value: '', label: 'Set', color: '#FF5630', isFixed: true },
+  style: { value: '', label: 'Style', color: '#FF5630', isFixed: true },
+  weapon: { value: '', label: 'Weapon', color: '#FF5630', isFixed: true },
+  weight: { value: '', label: 'Weight', color: '#FF5630', isFixed: true }
 }
 
 const PieceCard = ({
@@ -63,6 +64,10 @@ const PieceCard = ({
   glyphVal
 }) => {
   const classes = useStyles();
+  const intl = useIntl();
+  const sortedSetOptions = SetOptions(intl);
+  const sortedStyleOptions = StyleOptions(intl);
+
   let allPieceOptions;
   let shieldOptions;
 
@@ -73,14 +78,14 @@ const PieceCard = ({
         { options: armorTraits, default: defaultValues.trait, key: 'Trait' },
         { options: armorGlyphs, default: defaultValues.glyph, key: 'Glyph' },
         { options: qualityOptions, default: defaultValues.glyphQuality, key: 'Glyph Quality' },
-        { options: SetOptions, default: defaultValues.set, key: 'Set' },
-        { options: StyleOptions, default: defaultValues.style, key: 'Style' }
+        { options: sortedSetOptions, default: defaultValues.set, key: 'Set' },
+        { options: sortedStyleOptions, default: defaultValues.style, key: 'Style' }
       ];
       break;
     case 'jewelry':
       allPieceOptions = [
         { options: jewelryTraits, default: defaultValues.trait, key: 'Trait' },
-        { options: SetOptions, default: defaultValues.set, key: 'Set' },
+        { options: sortedSetOptions, default: defaultValues.set, key: 'Set' },
         { options: jewelryGlyphs, default: defaultValues.glyph, key: 'Glyph' },
         { options: qualityOptions, default: defaultValues.glyphQuality, key: 'Glyph Quality' }
       ];
@@ -92,16 +97,16 @@ const PieceCard = ({
         { options: weaponTraits, default: defaultValues.trait, key: 'Trait' },
         { options: weaponGlyphs, default: defaultValues.glyph, key: 'Glyph' },
         { options: qualityOptions, default: defaultValues.glyphQuality, key: 'Glyph Quality' },
-        { options: SetOptions, default: defaultValues.set, key: 'Set' },
-        { options: StyleOptions, default: defaultValues.style, key: 'Style' }
+        { options: sortedSetOptions, default: defaultValues.set, key: 'Set' },
+        { options: sortedStyleOptions, default: defaultValues.style, key: 'Style' }
       ];
       shieldOptions = [
         { options: weapons, default: defaultValues.weapon, key: 'Weapon' },
         { options: armorTraits, default: defaultValues.trait, key: 'Trait' },
         { options: armorGlyphs, default: defaultValues.glyph, key: 'Glyph' },
         { options: qualityOptions, default: defaultValues.glyphQuality, key: 'Glyph Quality' },
-        { options: SetOptions, default: defaultValues.set, key: 'Set' },
-        { options: StyleOptions, default: defaultValues.style, key: 'Style' }
+        { options: sortedSetOptions, default: defaultValues.set, key: 'Set' },
+        { options: sortedStyleOptions, default: defaultValues.style, key: 'Style' }
       ]
       break;
     default:
@@ -117,7 +122,7 @@ const PieceCard = ({
         className={classes.card}
         raised
       >
-        <CardHeader classes={{content: classes.centered}} title={gearAttributes.display} />
+        <CardHeader classes={{content: classes.centered}} title={intl.formatMessage({ id: gearAttributes.display })} />
         <CardContent className={classes.content}>
           <Grid container>
             <Dropdown
@@ -134,6 +139,7 @@ const PieceCard = ({
             />
             {allOptions.map(option => (
               <Dropdown
+                key={option.key}
                 piece={piece}
                 dropdownData={option}
                 defaultValues={defaultValues}

@@ -6,37 +6,37 @@ import { Grid, Select, Typography, FormControl } from '@material-ui/core';
 import Utils from '../../utils';
 
 const qualityColors = {
-  normal: '#888888',
-  fine: '#2DC50E',
-  superior: '#3A92FF',
-  epic: '#A02EF7',
-  legendary: '#CCAA1A'
+  "quality.normal": '#888888',
+  "quality.fine": '#2DC50E',
+  "quality.superior": '#3A92FF',
+  "quality.epic": '#A02EF7',
+  "quality.legendary": '#CCAA1A'
 };
 
 const propTypes = {
   piece: PropTypes.string.isRequired,
   dropdownData: PropTypes.shape({
-    options: PropTypes.shape({}),
+    options: PropTypes.arrayOf(PropTypes.shape({})),
     default: PropTypes.shape({}),
     key: PropTypes.string,
   }),
   defaultValues: PropTypes.shape({
-    glyph: PropTypes.shape({ value: '', label: 'Glyph', color: '#FF5630', isFixed: true }),
-    glyphQuality: PropTypes.shape({ value: '', label: 'Glyph Quality', color: '#FF5630', isFixed: true }),
-    trait: PropTypes.shape({ value: '', label: 'Trait', color: '#FF5630', isFixed: true }),
-    quality: PropTypes.shape({ value: '', label: 'Quality', color: '#FF5630', isFixed: true }),
-    set: PropTypes.shape({ value: '', label: 'Set', color: '#FF5630', isFixed: true }),
-    style: PropTypes.shape({ value: '', label: 'Style', color: '#FF5630', isFixed: true }),
-    weapon: PropTypes.shape({ value: '', label: 'Weapon', color: '#FF5630', isFixed: true }),
-    weight: PropTypes.shape({ value: '', label: 'Weight', color: '#FF5630', isFixed: true }),
+    glyph: PropTypes.shape({ value: PropTypes.string, label: PropTypes.oneOf(['Glyph']), color: PropTypes.oneOf(['#FF5630']), isFixed: PropTypes.oneOf([true]) }),
+    glyphQuality: PropTypes.shape({ value: PropTypes.string, label: PropTypes.oneOf(['Glyph Quality']), color: PropTypes.oneOf(['#FF5630']), isFixed: PropTypes.oneOf([true]) }),
+    trait: PropTypes.shape({ value: PropTypes.string, label: PropTypes.oneOf(['Trait']), color: PropTypes.oneOf(['#FF5630']), isFixed: PropTypes.oneOf([true]) }),
+    quality: PropTypes.shape({ value: PropTypes.string, label: PropTypes.oneOf(['Quality']), color: PropTypes.oneOf(['#FF5630']), isFixed: PropTypes.oneOf([true]) }),
+    set: PropTypes.shape({ value: PropTypes.string, label: PropTypes.oneOf(['Set']), color: PropTypes.oneOf(['#FF5630']), isFixed: PropTypes.oneOf([true]) }),
+    style: PropTypes.shape({ value: PropTypes.string, label: PropTypes.oneOf(['Style']), color: PropTypes.oneOf(['#FF5630']), isFixed: PropTypes.oneOf([true]) }),
+    weapon: PropTypes.shape({ value: PropTypes.string, label: PropTypes.oneOf(['Weapon']), color: PropTypes.oneOf(['#FF5630']), isFixed: PropTypes.oneOf([true]) }),
+    weight: PropTypes.shape({ value: PropTypes.string, label: PropTypes.oneOf(['Weight']), color: PropTypes.oneOf(['#FF5630']), isFixed: PropTypes.oneOf([true]) }),
   }),
   gridSize: PropTypes.number,
-  gearAttributes: PropTypes.shape(),
+  gearAttributes: PropTypes.shape({}),
   updateAttributes: PropTypes.func,
   glyphVal: PropTypes.string,
   setAllOptions: PropTypes.func,
-  allPieceOptions: PropTypes.shape(),
-  shieldOptions: PropTypes.shape()
+  allPieceOptions: PropTypes.arrayOf(PropTypes.shape({})),
+  shieldOptions: PropTypes.arrayOf(PropTypes.shape({}))
 };
 
 const Dropdown = ({
@@ -60,7 +60,7 @@ const Dropdown = ({
         dropdownData.default = {
           value: gearAttributes.Quality,
           label: gearAttributes.Quality,
-          color: qualityColors[gearAttributes.Quality.toLowerCase()],
+          color: qualityColors[gearAttributes.Quality],
           isFixed: true
         }
       } else {
@@ -108,7 +108,7 @@ const Dropdown = ({
         dropdownData.default = {
           value: gearAttributes['Glyph Quality'],
           label: gearAttributes['Glyph Quality'],
-          color: '#2DC50E',
+          color: qualityColors[gearAttributes['Glyph Quality']],
           isFixed: true
         }
       } else {
@@ -160,7 +160,7 @@ const Dropdown = ({
 
   return (
     <Grid key={dropdownData.key} item xs={gridSize} className='centered-div'>
-      <FormControl disabled={glyphVal === 'None' && dropdownData.key === 'Glyph Quality'}>
+      <FormControl disabled={glyphVal === 'common.none' && dropdownData.key === 'Glyph Quality'}>
         <Select
           style={{ minWidth: '10rem' }}
           MenuProps={{
@@ -201,7 +201,7 @@ const Dropdown = ({
             }
           }
         >
-          {dropdownData.options.map(option => Utils.generateSelectOptions(option.value, dropdownData.key, option))}
+          {dropdownData.options.map(option => Utils.generateSelectOptions(option.value, dropdownData.key, option, intl))}
         </Select>
       </FormControl>
     </Grid>

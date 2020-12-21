@@ -196,7 +196,7 @@ const MatsDrawer = ({ open, setDrawerOpen, width, materials, traits, styles, qua
     setTotalGlyphMats(newTotal);
   }, [glyphMats.essenceRunes, glyphMats.potencyRunes, glyphMats.aspectRunes])
 
-  const generateMaterialSection = (sectionTitle, totalMats, display) => (
+  const generateMaterialSection = (sectionTitle, totalMats, display, i18n = true) => (
     <ToggleHeader paddingTop='1rem' className={classes.section} align='left' variant='h5' title={sectionTitle}>
       <Table className={classes.table} size="small">
         <TableBody>
@@ -209,7 +209,7 @@ const MatsDrawer = ({ open, setDrawerOpen, width, materials, traits, styles, qua
               </TableCell>
               <TableCell align='right'>
                 <Typography variant='h6' className={classes.primaryText}>
-                  {Mats[display]}
+                  {i18n ? intl.formatMessage({ id: Mats[display] }) : Mats[display]}
                 </Typography>
               </TableCell>
             </TableRow>
@@ -242,7 +242,7 @@ const MatsDrawer = ({ open, setDrawerOpen, width, materials, traits, styles, qua
       {generateMaterialSection(intl.formatMessage({ id: 'common.quality' }), totalQualityMats, 'material')}
       {generateMaterialSection(intl.formatMessage({ id: 'materialsList.traits' }), totalTraitMats, 'stone')}
       {generateMaterialSection(intl.formatMessage({ id: 'materialsList.styles' }), totalStyleMats, 'stone')}
-      {generateMaterialSection(intl.formatMessage({ id: 'materialsList.glyphRunes' }), totalGlyphMats, 'name')}
+      {generateMaterialSection(intl.formatMessage({ id: 'materialsList.glyphRunes' }), totalGlyphMats, 'name', false)}
     </Drawer>
   )
 };

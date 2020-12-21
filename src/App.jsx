@@ -17,7 +17,13 @@ const appStyle = {
   height: '100vh'
 }
 
-const App = ({ guildData, locale }) => {
+const App = ({ guildData }) => {
+  const [locale, setLocale] = React.useState('en-US');
+
+  React.useEffect(() => {
+    if (guildData.locale) setLocale(guildData.locale);
+  }, [guildData])
+
   let renderComponent;
 
   if (guildData.createdAt) {
@@ -43,7 +49,6 @@ App.propTypes = propTypes;
 
 const mapStateToProps = state => ({
   guildData: state.guildData,
-  locale: state.locale
 });
 
 export default connect(mapStateToProps)(App);

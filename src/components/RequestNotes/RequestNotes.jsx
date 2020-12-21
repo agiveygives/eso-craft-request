@@ -23,7 +23,7 @@ const RequestNotes = ({ notes, updateNotes }) => {
             { total: notes.length }
           )
         }</Typography>
-        <Typography variant='p'><i>*{intl.formatMessage({ id: 'user.requestNotes.optional' })}</i></Typography>
+        <Typography variant='body1'><i>*{intl.formatMessage({ id: 'user.requestNotes.optional' })}</i></Typography>
       </div>
       <div className="centered-div">
         <textarea

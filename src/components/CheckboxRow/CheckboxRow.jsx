@@ -60,19 +60,24 @@ const CheckboxRow = ({ id, selectedPieces, updatePieces }) => {
     { id: 'secondary2', label: intl.formatMessage({ id: 'gear.weapon.secondary' }) }
   ]
   let checkboxes;
+  let sectionHeader;
 
   switch(id) {
     case 'armor':
       checkboxes = armorBoxes;
+      sectionHeader = intl.formatMessage({ id: 'gear.armor.sectionHeader' });
       break;
     case 'jewelry':
       checkboxes = jewelryBoxes;
+      sectionHeader = intl.formatMessage({ id: 'gear.jewelry.sectionHeader' });
       break;
     case 'weapon':
       checkboxes = weaponBoxes;
+      sectionHeader = intl.formatMessage({ id: 'gear.weapon.sectionHeader' });
       break;
     default:
       checkboxes = [];
+      sectionHeader = "";
       break;
   }
 
@@ -104,7 +109,7 @@ const CheckboxRow = ({ id, selectedPieces, updatePieces }) => {
     <span className={classes.spacer}>
       <div className="centered-div">
         <Typography variant='h5' gutterBottom>
-          Select Your {id.charAt(0).toUpperCase() + id.slice(1)}
+          {sectionHeader}
         </Typography>
       </div>
       <div className="centered-div">
