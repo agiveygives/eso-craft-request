@@ -195,7 +195,7 @@ const Dropdown = ({
                 child.props.optiondata.essenceRune,
                 child.props.optiondata.potency
               )
-              child.props.piecekey === 'Weapon' && child.props.value === 'Shield'
+              child.props.piecekey === 'Weapon' && child.props.value === 'gear.weapon.shield'
                 ? setAllOptions(shieldOptions)
                 : setAllOptions(allPieceOptions)
             }
