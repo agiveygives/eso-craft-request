@@ -63,6 +63,9 @@ const craftedSets = [
   "set.legacyOfKarth",
   "set.redEaglesFury",
   "set.aetherialAscension",
+  "set.diamondsVictory",
+  "set.histWhisperer",
+  "set.heartlandConqueror",
 ];
 
 const sortedSets = (intl) => [
