@@ -177,19 +177,19 @@ const mapStateToProps = (state, ownProps) => {
 const mapDispatchToProps = (dispatch, ownProps) => {
   switch(ownProps.group) {
     case 'armor':
-      return { updateAttributes: (piece, attribute, value, stone, essenceRune, potency) => {
+      return { updateAttributes: (piece, attribute, value = '', stone = 'common.none', essenceRune, potency) => {
         dispatch({ type: UPDATE_ARMOR, piece, attribute, value });
-        dispatch({ type: UPDATE_ARMOR_MATS, piece, attribute, value, stone, essenceRune, potency  })
+        dispatch({ type: UPDATE_ARMOR_MATS, piece, attribute, value: value || 'None', stone, essenceRune, potency })
       }};
     case 'jewelry':
-      return { updateAttributes: (piece, attribute, value, stone, essenceRune, potency) => {
+      return { updateAttributes: (piece, attribute, value = '', stone = 'common.none', essenceRune, potency) => {
         dispatch({ type: UPDATE_JEWELRY, piece, attribute, value });
-        dispatch({ type: UPDATE_JEWELRY_MATS, piece, attribute, value, stone, essenceRune, potency });
+        dispatch({ type: UPDATE_JEWELRY_MATS, piece, attribute, value: value || 'None', stone, essenceRune, potency });
       }};
     case 'weapon':
-      return { updateAttributes: (piece, attribute, value, stone, essenceRune, potency) => {
+      return { updateAttributes: (piece, attribute, value = '', stone = 'common.none', essenceRune, potency) => {
         dispatch({ type: UPDATE_WEAPONS, piece, attribute, value });
-        dispatch({ type: UPDATE_WEAPON_MATS, piece, attribute, value, stone, essenceRune, potency  });
+        dispatch({ type: UPDATE_WEAPON_MATS, piece, attribute, value: value || 'None', stone, essenceRune, potency  });
       }};
     default:
       return { updateAttributes: (piece, attribute, value) => console.log(`Failed to update ${ownProps.group} ${piece} ${attribute} to ${value}`) }

@@ -156,7 +156,20 @@ const Dropdown = ({
       break;
   }
 
-  const [selectValue, setSelectValue] = React.useState(dropdownData.default)
+  const [selectValue, setSelectValue] = React.useState(dropdownData.default);
+
+  React.useEffect(() => {
+    const splitKey = dropdownData.key.split(' ');
+    splitKey[0] = splitKey[0].toLowerCase();
+
+    if (
+      selectValue.value !== defaultValues[splitKey.join('')].value &&
+      !dropdownData.options.find((option) => option.value === selectValue.value)
+    ) {
+      updateAttributes(piece, dropdownData.key);
+      setSelectValue(defaultValues[splitKey.join('')]);
+    }
+  }, [dropdownData, selectValue, defaultValues, updateAttributes, piece]);
 
   return (
     <Grid key={dropdownData.key} item xs={gridSize} className='centered-div'>
@@ -195,9 +208,11 @@ const Dropdown = ({
                 child.props.optiondata.essenceRune,
                 child.props.optiondata.potency
               )
-              child.props.piecekey === 'Weapon' && child.props.value === 'gear.weapon.shield'
+              if (child.props.piecekey === 'Weapon') {
+                child.props.value === 'gear.weapon.shield'
                 ? setAllOptions(shieldOptions)
                 : setAllOptions(allPieceOptions)
+              }
             }
           }
         >
