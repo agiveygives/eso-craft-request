@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { Circle } from 'react-shapes';
 import { useIntl } from 'react-intl';
@@ -8,6 +8,7 @@ import {
   Typography,
   FormControl,
 } from '@material-ui/core';
+import DeepEqual from 'deep-equal';
 import { generateSelectOptions } from '../../utils';
 import defaultDropdownValues from '../../constants/defaultDropdownValues';
 import GearAttributesShape from '../../propShapes/gearAttributesShape';
@@ -23,9 +24,14 @@ const qualityColors = {
 const propTypes = {
   piece: PropTypes.string.isRequired,
   data: PropTypes.shape({
-    options: PropTypes.arrayOf(PropTypes.shape({})),
+    options: PropTypes.arrayOf(PropTypes.shape({
+      color: PropTypes.string.isRequired,
+      isFixed: PropTypes.bool.isRequired,
+      label: PropTypes.string.isRequired,
+      value: PropTypes.string.isRequired,
+    })),
     default: PropTypes.shape({
-      value: '',
+      value: PropTypes.string.isRequired,
       label: PropTypes.oneOf([
         'Glyph',
         'Glyph Quality',
@@ -36,7 +42,7 @@ const propTypes = {
         'Weapon',
         'Weight',
       ]).isRequired,
-      isFixed: true,
+      isFixed: PropTypes.bool.isRequired,
     }),
     key: PropTypes.string,
   }).isRequired,
@@ -46,7 +52,7 @@ const propTypes = {
   glyphVal: PropTypes.string.isRequired,
   setAllOptions: PropTypes.func.isRequired,
   allPieceOptions: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
-  shieldOptions: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
+  shieldOptions: PropTypes.arrayOf(PropTypes.shape({})),
 };
 
 const Dropdown = ({
@@ -63,121 +69,182 @@ const Dropdown = ({
   const intl = useIntl();
 
   const [dropdownData, setDropdownData] = useState(data);
+  const [selectValue, setSelectValue] = useState(dropdownData.default);
+
+  const prevDropdownData = useRef();
 
   // Load Data
-  switch (dropdownData.key) {
-    case 'Quality':
-      if (gearAttributes.Quality) {
-        setDropdownData((prevData) => ({
-          ...prevData,
-          default: {
-            value: gearAttributes.Quality,
-            label: gearAttributes.Quality,
-            color: qualityColors[gearAttributes.Quality],
-            isFixed: true,
-          },
-        }));
-      } else {
-        setDropdownData((prevData) => ({
-          ...prevData,
-          default: defaultDropdownValues.quality,
-        }));
+  React.useEffect(() => {
+    if (!DeepEqual(prevDropdownData.current, dropdownData)) {
+      switch (data.key) {
+        case 'Quality':
+          if (
+            gearAttributes.Quality
+            && dropdownData.options.find((option) => option.value === gearAttributes.Quality)
+          ) {
+            setDropdownData((prevData) => ({
+              ...prevData,
+              default: {
+                value: gearAttributes.Quality,
+                label: gearAttributes.Quality,
+                color: qualityColors[gearAttributes.Quality],
+                isFixed: true,
+              },
+            }));
+          } else {
+            setDropdownData((prevData) => ({
+              ...prevData,
+              default: defaultDropdownValues.quality,
+            }));
+          }
+          break;
+        case 'Trait':
+          if (gearAttributes.Trait && dropdownData.options.find((option) => option.value === gearAttributes.Trait)) {
+            setDropdownData((prevData) => ({
+              ...prevData,
+              default: {
+                value: gearAttributes.Trait,
+                label: gearAttributes.Trait,
+                color: '#2DC50E',
+                isFixed: true,
+              },
+            }));
+          } else {
+            setDropdownData((prevData) => ({
+              ...prevData,
+              default: defaultDropdownValues.trait,
+            }));
+          }
+          break;
+        case 'Set':
+          if (gearAttributes.Set && dropdownData.options.find((option) => option.value === gearAttributes.Set)) {
+            setDropdownData((prevData) => ({
+              ...prevData,
+              default: {
+                value: gearAttributes.Set,
+                label: gearAttributes.Set,
+                color: '#2DC50E',
+                isFixed: true,
+              },
+            }));
+          } else {
+            setDropdownData((prevData) => ({
+              ...prevData,
+              default: defaultDropdownValues.set,
+            }));
+          }
+          break;
+        case 'Glyph':
+          if (gearAttributes.Glyph && dropdownData.options.find((option) => option.value === gearAttributes.Glyph)) {
+            setDropdownData((prevData) => ({
+              ...prevData,
+              default: {
+                value: gearAttributes.Glyph,
+                label: gearAttributes.Glyph,
+                color: '#2DC50E',
+                isFixed: true,
+              },
+            }));
+          } else {
+            setDropdownData((prevData) => ({
+              ...prevData,
+              default: defaultDropdownValues.glyph,
+            }));
+          }
+          break;
+        case 'Glyph Quality':
+          if (
+            gearAttributes['Glyph Quality']
+            && dropdownData.options.find((option) => option.value === gearAttributes['Glyph Quality'])
+          ) {
+            setDropdownData((prevData) => ({
+              ...prevData,
+              default: {
+                value: gearAttributes['Glyph Quality'],
+                label: gearAttributes['Glyph Quality'],
+                color: qualityColors[gearAttributes['Glyph Quality']],
+                isFixed: true,
+              },
+            }));
+          } else {
+            setDropdownData((prevData) => ({
+              ...prevData,
+              default: defaultDropdownValues.glyphQuality,
+            }));
+          }
+          break;
+        case 'Weight':
+          if (gearAttributes.Weight && dropdownData.options.find((option) => option.value === gearAttributes.Weight)) {
+            setDropdownData((prevData) => ({
+              ...prevData,
+              default: {
+                value: gearAttributes.Weight,
+                label: gearAttributes.Weight,
+                color: '#2DC50E',
+                isFixed: true,
+              },
+            }));
+          } else {
+            setDropdownData((prevData) => ({
+              ...prevData,
+              default: defaultDropdownValues.weight,
+            }));
+          }
+          break;
+        case 'Style':
+          if (gearAttributes.Style && dropdownData.options.find((option) => option.value === gearAttributes.Style)) {
+            setDropdownData((prevData) => ({
+              ...prevData,
+              default: {
+                value: gearAttributes.Style,
+                label: gearAttributes.Style,
+                color: '#2DC50E',
+                isFixed: true,
+              },
+            }));
+          } else {
+            setDropdownData((prevData) => ({
+              ...prevData,
+              default: defaultDropdownValues.style,
+            }));
+          }
+          break;
+        case 'Weapon':
+          if (gearAttributes.Weapon && dropdownData.options.find((option) => option.value === gearAttributes.Weapon)) {
+            setDropdownData((prevData) => ({
+              ...prevData,
+              default: {
+                value: gearAttributes.Weapon,
+                label: gearAttributes.Weapon,
+                color: '#2DC50E',
+                isFixed: true,
+              },
+            }));
+          } else {
+            setDropdownData((prevData) => ({
+              ...prevData,
+              default: defaultDropdownValues.weapon,
+            }));
+          }
+          break;
+        default:
+          setDropdownData((prevData) => ({
+            ...prevData,
+            default: {
+              value: null,
+              label: 'Select',
+            },
+          }));
+          break;
       }
-      break;
-    case 'Trait':
-      if (gearAttributes.Trait) {
-        dropdownData.default = {
-          value: gearAttributes.Trait,
-          label: gearAttributes.Trait,
-          color: '#2DC50E',
-          isFixed: true,
-        };
-      } else {
-        dropdownData.default = defaultDropdownValues.trait;
-      }
-      break;
-    case 'Set':
-      if (gearAttributes.Set) {
-        dropdownData.default = {
-          value: gearAttributes.Set,
-          label: gearAttributes.Set,
-          color: '#2DC50E',
-          isFixed: true,
-        };
-      } else {
-        dropdownData.default = defaultDropdownValues.set;
-      }
-      break;
-    case 'Glyph':
-      if (gearAttributes.Glyph) {
-        dropdownData.default = {
-          value: gearAttributes.Glyph,
-          label: gearAttributes.Glyph,
-          color: '#2DC50E',
-          isFixed: true,
-        };
-      } else {
-        dropdownData.default = defaultDropdownValues.glyph;
-      }
-      break;
-    case 'Glyph Quality':
-      if (gearAttributes['Glyph Quality']) {
-        dropdownData.default = {
-          value: gearAttributes['Glyph Quality'],
-          label: gearAttributes['Glyph Quality'],
-          color: qualityColors[gearAttributes['Glyph Quality']],
-          isFixed: true,
-        };
-      } else {
-        dropdownData.default = defaultDropdownValues.glyphQuality;
-      }
-      break;
-    case 'Weight':
-      if (gearAttributes.Weight) {
-        dropdownData.default = {
-          value: gearAttributes.Weight,
-          label: gearAttributes.Weight,
-          color: '#2DC50E',
-          isFixed: true,
-        };
-      } else {
-        dropdownData.default = defaultDropdownValues.weight;
-      }
-      break;
-    case 'Style':
-      if (gearAttributes.Style) {
-        dropdownData.default = {
-          value: gearAttributes.Style,
-          label: gearAttributes.Style,
-          color: '#2DC50E',
-          isFixed: true,
-        };
-      } else {
-        dropdownData.default = defaultDropdownValues.style;
-      }
-      break;
-    case 'Weapon':
-      if (gearAttributes.Weapon) {
-        dropdownData.default = {
-          value: gearAttributes.Weapon,
-          label: gearAttributes.Weapon,
-          color: '#2DC50E',
-          isFixed: true,
-        };
-      } else {
-        dropdownData.default = defaultDropdownValues.weapon;
-      }
-      break;
-    default:
-      dropdownData.default = {
-        value: null,
-        label: 'Select',
-      };
-      break;
-  }
+    }
 
-  const [selectValue,
-    setSelectValue] = React.useState(dropdownData.default);
+    prevDropdownData.current = dropdownData;
+  }, [data, gearAttributes, dropdownData]);
+
+  React.useEffect(() => {
+    setDropdownData(data);
+  }, [data]);
 
   React.useEffect(() => {
     const splitKey = dropdownData.key.split(' ');
@@ -187,8 +254,7 @@ const Dropdown = ({
       selectValue.value !== defaultDropdownValues[splitKey.join('')].value
       && !dropdownData.options.find((option) => option.value === selectValue.value)
     ) {
-      updateAttributes(piece,
-        dropdownData.key);
+      updateAttributes(piece, dropdownData.key);
       setSelectValue(defaultDropdownValues[splitKey.join('')]);
     }
   },
@@ -264,6 +330,10 @@ const Dropdown = ({
       </FormControl>
     </Grid>
   );
+};
+
+Dropdown.defaultProps = {
+  shieldOptions: undefined,
 };
 
 Dropdown.propTypes = propTypes;

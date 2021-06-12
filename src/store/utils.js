@@ -122,9 +122,9 @@ const updateMats = (stateMats, stateAttributes, gearLevel, action) => {
         || stateMats[matsIndex].count !== materials.count)
   ) {
     stateMats.splice(matsIndex, 1);
-    stateMats.push([materials]);
+    stateMats.push(materials);
   } else if (matsIndex < 0) {
-    stateMats.push([materials]);
+    stateMats.push(materials);
   }
 
   return Array.from(stateMats);

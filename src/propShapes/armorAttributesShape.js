@@ -1,9 +1,9 @@
 import PropTypes from 'prop-types';
 
 export default PropTypes.shape({
-  display: 'gear.armor',
-  head: {
-    display: 'gear.armor.head',
+  display: PropTypes.oneOf(['gear.armor']).isRequired,
+  head: PropTypes.shape({
+    display: PropTypes.oneOf(['gear.armor.head']).isRequired,
     Quality: PropTypes.string.isRequired,
     Weight: PropTypes.string.isRequired,
     Trait: PropTypes.string.isRequired,
@@ -11,9 +11,9 @@ export default PropTypes.shape({
     'Glyph Quality': PropTypes.string.isRequired,
     Set: PropTypes.string.isRequired,
     Style: PropTypes.string.isRequired,
-  },
-  shoulder: {
-    display: 'gear.armor.shoulder',
+  }),
+  shoulder: PropTypes.shape({
+    display: PropTypes.oneOf(['gear.armor.shoulder']).isRequired,
     Quality: PropTypes.string.isRequired,
     Weight: PropTypes.string.isRequired,
     Trait: PropTypes.string.isRequired,
@@ -21,9 +21,9 @@ export default PropTypes.shape({
     'Glyph Quality': PropTypes.string.isRequired,
     Set: PropTypes.string.isRequired,
     Style: PropTypes.string.isRequired,
-  },
-  chest: {
-    display: 'gear.armor.chest',
+  }),
+  chest: PropTypes.shape({
+    display: PropTypes.oneOf(['gear.armor.chest']).isRequired,
     Quality: PropTypes.string.isRequired,
     Weight: PropTypes.string.isRequired,
     Trait: PropTypes.string.isRequired,
@@ -31,9 +31,9 @@ export default PropTypes.shape({
     'Glyph Quality': PropTypes.string.isRequired,
     Set: PropTypes.string.isRequired,
     Style: PropTypes.string.isRequired,
-  },
-  legs: {
-    display: 'gear.armor.legs',
+  }),
+  legs: PropTypes.shape({
+    display: PropTypes.oneOf(['gear.armor.legs']).isRequired,
     Quality: PropTypes.string.isRequired,
     Weight: PropTypes.string.isRequired,
     Trait: PropTypes.string.isRequired,
@@ -41,9 +41,9 @@ export default PropTypes.shape({
     'Glyph Quality': PropTypes.string.isRequired,
     Set: PropTypes.string.isRequired,
     Style: PropTypes.string.isRequired,
-  },
-  waist: {
-    display: 'gear.armor.waist',
+  }),
+  waist: PropTypes.shape({
+    display: PropTypes.oneOf(['gear.armor.waist']).isRequired,
     Quality: PropTypes.string.isRequired,
     Weight: PropTypes.string.isRequired,
     Trait: PropTypes.string.isRequired,
@@ -51,9 +51,9 @@ export default PropTypes.shape({
     'Glyph Quality': PropTypes.string.isRequired,
     Set: PropTypes.string.isRequired,
     Style: PropTypes.string.isRequired,
-  },
-  hands: {
-    display: 'gear.armor.hands',
+  }),
+  hands: PropTypes.shape({
+    display: PropTypes.oneOf(['gear.armor.hands']).isRequired,
     Quality: PropTypes.string.isRequired,
     Weight: PropTypes.string.isRequired,
     Trait: PropTypes.string.isRequired,
@@ -61,9 +61,9 @@ export default PropTypes.shape({
     'Glyph Quality': PropTypes.string.isRequired,
     Set: PropTypes.string.isRequired,
     Style: PropTypes.string.isRequired,
-  },
-  feet: {
-    display: 'gear.armor.feet',
+  }),
+  feet: PropTypes.shape({
+    display: PropTypes.oneOf(['gear.armor.feet']).isRequired,
     Quality: PropTypes.string.isRequired,
     Weight: PropTypes.string.isRequired,
     Trait: PropTypes.string.isRequired,
@@ -71,5 +71,5 @@ export default PropTypes.shape({
     'Glyph Quality': PropTypes.string.isRequired,
     Set: PropTypes.string.isRequired,
     Style: PropTypes.string.isRequired,
-  },
+  }),
 });

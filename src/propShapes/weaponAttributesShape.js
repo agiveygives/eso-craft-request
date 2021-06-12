@@ -1,9 +1,9 @@
 import PropTypes from 'prop-types';
 
 export default PropTypes.shape({
-  display: 'gear.weapons',
-  primary1: {
-    display: 'gear.weapon.primary.display',
+  display: PropTypes.oneOf(['gear.weapons']).isRequired,
+  primary1: PropTypes.shape({
+    display: PropTypes.oneOf(['gear.weapon.primary.display']).isRequired,
     Quality: PropTypes.string.isRequired,
     Weapon: PropTypes.string.isRequired,
     Trait: PropTypes.string.isRequired,
@@ -11,9 +11,9 @@ export default PropTypes.shape({
     'Glyph Quality': PropTypes.string.isRequired,
     Set: PropTypes.string.isRequired,
     Style: PropTypes.string.isRequired,
-  },
-  secondary1: {
-    display: 'gear.weapon.secondary.display',
+  }),
+  secondary1: PropTypes.shape({
+    display: PropTypes.oneOf(['gear.weapon.secondary.display']).isRequired,
     Quality: PropTypes.string.isRequired,
     Weapon: PropTypes.string.isRequired,
     Trait: PropTypes.string.isRequired,
@@ -21,9 +21,9 @@ export default PropTypes.shape({
     'Glyph Quality': PropTypes.string.isRequired,
     Set: PropTypes.string.isRequired,
     Style: PropTypes.string.isRequired,
-  },
-  primary2: {
-    display: 'gear.weapon.primary.display',
+  }),
+  primary2: PropTypes.shape({
+    display: PropTypes.oneOf(['gear.weapon.primary.display']).isRequired,
     Quality: PropTypes.string.isRequired,
     Weapon: PropTypes.string.isRequired,
     Trait: PropTypes.string.isRequired,
@@ -31,9 +31,9 @@ export default PropTypes.shape({
     'Glyph Quality': PropTypes.string.isRequired,
     Set: PropTypes.string.isRequired,
     Style: PropTypes.string.isRequired,
-  },
-  secondary2: {
-    display: 'gear.weapon.secondary.display',
+  }),
+  secondary2: PropTypes.shape({
+    display: PropTypes.oneOf(['gear.weapon.secondary.display']).isRequired,
     Quality: PropTypes.string.isRequired,
     Weapon: PropTypes.string.isRequired,
     Trait: PropTypes.string.isRequired,
@@ -41,5 +41,5 @@ export default PropTypes.shape({
     'Glyph Quality': PropTypes.string.isRequired,
     Set: PropTypes.string.isRequired,
     Style: PropTypes.string.isRequired,
-  },
+  }),
 });
