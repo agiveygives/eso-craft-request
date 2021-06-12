@@ -1,0 +1,45 @@
+import PropTypes from 'prop-types';
+
+export default PropTypes.shape({
+  display: 'gear.weapons',
+  primary1: {
+    display: 'gear.weapon.primary.display',
+    Quality: PropTypes.string.isRequired,
+    Weapon: PropTypes.string.isRequired,
+    Trait: PropTypes.string.isRequired,
+    Glyph: PropTypes.string.isRequired,
+    'Glyph Quality': PropTypes.string.isRequired,
+    Set: PropTypes.string.isRequired,
+    Style: PropTypes.string.isRequired,
+  },
+  secondary1: {
+    display: 'gear.weapon.secondary.display',
+    Quality: PropTypes.string.isRequired,
+    Weapon: PropTypes.string.isRequired,
+    Trait: PropTypes.string.isRequired,
+    Glyph: PropTypes.string.isRequired,
+    'Glyph Quality': PropTypes.string.isRequired,
+    Set: PropTypes.string.isRequired,
+    Style: PropTypes.string.isRequired,
+  },
+  primary2: {
+    display: 'gear.weapon.primary.display',
+    Quality: PropTypes.string.isRequired,
+    Weapon: PropTypes.string.isRequired,
+    Trait: PropTypes.string.isRequired,
+    Glyph: PropTypes.string.isRequired,
+    'Glyph Quality': PropTypes.string.isRequired,
+    Set: PropTypes.string.isRequired,
+    Style: PropTypes.string.isRequired,
+  },
+  secondary2: {
+    display: 'gear.weapon.secondary.display',
+    Quality: PropTypes.string.isRequired,
+    Weapon: PropTypes.string.isRequired,
+    Trait: PropTypes.string.isRequired,
+    Glyph: PropTypes.string.isRequired,
+    'Glyph Quality': PropTypes.string.isRequired,
+    Set: PropTypes.string.isRequired,
+    Style: PropTypes.string.isRequired,
+  },
+});

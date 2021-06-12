@@ -3,7 +3,6 @@ import { useIntl } from 'react-intl';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { makeStyles } from '@material-ui/core/styles';
-import { TERMS_RESPONSE } from '../../store/constants';
 import Image from 'material-ui-image';
 import Fab from '@material-ui/core/Fab';
 import ThumbsUp from '@material-ui/icons/ThumbUp';
@@ -13,17 +12,18 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Slide from '@material-ui/core/Slide';
+import { TERMS_RESPONSE } from '../../store/constants';
 
 const propTypes = {
   // from redux
   termsOpen: PropTypes.bool.isRequired,
+  acceptTerms: PropTypes.func.isRequired,
 };
 
-const Transition = React.forwardRef(function Transition(props, ref) {
-  return <Slide direction="up" ref={ref} {...props} />;
-});
+// eslint-disable-next-line react/jsx-props-no-spreading
+const Transition = React.forwardRef((props, ref) => <Slide direction="up" ref={ref} {...props} />);
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   buttonMargin: {
     margin: theme.spacing(1),
   },
@@ -31,8 +31,8 @@ const useStyles = makeStyles(theme => ({
     marginRight: theme.spacing(1),
   },
   wrapper: {
-    padding: '0.7rem'
-  }
+    padding: '0.7rem',
+  },
 }));
 
 const TermsOfUse = ({ termsOpen, acceptTerms }) => {
@@ -54,43 +54,52 @@ const TermsOfUse = ({ termsOpen, acceptTerms }) => {
       </DialogTitle>
       <DialogContent>
         <div className="centered-div">
-          <Image src='../../images/raised_hand.png' style={{ padding: '5em' }} />
-          <div className='centered-div'>
-            <div className='centered-div'>
+          <Image src="../../images/raised_hand.png" style={{ padding: '5em' }} />
+          <div className="centered-div">
+            <div className="centered-div">
               <h2>{intl.formatMessage({ id: 'tou.header' })}</h2>
             </div>
-            <div style={{textAlign: 'center'}}>
-              <h2 style={{color:'red'}}>{intl.formatMessage({ id: 'tou.demo' })}</h2>
+            <div style={{ textAlign: 'center' }}>
+              <h2 style={{ color: 'red' }}>{intl.formatMessage({ id: 'tou.demo' })}</h2>
               <h4>{intl.formatMessage({ id: 'tou.line1' })}</h4>
-              <h4>{
+              <h4>
+                {
                 intl.formatMessage(
                   { id: 'tou.line2' },
-                  { discordInvite: (
+                  {
+                    discordInvite: (
                       <a href="https://discord.gg/3SFgtcA" target="_blank" rel="noopener noreferrer">ESO Craft Request Demo</a>
-                    )
-                  }
+                    ),
+                  },
                 )
-              }</h4>
+              }
+              </h4>
               <h4>{intl.formatMessage({ id: 'tou.line3' })}</h4>
-              <h4>{
+              <h4>
+                {
                 intl.formatMessage(
                   { id: 'tou.line4' },
-                  { onboardingLink: (
+                  {
+                    onboardingLink: (
                       <a href="https://github.com/agiveygives/eso-craft-request/issues/new?assignees=agiveygives&labels=onboarding&template=onboarding-request.md&title=%5BONBOARDING%5D" target="_blank" rel="noopener noreferrer">Onboarding Request</a>
-                    )
-                  }
+                    ),
+                  },
                 )
-              }</h4>
+              }
+              </h4>
 
-              <h4>{
+              <h4>
+                {
                 intl.formatMessage(
                   { id: 'tou.line5' },
-                  { questionsLink: (
-                    <a href="https://discord.gg/uEyzbrE" target="_blank" rel="noopener noreferrer">#questions</a>
-                    )
-                  }
+                  {
+                    questionsLink: (
+                      <a href="https://discord.gg/uEyzbrE" target="_blank" rel="noopener noreferrer">#questions</a>
+                    ),
+                  },
                 )
-              }</h4>
+              }
+              </h4>
             </div>
           </div>
         </div>
@@ -101,7 +110,7 @@ const TermsOfUse = ({ termsOpen, acceptTerms }) => {
             variant="extended"
             size="small"
             aria-label="accept"
-            color='primary'
+            color="primary"
             onClick={() => acceptTerms(true)}
             className={classes.buttonMargin}
           >
@@ -112,7 +121,7 @@ const TermsOfUse = ({ termsOpen, acceptTerms }) => {
             variant="extended"
             size="small"
             aria-label="decline"
-            color='secondary'
+            color="secondary"
             onClick={() => acceptTerms(false)}
             className={classes.buttonMargin}
           >
@@ -127,12 +136,12 @@ const TermsOfUse = ({ termsOpen, acceptTerms }) => {
 
 TermsOfUse.propTypes = propTypes;
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   termsOpen: state.termsOpen,
 });
 
-const mapDispatchToProps = dispatch => ({
-  acceptTerms: response => dispatch({ type: TERMS_RESPONSE, response })
+const mapDispatchToProps = (dispatch) => ({
+  acceptTerms: (response) => dispatch({ type: TERMS_RESPONSE, response }),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(TermsOfUse);

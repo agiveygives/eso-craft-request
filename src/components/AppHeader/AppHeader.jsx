@@ -14,16 +14,18 @@ const propTypes = {
   title: PropTypes.string.isRequired,
   guildHeaderColor: PropTypes.string.isRequired,
   toggleMatsDrawer: PropTypes.func.isRequired,
-  matsDrawerOpen: PropTypes.bool,
-}
+  matsDrawerOpen: PropTypes.bool.isRequired,
+};
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles(() => ({
   hide: {
     display: 'none',
-  }
-}))
+  },
+}));
 
-const AppHeader = ({ title, guildHeaderColor, toggleMatsDrawer, matsDrawerOpen }) => {
+const AppHeader = ({
+  title, guildHeaderColor, toggleMatsDrawer, matsDrawerOpen,
+}) => {
   const classes = useStyles();
   const intl = useIntl();
 
@@ -49,7 +51,7 @@ const AppHeader = ({ title, guildHeaderColor, toggleMatsDrawer, matsDrawerOpen }
 
 AppHeader.propTypes = propTypes;
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   guildHeaderColor: state.guildData.colors.header,
 });
 

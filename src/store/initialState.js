@@ -27,7 +27,7 @@ const initialState = {
       Glyph: '',
       'Glyph Quality': '',
       Set: '',
-      Style: ''
+      Style: '',
     },
     shoulder: {
       display: 'gear.armor.shoulder',
@@ -37,7 +37,7 @@ const initialState = {
       Glyph: '',
       'Glyph Quality': '',
       Set: '',
-      Style: ''
+      Style: '',
     },
     chest: {
       display: 'gear.armor.chest',
@@ -47,7 +47,7 @@ const initialState = {
       Glyph: '',
       'Glyph Quality': '',
       Set: '',
-      Style: ''
+      Style: '',
     },
     legs: {
       display: 'gear.armor.legs',
@@ -57,7 +57,7 @@ const initialState = {
       Glyph: '',
       'Glyph Quality': '',
       Set: '',
-      Style: ''
+      Style: '',
     },
     waist: {
       display: 'gear.armor.waist',
@@ -67,7 +67,7 @@ const initialState = {
       Glyph: '',
       'Glyph Quality': '',
       Set: '',
-      Style: ''
+      Style: '',
     },
     hands: {
       display: 'gear.armor.hands',
@@ -77,7 +77,7 @@ const initialState = {
       Glyph: '',
       'Glyph Quality': '',
       Set: '',
-      Style: ''
+      Style: '',
     },
     feet: {
       display: 'gear.armor.feet',
@@ -87,8 +87,8 @@ const initialState = {
       Glyph: '',
       'Glyph Quality': '',
       Set: '',
-      Style: ''
-    }
+      Style: '',
+    },
   },
   jewelryAttributes: {
     display: 'gear.jewelry',
@@ -98,7 +98,7 @@ const initialState = {
       Trait: '',
       Glyph: '',
       'Glyph Quality': '',
-      Set: ''
+      Set: '',
     },
     ring1: {
       display: 'gear.jewelry.ring',
@@ -106,7 +106,7 @@ const initialState = {
       Trait: '',
       Glyph: '',
       'Glyph Quality': '',
-      Set: ''
+      Set: '',
     },
     ring2: {
       display: 'gear.jewelry.ring',
@@ -114,8 +114,8 @@ const initialState = {
       Trait: '',
       Glyph: '',
       'Glyph Quality': '',
-      Set: ''
-    }
+      Set: '',
+    },
   },
   weaponAttributes: {
     display: 'gear.weapons',
@@ -127,7 +127,7 @@ const initialState = {
       Glyph: '',
       'Glyph Quality': '',
       Set: '',
-      Style: ''
+      Style: '',
     },
     secondary1: {
       display: 'gear.weapon.secondary.display',
@@ -137,7 +137,7 @@ const initialState = {
       Glyph: '',
       'Glyph Quality': '',
       Set: '',
-      Style: ''
+      Style: '',
     },
     primary2: {
       display: 'gear.weapon.primary.display',
@@ -147,7 +147,7 @@ const initialState = {
       Glyph: '',
       'Glyph Quality': '',
       Set: '',
-      Style: ''
+      Style: '',
     },
     secondary2: {
       display: 'gear.weapon.secondary.display',
@@ -157,8 +157,8 @@ const initialState = {
       Glyph: '',
       'Glyph Quality': '',
       Set: '',
-      Style: ''
-    }
+      Style: '',
+    },
   },
   materials: [],
   traits: [],
@@ -167,8 +167,8 @@ const initialState = {
   glyphMaterials: {
     essenceRunes: [],
     potencyRunes: [],
-    aspectRunes: []
-  }
+    aspectRunes: [],
+  },
 };
 
 export default initialState;

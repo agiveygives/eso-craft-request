@@ -1,48 +1,57 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { Circle } from 'react-shapes';
 import { useIntl } from 'react-intl';
-import { Grid, Select, Typography, FormControl } from '@material-ui/core';
-import Utils from '../../utils';
+import {
+  Grid,
+  Select,
+  Typography,
+  FormControl,
+} from '@material-ui/core';
+import { generateSelectOptions } from '../../utils';
+import defaultDropdownValues from '../../constants/defaultDropdownValues';
+import GearAttributesShape from '../../propShapes/gearAttributesShape';
 
 const qualityColors = {
-  "quality.normal": '#888888',
-  "quality.fine": '#2DC50E',
-  "quality.superior": '#3A92FF',
-  "quality.epic": '#A02EF7',
-  "quality.legendary": '#CCAA1A'
+  'quality.normal': '#888888',
+  'quality.fine': '#2DC50E',
+  'quality.superior': '#3A92FF',
+  'quality.epic': '#A02EF7',
+  'quality.legendary': '#CCAA1A',
 };
 
 const propTypes = {
   piece: PropTypes.string.isRequired,
-  dropdownData: PropTypes.shape({
+  data: PropTypes.shape({
     options: PropTypes.arrayOf(PropTypes.shape({})),
-    default: PropTypes.shape({}),
+    default: PropTypes.shape({
+      value: '',
+      label: PropTypes.oneOf([
+        'Glyph',
+        'Glyph Quality',
+        'Trait',
+        'Quality',
+        'Set',
+        'Style',
+        'Weapon',
+        'Weight',
+      ]).isRequired,
+      isFixed: true,
+    }),
     key: PropTypes.string,
-  }),
-  defaultValues: PropTypes.shape({
-    glyph: PropTypes.shape({ value: PropTypes.string, label: PropTypes.oneOf(['Glyph']), color: PropTypes.oneOf(['#FF5630']), isFixed: PropTypes.oneOf([true]) }),
-    glyphQuality: PropTypes.shape({ value: PropTypes.string, label: PropTypes.oneOf(['Glyph Quality']), color: PropTypes.oneOf(['#FF5630']), isFixed: PropTypes.oneOf([true]) }),
-    trait: PropTypes.shape({ value: PropTypes.string, label: PropTypes.oneOf(['Trait']), color: PropTypes.oneOf(['#FF5630']), isFixed: PropTypes.oneOf([true]) }),
-    quality: PropTypes.shape({ value: PropTypes.string, label: PropTypes.oneOf(['Quality']), color: PropTypes.oneOf(['#FF5630']), isFixed: PropTypes.oneOf([true]) }),
-    set: PropTypes.shape({ value: PropTypes.string, label: PropTypes.oneOf(['Set']), color: PropTypes.oneOf(['#FF5630']), isFixed: PropTypes.oneOf([true]) }),
-    style: PropTypes.shape({ value: PropTypes.string, label: PropTypes.oneOf(['Style']), color: PropTypes.oneOf(['#FF5630']), isFixed: PropTypes.oneOf([true]) }),
-    weapon: PropTypes.shape({ value: PropTypes.string, label: PropTypes.oneOf(['Weapon']), color: PropTypes.oneOf(['#FF5630']), isFixed: PropTypes.oneOf([true]) }),
-    weight: PropTypes.shape({ value: PropTypes.string, label: PropTypes.oneOf(['Weight']), color: PropTypes.oneOf(['#FF5630']), isFixed: PropTypes.oneOf([true]) }),
-  }),
-  gridSize: PropTypes.number,
-  gearAttributes: PropTypes.shape({}),
-  updateAttributes: PropTypes.func,
-  glyphVal: PropTypes.string,
-  setAllOptions: PropTypes.func,
-  allPieceOptions: PropTypes.arrayOf(PropTypes.shape({})),
-  shieldOptions: PropTypes.arrayOf(PropTypes.shape({}))
+  }).isRequired,
+  gridSize: PropTypes.number.isRequired,
+  gearAttributes: GearAttributesShape.isRequired,
+  updateAttributes: PropTypes.func.isRequired,
+  glyphVal: PropTypes.string.isRequired,
+  setAllOptions: PropTypes.func.isRequired,
+  allPieceOptions: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
+  shieldOptions: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
 };
 
 const Dropdown = ({
   piece,
-  dropdownData,
-  defaultValues,
+  data,
   gridSize,
   gearAttributes,
   updateAttributes,
@@ -53,18 +62,26 @@ const Dropdown = ({
 }) => {
   const intl = useIntl();
 
+  const [dropdownData, setDropdownData] = useState(data);
+
   // Load Data
   switch (dropdownData.key) {
     case 'Quality':
       if (gearAttributes.Quality) {
-        dropdownData.default = {
-          value: gearAttributes.Quality,
-          label: gearAttributes.Quality,
-          color: qualityColors[gearAttributes.Quality],
-          isFixed: true
-        }
+        setDropdownData((prevData) => ({
+          ...prevData,
+          default: {
+            value: gearAttributes.Quality,
+            label: gearAttributes.Quality,
+            color: qualityColors[gearAttributes.Quality],
+            isFixed: true,
+          },
+        }));
       } else {
-        dropdownData.default = defaultValues.quality;
+        setDropdownData((prevData) => ({
+          ...prevData,
+          default: defaultDropdownValues.quality,
+        }));
       }
       break;
     case 'Trait':
@@ -73,10 +90,10 @@ const Dropdown = ({
           value: gearAttributes.Trait,
           label: gearAttributes.Trait,
           color: '#2DC50E',
-          isFixed: true
-        }
+          isFixed: true,
+        };
       } else {
-        dropdownData.default = defaultValues.trait;
+        dropdownData.default = defaultDropdownValues.trait;
       }
       break;
     case 'Set':
@@ -85,10 +102,10 @@ const Dropdown = ({
           value: gearAttributes.Set,
           label: gearAttributes.Set,
           color: '#2DC50E',
-          isFixed: true
-        }
+          isFixed: true,
+        };
       } else {
-        dropdownData.default = defaultValues.set;
+        dropdownData.default = defaultDropdownValues.set;
       }
       break;
     case 'Glyph':
@@ -97,10 +114,10 @@ const Dropdown = ({
           value: gearAttributes.Glyph,
           label: gearAttributes.Glyph,
           color: '#2DC50E',
-          isFixed: true
-        }
+          isFixed: true,
+        };
       } else {
-        dropdownData.default = defaultValues.glyph;
+        dropdownData.default = defaultDropdownValues.glyph;
       }
       break;
     case 'Glyph Quality':
@@ -109,10 +126,10 @@ const Dropdown = ({
           value: gearAttributes['Glyph Quality'],
           label: gearAttributes['Glyph Quality'],
           color: qualityColors[gearAttributes['Glyph Quality']],
-          isFixed: true
-        }
+          isFixed: true,
+        };
       } else {
-        dropdownData.default = defaultValues.glyphQuality;
+        dropdownData.default = defaultDropdownValues.glyphQuality;
       }
       break;
     case 'Weight':
@@ -121,10 +138,10 @@ const Dropdown = ({
           value: gearAttributes.Weight,
           label: gearAttributes.Weight,
           color: '#2DC50E',
-          isFixed: true
-        }
+          isFixed: true,
+        };
       } else {
-        dropdownData.default = defaultValues.weight;
+        dropdownData.default = defaultDropdownValues.weight;
       }
       break;
     case 'Style':
@@ -133,10 +150,10 @@ const Dropdown = ({
           value: gearAttributes.Style,
           label: gearAttributes.Style,
           color: '#2DC50E',
-          isFixed: true
-        }
+          isFixed: true,
+        };
       } else {
-        dropdownData.default = defaultValues.style;
+        dropdownData.default = defaultDropdownValues.style;
       }
       break;
     case 'Weapon':
@@ -145,34 +162,40 @@ const Dropdown = ({
           value: gearAttributes.Weapon,
           label: gearAttributes.Weapon,
           color: '#2DC50E',
-          isFixed: true
-        }
+          isFixed: true,
+        };
       } else {
-        dropdownData.default = defaultValues.weapon;
+        dropdownData.default = defaultDropdownValues.weapon;
       }
       break;
     default:
-      dropdownData.default = { value: null, label: 'Select' }
+      dropdownData.default = {
+        value: null,
+        label: 'Select',
+      };
       break;
   }
 
-  const [selectValue, setSelectValue] = React.useState(dropdownData.default);
+  const [selectValue,
+    setSelectValue] = React.useState(dropdownData.default);
 
   React.useEffect(() => {
     const splitKey = dropdownData.key.split(' ');
     splitKey[0] = splitKey[0].toLowerCase();
 
     if (
-      selectValue.value !== defaultValues[splitKey.join('')].value &&
-      !dropdownData.options.find((option) => option.value === selectValue.value)
+      selectValue.value !== defaultDropdownValues[splitKey.join('')].value
+      && !dropdownData.options.find((option) => option.value === selectValue.value)
     ) {
-      updateAttributes(piece, dropdownData.key);
-      setSelectValue(defaultValues[splitKey.join('')]);
+      updateAttributes(piece,
+        dropdownData.key);
+      setSelectValue(defaultDropdownValues[splitKey.join('')]);
     }
-  }, [dropdownData, selectValue, defaultValues, updateAttributes, piece]);
+  },
+  [dropdownData, selectValue, updateAttributes, piece]);
 
   return (
-    <Grid key={dropdownData.key} item xs={gridSize} className='centered-div'>
+    <Grid key={dropdownData.key} item xs={gridSize} className="centered-div">
       <FormControl disabled={glyphVal === 'common.none' && dropdownData.key === 'Glyph Quality'}>
         <Select
           style={{ minWidth: '10rem' }}
@@ -187,36 +210,56 @@ const Dropdown = ({
           value={selectValue.value}
           renderValue={
             () => (
-              <React.Fragment>
-                <span style={{ display: 'flex', alignItems: 'center' }}>
-                  <Circle r={5} fill={{color: selectValue.color}} />
-                  <Typography variant='body1' style={{ padding: '0.5rem', minWidth: '5rem' }}>
-                    {intl.formatMessage({  id: selectValue.label })}
+              <>
+                <span style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                }}
+                >
+                  <Circle r={5} fill={{ color: selectValue.color }} />
+                  <Typography
+                    variant="body1"
+                    style={{
+                      padding: '0.5rem',
+                      minWidth: '5rem',
+                    }}
+                  >
+                    {intl.formatMessage({ id: selectValue.label })}
                   </Typography>
                 </span>
-              </React.Fragment>
+              </>
             )
           }
           onChange={
-            (_, child) => {
-              setSelectValue(child.props.optiondata)
+            (_,
+              child) => {
+              setSelectValue(child.props.optiondata);
               updateAttributes(
                 piece,
                 child.props.piecekey,
                 child.props.value,
                 child.props.optiondata.stone,
                 child.props.optiondata.essenceRune,
-                child.props.optiondata.potency
-              )
+                child.props.optiondata.potency,
+              );
               if (child.props.piecekey === 'Weapon') {
-                child.props.value === 'gear.weapon.shield'
-                ? setAllOptions(shieldOptions)
-                : setAllOptions(allPieceOptions)
+                if (child.props.value === 'gear.weapon.shield') {
+                  setAllOptions(shieldOptions);
+                } else {
+                  setAllOptions(allPieceOptions);
+                }
               }
             }
           }
         >
-          {dropdownData.options.map(option => Utils.generateSelectOptions(option.value, dropdownData.key, option, intl))}
+          {
+            dropdownData.options.map((option) => generateSelectOptions(
+              option.value,
+              dropdownData.key,
+              option,
+              intl,
+            ))
+          }
         </Select>
       </FormControl>
     </Grid>

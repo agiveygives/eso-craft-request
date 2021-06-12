@@ -1,40 +1,41 @@
 import axios from 'axios';
-import { TOGGLE_REVIEW, SUCCESSFUL_REQUEST, FAILED_REQUEST, SET_GUILD_DATA, SET_GUILD_REQUEST_CODE } from './constants.js';
+import {
+  TOGGLE_REVIEW, SUCCESSFUL_REQUEST, FAILED_REQUEST, SET_GUILD_DATA, SET_GUILD_REQUEST_CODE,
+} from './constants';
 import English from '../i18n/en-US.json';
 
-export const getGuildData = (guildMemonic) => dispatch => {
+export const getGuildData = (guildMemonic) => (dispatch) => {
   axios.get(`https://us-central1-eso-craft-request.cloudfunctions.net/api/guilds?mnemonic=${guildMemonic}`)
-    .then(response => {
+    .then((response) => {
       if (response.data.length > 0) {
         dispatch({ type: SET_GUILD_DATA, guildData: response.data[0] });
-      }
-      else {
+      } else {
         dispatch({ type: SET_GUILD_REQUEST_CODE, statusCode: '404' });
       }
     })
-    .catch(error => {
+    .catch((error) => {
       dispatch({
         type: SET_GUILD_DATA,
         guildData: {
-          "website": "",
-          "active": true,
-          "crafterTag": "",
-          "name": "Craft Request App",
-          "webhook": "",
-          "imageUrl": "https://firebasestorage.googleapis.com/v0/b/eso-craft-request.appspot.com/o/default-guild.png?alt=media",
-          "colors": {
-              "header": "#FFFFFF",
-              "footer": "#000000"
+          website: '',
+          active: true,
+          crafterTag: '',
+          name: 'Craft Request App',
+          webhook: '',
+          imageUrl: 'https://firebasestorage.googleapis.com/v0/b/eso-craft-request.appspot.com/o/default-guild.png?alt=media',
+          colors: {
+            header: '#FFFFFF',
+            footer: '#000000',
           },
-          "locale": "en-US",
-        }
+          locale: 'en-US',
+        },
       });
 
       console.error(error);
-    })
-}
+    });
+};
 
-export const sendRequest = (currentState, intl) => dispatch => {
+export const sendRequest = (currentState, intl) => (dispatch) => {
   const {
     guildData,
     esoName,
@@ -46,7 +47,7 @@ export const sendRequest = (currentState, intl) => dispatch => {
     weaponPieces,
     armorAttributes,
     jewelryAttributes,
-    weaponAttributes
+    weaponAttributes,
   } = currentState;
 
   const requestLog = {
@@ -54,8 +55,8 @@ export const sendRequest = (currentState, intl) => dispatch => {
     url: window.location.href,
     username: esoName,
     level: gearLevel,
-    payment: payment,
-    notes: notes,
+    payment,
+    notes,
   };
 
   function buildGearMessage(selected, attributes) {
@@ -67,20 +68,25 @@ export const sendRequest = (currentState, intl) => dispatch => {
       const attributeGearKey = English[attributes.display].toLowerCase();
       requestLog[attributeGearKey] = {};
 
-      selected.forEach(piece => {
-        returnVal += `\n**${intl.formatMessage({ id: attributes[piece].display })}**`
+      selected.forEach((piece) => {
+        returnVal += `\n**${intl.formatMessage({ id: attributes[piece].display })}**`;
         requestLog[attributeGearKey][piece] = attributes[piece];
 
-        for (let attribute in attributes[piece]) {
+        Object.keys(attributes[piece]).forEach((attribute) => {
           if (attribute !== 'display' && attribute !== 'Glyph Quality') {
             if (attribute === 'Glyph') {
-              returnVal += ` | ${intl.formatMessage({ id: attributes[piece][attribute] }) + (attributes[piece].Glyph === 'common.none' ? '' : ` - ${intl.formatMessage({ id: attributes[piece]['Glyph Quality'] })}`)}`;
+              returnVal += ` | ${
+                intl.formatMessage({ id: attributes[piece][attribute] })
+                + (attributes[piece].Glyph === 'common.none'
+                  ? ''
+                  : ` - ${intl.formatMessage({ id: attributes[piece]['Glyph Quality'] })}`)
+              }`;
             } else {
               returnVal += ` | ${intl.formatMessage({ id: attributes[piece][attribute] })}`;
             }
           }
-        }
-      })
+        });
+      });
     }
 
     return returnVal;
@@ -88,14 +94,14 @@ export const sendRequest = (currentState, intl) => dispatch => {
 
   const discordMessage = () => {
     let request = (
-      `${guildData.crafterTag}\n` +
-      `${intl.formatMessage({ id: 'user.username' })}:\t\t${esoName}\n` +
-      `${intl.formatMessage({ id: 'confirmation.gearLevel' })}:\t\t\t\t${gearLevel}\n` +
-      `${intl.formatMessage({ id: 'confirmation.payment' })}:\t${intl.formatMessage({ id: payment })}\n`
+      `${guildData.crafterTag}\n`
+      + `${intl.formatMessage({ id: 'user.username' })}:\t\t${esoName}\n`
+      + `${intl.formatMessage({ id: 'confirmation.gearLevel' })}:\t\t\t\t${gearLevel}\n`
+      + `${intl.formatMessage({ id: 'confirmation.payment' })}:\t${intl.formatMessage({ id: payment })}\n`
     );
 
     let armorRequest = buildGearMessage(armorPieces, armorAttributes);
-    let requestWithArmor = request + armorRequest;
+    const requestWithArmor = request + armorRequest;
 
     if (requestWithArmor.length < 2000) {
       request = requestWithArmor;
@@ -103,7 +109,7 @@ export const sendRequest = (currentState, intl) => dispatch => {
     }
 
     let jewelryRequest = buildGearMessage(jewelryPieces, jewelryAttributes);
-    let requestWithJewelry = request + jewelryRequest;
+    const requestWithJewelry = request + jewelryRequest;
 
     if (requestWithJewelry.length < 2000) {
       request = requestWithJewelry;
@@ -111,14 +117,16 @@ export const sendRequest = (currentState, intl) => dispatch => {
     }
 
     let weaponsRequest = buildGearMessage(weaponPieces, weaponAttributes);
-    let requestWithWeapons = request + weaponsRequest;
+    const requestWithWeapons = request + weaponsRequest;
 
     if (requestWithWeapons.length < 2000) {
       request = requestWithWeapons;
       weaponsRequest = undefined;
     }
 
-    let requestNotes = `${notes.length > 0 ? `**${intl.formatMessage({ id: 'message.requestNotes' })}**: ${notes}\n\n` : ''}**${intl.formatMessage({ id: 'message.sentFrom' })}**: ${requestLog.url}`;
+    let requestNotes = `${notes.length > 0
+      ? `**${intl.formatMessage({ id: 'message.requestNotes' })}**: ${notes}\n\n`
+      : ''}**${intl.formatMessage({ id: 'message.sentFrom' })}**: ${requestLog.url}`;
 
     const requestWithNotes = `${request}\n\n${requestNotes}`;
 
@@ -133,34 +141,34 @@ export const sendRequest = (currentState, intl) => dispatch => {
       jewelryRequest,
       weaponsRequest,
       requestNotes,
-    }
+    };
   };
 
   const discordMessages = discordMessage();
 
   axios.post(guildData.webhook, {
-    content: discordMessages.request
+    content: discordMessages.request,
   })
     .then(async () => {
       try {
         if (discordMessages.armorRequest) {
           await axios.post(guildData.webhook, {
-            content: discordMessages.armorRequest
+            content: discordMessages.armorRequest,
           });
         }
         if (discordMessages.jewelryRequest) {
           await axios.post(guildData.webhook, {
-            content: discordMessages.jewelryRequest
+            content: discordMessages.jewelryRequest,
           });
         }
         if (discordMessages.weaponsRequest) {
           await axios.post(guildData.webhook, {
-            content: discordMessages.weaponsRequest
+            content: discordMessages.weaponsRequest,
           });
         }
         if (discordMessages.requestNotes) {
           await axios.post(guildData.webhook, {
-            content: discordMessages.requestNotes
+            content: discordMessages.requestNotes,
           });
         }
 
@@ -171,15 +179,15 @@ export const sendRequest = (currentState, intl) => dispatch => {
     })
     .catch(() => {
       dispatch({ type: FAILED_REQUEST });
-    })
+    });
 
   axios.post(
     'https://us-central1-eso-craft-request.cloudfunctions.net/api/craft-requests',
-    requestLog
+    requestLog,
   )
-    .catch(err => {
+    .catch((err) => {
       console.error(err);
-    })
+    });
 
-  dispatch({ type: TOGGLE_REVIEW, show: false })
+  dispatch({ type: TOGGLE_REVIEW, show: false });
 };

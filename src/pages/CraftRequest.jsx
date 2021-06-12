@@ -9,23 +9,25 @@ import '../App.css';
 import AppHeader from '../components/AppHeader/AppHeader';
 import AppFooter from '../components/AppFooter/AppFooter';
 import LevelSlider from '../components/LevelSlider/LevelSlider';
-import PaymentOption from '../components/PaymentOption/PaymentOption'
+import PaymentOption from '../components/PaymentOption/PaymentOption';
 import FormInput from '../components/FormInput/FormInput';
 import GearSection from '../components/GearSection/GearSection';
 import TermsOfUse from '../components/TermsOfUse/TermsOfUse';
 import Confirmation from '../components/Confirmation/Confirmation';
 import RequestAlert from '../components/RequestAlert/RequestAlert';
-import MatsDrawer from '../components/MatsDrawer/MatsDrawer'
+import MatsDrawer from '../components/MatsDrawer/MatsDrawer';
 import RequestNotes from '../components/RequestNotes';
 import { TERMS_RESPONSE } from '../store/constants';
 
-const drawerWidth = '20%'
+const drawerWidth = '20%';
 
 const propTypes = {
   termsAccepted: PropTypes.bool.isRequired,
-}
+  guildMnemonic: PropTypes.string.isRequired,
+  acceptTerms: PropTypes.func.isRequired,
+};
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   appStyle: {
     height: '100vh',
     backgroundColor: '#26262b',
@@ -45,15 +47,15 @@ const useStyles = makeStyles(theme => ({
   },
   disabled: {
     pointerEvents: 'none',
-    opacity: 0.4
+    opacity: 0.4,
   },
   hide: {
     display: 'none',
   },
   wrapper: {
-    margin: '1.4rem'
+    margin: '1.4rem',
   },
-}))
+}));
 
 const CraftRequest = ({ termsAccepted, guildMnemonic, acceptTerms }) => {
   const intl = useIntl();
@@ -63,19 +65,19 @@ const CraftRequest = ({ termsAccepted, guildMnemonic, acceptTerms }) => {
 
   React.useEffect(() => {
     if (guildMnemonic !== 'demo') acceptTerms(true);
-  }, [guildMnemonic, acceptTerms])
+  }, [guildMnemonic, acceptTerms]);
 
   return (
     <ContentContainer
-      className={clsx(classes.appStyle, {[classes.shift]: matsDrawerOpen})}
+      className={clsx(classes.appStyle, { [classes.shift]: matsDrawerOpen })}
       fill
-      header={
+      header={(
         <AppHeader
           title={intl.formatMessage({ id: 'AppName' })}
           matsDrawerOpen={matsDrawerOpen}
           toggleMatsDrawer={setMatsDrawerOpen}
         />
-      }
+      )}
       footer={<AppFooter ref={pageRef} />}
     >
       <RequestAlert />
@@ -107,13 +109,13 @@ const CraftRequest = ({ termsAccepted, guildMnemonic, acceptTerms }) => {
 
 CraftRequest.propTypes = propTypes;
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   termsAccepted: state.termsAccepted,
   guildMnemonic: state.guildMnemonic,
 });
 
-const mapDispatchToProps = dispatch => ({
-  acceptTerms: response => dispatch({ type: TERMS_RESPONSE, response })
+const mapDispatchToProps = (dispatch) => ({
+  acceptTerms: (response) => dispatch({ type: TERMS_RESPONSE, response }),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(CraftRequest);

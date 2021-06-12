@@ -1,4 +1,6 @@
-import { equipmentMats, jewelryMats, ringMatCounts, necklaceMatCounts } from '../constants/materials';
+import {
+  equipmentMats, jewelryMats, ringMatCounts, necklaceMatCounts,
+} from '../constants/materials';
 import { qualityMats } from '../constants/qualityOptions';
 import { additivePotencyRunes, subtractivePotencyRunes, aspectRunes } from '../constants/glyphMats';
 import craftableLevels from '../constants/craftableLevels';
@@ -9,18 +11,18 @@ const calculateItemMats = (level, gearType, weight, piece) => {
 
   const itemMats = {
     requestPiece: piece,
-    gearType: gearType,
+    gearType,
     weight: '',
     type: '',
-    count: 0
+    count: 0,
   };
 
-  const getEquipmentMat = (matsList, weight) => {
-    const material = matsList.find(mat => mat.levels.includes(level));
+  const getEquipmentMat = (matsList, eqWeight) => {
+    const material = matsList.find((mat) => mat.levels.includes(level));
     const index = material.levels.indexOf(level);
 
-    itemMats.weight = weight;
-    itemMats.type = material[weight];
+    itemMats.weight = eqWeight;
+    itemMats.type = material[eqWeight];
     if (level === 'CP 150') {
       itemMats.count = maxLevelStart;
     } else if (level === 'CP 160') {
@@ -28,17 +30,17 @@ const calculateItemMats = (level, gearType, weight, piece) => {
     } else {
       itemMats.count = initialAmount + index;
     }
-  }
+  };
 
   const getJewelryMat = (countList) => {
-    const matIndex = jewelryMats.findIndex(mat => mat.levels.includes(level));
+    const matIndex = jewelryMats.findIndex((mat) => mat.levels.includes(level));
     const levelIndex = jewelryMats[matIndex].levels.indexOf(level);
 
     itemMats.type = jewelryMats[matIndex].material;
     itemMats.count = countList[matIndex][levelIndex];
-  }
+  };
 
-  switch(gearType) {
+  switch (gearType) {
     case 'gear.armor.chest':
       initialAmount = 7;
       maxLevelStart = 15;
@@ -68,7 +70,7 @@ const calculateItemMats = (level, gearType, weight, piece) => {
     case 'gear.weapon.bow':
       initialAmount = 3;
       maxLevelStart = 12;
-      getEquipmentMat(equipmentMats, 'wood')
+      getEquipmentMat(equipmentMats, 'wood');
       break;
     case 'gear.weapon.axe':
     case 'gear.weapon.mace':
@@ -94,7 +96,7 @@ const calculateItemMats = (level, gearType, weight, piece) => {
   }
 
   return itemMats;
-}
+};
 
 const updateMats = (stateMats, stateAttributes, gearLevel, action) => {
   const weight = action.attribute === 'Weight'
@@ -103,251 +105,257 @@ const updateMats = (stateMats, stateAttributes, gearLevel, action) => {
 
   const gearType = (stateAttributes.display === 'gear.weapons')
     ? stateAttributes[action.piece].Weapon
-    : stateAttributes[action.piece].display
+    : stateAttributes[action.piece].display;
 
   const materials = calculateItemMats(
     gearLevel,
     gearType,
     weight,
-    action.piece
+    action.piece,
   );
 
-  if(materials.type === undefined) return stateMats;
+  if (materials.type === undefined) return stateMats;
 
-  const matsIndex = stateMats.findIndex(mat => mat.requestPiece === action.piece);
-  if(matsIndex >= 0 &&
-      (stateMats[matsIndex].type !== materials.type
+  const matsIndex = stateMats.findIndex((mat) => mat.requestPiece === action.piece);
+  if (matsIndex >= 0
+      && (stateMats[matsIndex].type !== materials.type
         || stateMats[matsIndex].count !== materials.count)
-    ) {
-      stateMats.splice(matsIndex, 1);
-      stateMats = stateMats.concat([materials]);
-  } else if(matsIndex < 0) {
-    stateMats = stateMats.concat([materials]);
+  ) {
+    stateMats.splice(matsIndex, 1);
+    stateMats.push([materials]);
+  } else if (matsIndex < 0) {
+    stateMats.push([materials]);
   }
 
-  return stateMats;
-}
+  return Array.from(stateMats);
+};
 
 const addRemovePieceMats = (pieces, materials, attributes, gearLevel, action) => {
+  const updateAction = action;
   let updatedMaterials;
 
   if (pieces.length < action.pieces.length) {
-    action.piece = action.pieces.filter(piece => !pieces.includes(piece))[0];
+    [updateAction.piece] = action.pieces.filter((piece) => !pieces.includes(piece));
 
     updatedMaterials = updateMats(
       materials,
       attributes,
       gearLevel,
-      action
+      updateAction,
     );
   } else {
-    action.piece = pieces.filter(piece => !action.pieces.includes(piece))[0];
+    [updateAction.piece] = pieces.filter((piece) => !action.pieces.includes(piece));
 
-    const removeIndex = materials.findIndex(mat => mat.requestPiece === action.piece);
+    const removeIndex = materials.findIndex((mat) => mat.requestPiece === updateAction.piece);
     if (removeIndex >= 0) materials.splice(removeIndex, 1);
     updatedMaterials = Array.from(materials);
   }
 
   return updatedMaterials;
-}
+};
+
+const updateStones = (stateStones, requestPiece, stone) => {
+  if (stone) {
+    const updatedStones = stateStones;
+    const stoneIndex = updatedStones.findIndex((stateStone) => stateStone.requestPiece === requestPiece);
+
+    const newStone = {
+      requestPiece,
+      stone,
+    };
+
+    if (stoneIndex >= 0 && stone === 'common.none') {
+      updatedStones.splice(stoneIndex, 1);
+    } else if (stoneIndex >= 0) {
+      updatedStones[stoneIndex] = newStone;
+    } else if (stone !== 'common.none') {
+      updatedStones.push(newStone);
+    }
+
+    return Array.from(updatedStones);
+  }
+  return stateStones;
+};
 
 const addRemoveStones = (pieces, stateStones, attributes, options, type, action) => {
   let updatedStones;
   let piece;
 
   if (pieces.length < action.pieces.length) {
-    piece = action.pieces.filter(piece => !pieces.includes(piece))[0];
-    if (attributes[piece][type] !== "") {
-      const stone = options.find(option => option.value === attributes[piece][type]).stone;
+    [piece] = action.pieces.filter((actionPiece) => !pieces.includes(actionPiece));
+    if (attributes[piece][type] !== '') {
+      const { stone } = options.find((option) => option.value === attributes[piece][type]);
 
       updatedStones = updateStones(
         stateStones,
         piece,
-        stone
+        stone,
       );
     } else {
       updatedStones = stateStones;
     }
   } else {
-    piece = pieces.filter(piece => !action.pieces.includes(piece))[0];
+    [piece] = pieces.filter((p) => !action.pieces.includes(p));
 
-    const removeIndex = stateStones.findIndex(mat => mat.requestPiece === piece);
+    const removeIndex = stateStones.findIndex((mat) => mat.requestPiece === piece);
     if (removeIndex >= 0) stateStones.splice(removeIndex, 1);
     updatedStones = Array.from(stateStones);
   }
 
   return updatedStones;
-}
-
-const updateStones = (stateStones, requestPiece, stone) => {
-  if (stone) {
-    const stoneIndex = stateStones.findIndex(stateStone => stateStone.requestPiece === requestPiece);
-
-    const newStone = {
-      requestPiece,
-      stone
-    };
-
-    if (stoneIndex >= 0 && stone === 'common.none') {
-      stateStones.splice(stoneIndex, 1);
-    } else if (stoneIndex >= 0) {
-      stateStones[stoneIndex] = newStone;
-    } else if (stone !== 'common.none') {
-      stateStones.push(newStone);
-    }
-
-    return Array.from(stateStones);
-  } else {
-    return stateStones;
-  }
-}
+};
 
 const updateQualityMats = (stateQualityMats, quality, type, piece) => {
   const updatedQualityMats = Array.from(stateQualityMats);
-  let pieceIndex = updatedQualityMats.findIndex(mat => mat.piece === piece);
+  let pieceIndex = updatedQualityMats.findIndex((mat) => mat.piece === piece);
 
   while (pieceIndex >= 0) {
     updatedQualityMats.splice(pieceIndex, 1);
 
-    pieceIndex = updatedQualityMats.findIndex(mat => mat.piece === piece);
+    pieceIndex = updatedQualityMats.findIndex((mat) => mat.piece === piece);
   }
 
-  qualityMats[type][quality].forEach(mats => updatedQualityMats.push({ ...mats, piece }))
+  qualityMats[type][quality].forEach((mats) => updatedQualityMats.push({ ...mats, piece }));
 
   return updatedQualityMats;
 };
 
 const addRemoveQualityMats = (statePieces, stateQualityMats, attributes, type, action) => {
+  let itemType = type;
   let updatedMats = stateQualityMats;
   let piece;
 
   if (action.pieces.length > statePieces.length) {
-    piece = action.pieces.filter(piece => !statePieces.includes(piece))[0];
+    [piece] = action.pieces.filter((p) => !statePieces.includes(p));
     if (type === 'armor') {
-      type = attributes[piece].Weight;
+      itemType = attributes[piece].Weight;
     } else if (type === 'weapon') {
-      if(['axe', 'mace', 'sword', 'battle axe', 'maul', 'greatsword', 'dagger']
-            .includes(attributes[piece].Weapon.toLowerCase())
-        ) {
-          type = 'Heavy';
+      if (['axe', 'mace', 'sword', 'battle axe', 'maul', 'greatsword', 'dagger']
+        .includes(attributes[piece].Weapon.toLowerCase())
+      ) {
+        itemType = 'Heavy';
       } else if (attributes[piece].Weapon !== '') {
-        type = 'wood';
+        itemType = 'wood';
       } else {
-        type = '';
+        itemType = '';
       }
     }
 
-    if (attributes[piece].Quality !== '' && type !== '') {
-      updatedMats = updateQualityMats(stateQualityMats, attributes[piece].Quality, type, piece);
+    if (attributes[piece].Quality !== '' && itemType !== '') {
+      updatedMats = updateQualityMats(stateQualityMats, attributes[piece].Quality, itemType, piece);
     }
   } else {
-    piece = statePieces.filter(piece => !action.pieces.includes(piece))[0];
+    [piece] = statePieces.filter((statePiece) => !action.pieces.includes(statePiece));
 
-    let pieceIndex = updatedMats.findIndex(mat => mat.piece === piece);
+    let pieceIndex = updatedMats.findIndex((mat) => mat.piece === piece);
 
     while (pieceIndex >= 0) {
       updatedMats.splice(pieceIndex, 1);
 
-      pieceIndex = updatedMats.findIndex(mat => mat.piece === piece);
+      pieceIndex = updatedMats.findIndex((mat) => mat.piece === piece);
     }
   }
 
   return Array.from(updatedMats);
-}
+};
 
 const getGlyphMats = (currentStateGlyphMats, piece, level, potency, essenceRune, quality) => {
-  if (quality) {
-    const aspectRune = aspectRunes.find(aspectRune => aspectRune.quality === quality);
+  const glyphMats = currentStateGlyphMats;
 
-    const aspectRuneIndex = currentStateGlyphMats.aspectRunes.findIndex(glyphMat => glyphMat.piece === piece);
+  if (quality) {
+    const aspectRune = aspectRunes.find((rune) => rune.quality === quality);
+
+    const aspectRuneIndex = glyphMats.aspectRunes.findIndex((glyphMat) => glyphMat.piece === piece);
 
     if (aspectRuneIndex >= 0) {
-      currentStateGlyphMats.aspectRunes[aspectRuneIndex] = {
+      glyphMats.aspectRunes[aspectRuneIndex] = {
         piece,
-        name: aspectRune.name
-      }
+        name: aspectRune.name,
+      };
     } else {
-      currentStateGlyphMats.aspectRunes.push({
+      glyphMats.aspectRunes.push({
         piece,
-        name: aspectRune.name
+        name: aspectRune.name,
       });
     }
 
-    currentStateGlyphMats.aspectRunes = Array.from(currentStateGlyphMats.aspectRunes);
+    glyphMats.aspectRunes = Array.from(glyphMats.aspectRunes);
   }
 
   if (potency) {
-    let potencyRunes = potency === 'additive' ? additivePotencyRunes : subtractivePotencyRunes;
+    const potencyRunes = potency === 'additive' ? additivePotencyRunes : subtractivePotencyRunes;
 
-    const levelIndex = craftableLevels.findIndex(craftableLevel => craftableLevel === level);
+    const levelIndex = craftableLevels.findIndex((craftableLevel) => craftableLevel === level);
 
     const potencyRune = potencyRunes.find((rune, index) => (
       potencyRunes.length === index + 1
         || (
-          craftableLevels.findIndex(level => level === rune.minimumCraftableLevel) <= levelIndex
-          && craftableLevels.findIndex(level => level === potencyRunes[index + 1].minimumCraftableLevel) > levelIndex
+          craftableLevels.findIndex((craftLevel) => craftLevel === rune.minimumCraftableLevel) <= levelIndex
+          && craftableLevels.findIndex((craftLevel) => (
+            craftLevel === potencyRunes[index + 1].minimumCraftableLevel
+          )) > levelIndex
         )
     ));
 
-    const potencyRuneIndex = currentStateGlyphMats.potencyRunes.findIndex(glyphMat => glyphMat.piece === piece);
+    const potencyRuneIndex = glyphMats.potencyRunes.findIndex((glyphMat) => glyphMat.piece === piece);
 
     if (potencyRuneIndex >= 0) {
-      currentStateGlyphMats.potencyRunes[potencyRuneIndex] = {
+      glyphMats.potencyRunes[potencyRuneIndex] = {
         piece,
         name: potencyRune.name,
-        potency
-      }
+        potency,
+      };
     } else {
-      currentStateGlyphMats.potencyRunes.push({
+      glyphMats.potencyRunes.push({
         piece,
         name: potencyRune.name,
-        potency
+        potency,
       });
     }
 
-    currentStateGlyphMats.potencyRunes = Array.from(currentStateGlyphMats.potencyRunes);
+    glyphMats.potencyRunes = Array.from(glyphMats.potencyRunes);
   }
 
   if (essenceRune) {
-    const essenceRuneIndex = currentStateGlyphMats.essenceRunes.findIndex(glyphMat => glyphMat.piece === piece);
+    const essenceRuneIndex = glyphMats.essenceRunes.findIndex((glyphMat) => glyphMat.piece === piece);
 
-    if (essenceRuneIndex >= 0 && currentStateGlyphMats.essenceRunes[essenceRuneIndex].name !== essenceRune) {
-      currentStateGlyphMats.essenceRunes[essenceRuneIndex] = {
+    if (essenceRuneIndex >= 0 && glyphMats.essenceRunes[essenceRuneIndex].name !== essenceRune) {
+      glyphMats.essenceRunes[essenceRuneIndex] = {
         piece,
-        name: essenceRune
-      }
+        name: essenceRune,
+      };
     } else if (essenceRuneIndex < 0) {
-      currentStateGlyphMats.essenceRunes.push({
+      glyphMats.essenceRunes.push({
         piece,
-        name: essenceRune
+        name: essenceRune,
       });
     }
 
-    currentStateGlyphMats.essenceRunes = Array.from(currentStateGlyphMats.essenceRunes);
+    glyphMats.essenceRunes = Array.from(glyphMats.essenceRunes);
   }
 
-  return currentStateGlyphMats;
-}
+  return glyphMats;
+};
 
 const addRemoveGlyphMats = (statePieces, gearLevel, stateGlyphMats, attributes, glyphOptions, action) => {
   let updatedMats = stateGlyphMats;
 
   if (action.pieces.length > statePieces.length) {
-    const addedPiece = action.pieces.filter(piece => !statePieces.includes(piece))[0];
+    const addedPiece = action.pieces.filter((piece) => !statePieces.includes(piece))[0];
 
     const glyph = attributes[addedPiece].Glyph;
     const glyphQuality = attributes[addedPiece]['Glyph Quality'];
 
     if (glyph !== '') {
-      const currentGlyph = glyphOptions.find(glyphOption => glyphOption.value === glyph);
+      const currentGlyph = glyphOptions.find((glyphOption) => glyphOption.value === glyph);
 
       updatedMats = getGlyphMats(
         updatedMats,
         addedPiece,
         gearLevel,
         currentGlyph.potency,
-        currentGlyph.essenceRune
-      )
+        currentGlyph.essenceRune,
+      );
     }
 
     if (glyphQuality !== '') {
@@ -357,46 +365,45 @@ const addRemoveGlyphMats = (statePieces, gearLevel, stateGlyphMats, attributes, 
         gearLevel,
         undefined,
         undefined,
-        glyphQuality
-      )
+        glyphQuality,
+      );
     }
-
   } else {
-    const removedPiece = statePieces.filter(piece => !action.pieces.includes(piece))[0];
+    const removedPiece = statePieces.filter((piece) => !action.pieces.includes(piece))[0];
 
-    const essenceIndex = updatedMats.essenceRunes.findIndex(rune => rune.piece === removedPiece);
+    const essenceIndex = updatedMats.essenceRunes.findIndex((rune) => rune.piece === removedPiece);
     updatedMats.essenceRunes.splice(essenceIndex, 1);
 
-    const potencyIndex = updatedMats.potencyRunes.findIndex(rune => rune.piece === removedPiece);
+    const potencyIndex = updatedMats.potencyRunes.findIndex((rune) => rune.piece === removedPiece);
     updatedMats.potencyRunes.splice(potencyIndex, 1);
 
-    const aspectIndex = updatedMats.aspectRunes.findIndex(rune => rune.piece === removedPiece);
+    const aspectIndex = updatedMats.aspectRunes.findIndex((rune) => rune.piece === removedPiece);
     updatedMats.aspectRunes.splice(aspectIndex, 1);
   }
 
   return {
     essenceRunes: Array.from(updatedMats.essenceRunes),
     potencyRunes: Array.from(updatedMats.potencyRunes),
-    aspectRunes: Array.from(updatedMats.aspectRunes)
+    aspectRunes: Array.from(updatedMats.aspectRunes),
   };
-}
+};
 
 const removeGlyph = (glyphMaterials, piece) => {
-  const essenceIndex = glyphMaterials.essenceRunes.findIndex(rune => rune.piece === piece);
+  const essenceIndex = glyphMaterials.essenceRunes.findIndex((rune) => rune.piece === piece);
   glyphMaterials.essenceRunes.splice(essenceIndex, 1);
 
-  const potencyIndex = glyphMaterials.potencyRunes.findIndex(rune => rune.piece === piece);
+  const potencyIndex = glyphMaterials.potencyRunes.findIndex((rune) => rune.piece === piece);
   glyphMaterials.potencyRunes.splice(potencyIndex, 1);
 
-  const aspectIndex = glyphMaterials.aspectRunes.findIndex(rune => rune.piece === piece);
+  const aspectIndex = glyphMaterials.aspectRunes.findIndex((rune) => rune.piece === piece);
   glyphMaterials.aspectRunes.splice(aspectIndex, 1);
 
   return {
     essenceRunes: Array.from(glyphMaterials.essenceRunes),
     potencyRunes: Array.from(glyphMaterials.potencyRunes),
     aspectRunes: Array.from(glyphMaterials.aspectRunes),
-  }
-}
+  };
+};
 
 const utils = {
   calculateItemMats,
@@ -408,7 +415,7 @@ const utils = {
   addRemoveQualityMats,
   getGlyphMats,
   addRemoveGlyphMats,
-  removeGlyph
+  removeGlyph,
 };
 
 export default utils;

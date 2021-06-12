@@ -8,7 +8,7 @@ export const generateSelectOptions = (option, key = 'Payment Option', optiondata
 );
 
 const utils = {
-  generateSelectOptions
+  generateSelectOptions,
 };
 
 export default utils;
