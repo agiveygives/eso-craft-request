@@ -11,17 +11,17 @@ const propTypes = {
   group: PropTypes.oneOf(['armor', 'jewelry', 'weapon']).isRequired,
 
   // from redux
-  selectedPieces: PropTypes.arrayOf(PropTypes.string).isRequired
-}
+  selectedPieces: PropTypes.arrayOf(PropTypes.string).isRequired,
+};
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles(() => ({
   wrapper: {
-    margin: '0.85rem'
+    margin: '0.85rem',
   },
   cardWrapper: {
-    margin: '1.5rem'
-  }
-}))
+    margin: '1.5rem',
+  },
+}));
 
 const GearSection = ({ group, selectedPieces }) => {
   const classes = useStyles();
@@ -51,7 +51,7 @@ const GearSection = ({ group, selectedPieces }) => {
         <CheckboxRow id={group} />
         <span className={classes.cardWrapper}>
           <div className="centered-div">
-            {selectedPieces.map(piece => <PieceCard group={group} piece={piece} key={`${group}-${piece}`} />)}
+            {selectedPieces.map((piece) => <PieceCard group={group} piece={piece} key={`${group}-${piece}`} />)}
           </div>
         </span>
       </ToggleHeader>
@@ -62,7 +62,7 @@ const GearSection = ({ group, selectedPieces }) => {
 GearSection.propTypes = propTypes;
 
 const mapStateToProps = (state, ownProps) => {
-  switch(ownProps.group) {
+  switch (ownProps.group) {
     case 'armor':
       return { selectedPieces: state.armorPieces };
 
@@ -73,8 +73,8 @@ const mapStateToProps = (state, ownProps) => {
       return { selectedPieces: state.weaponPieces };
 
     default:
-      return { selectedPieces: [] }
+      return { selectedPieces: [] };
   }
-}
+};
 
 export default connect(mapStateToProps)(GearSection);

@@ -1,15 +1,15 @@
-import en_US from './en-US.json';
+import enUS from './en-US.json';
 import fr from './fr.json';
 
 export const supportedLocales = [
   'en-US',
   'fr',
-]
+];
 
 const messages = {
-  en: en_US,
-  "en-US": en_US,
+  en: enUS,
+  'en-US': enUS,
   fr,
-}
+};
 
 export default messages;

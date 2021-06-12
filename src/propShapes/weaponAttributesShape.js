@@ -1,0 +1,45 @@
+import PropTypes from 'prop-types';
+
+export default PropTypes.shape({
+  display: PropTypes.oneOf(['gear.weapons']).isRequired,
+  primary1: PropTypes.shape({
+    display: PropTypes.oneOf(['gear.weapon.primary.display']).isRequired,
+    Quality: PropTypes.string.isRequired,
+    Weapon: PropTypes.string.isRequired,
+    Trait: PropTypes.string.isRequired,
+    Glyph: PropTypes.string.isRequired,
+    'Glyph Quality': PropTypes.string.isRequired,
+    Set: PropTypes.string.isRequired,
+    Style: PropTypes.string.isRequired,
+  }),
+  secondary1: PropTypes.shape({
+    display: PropTypes.oneOf(['gear.weapon.secondary.display']).isRequired,
+    Quality: PropTypes.string.isRequired,
+    Weapon: PropTypes.string.isRequired,
+    Trait: PropTypes.string.isRequired,
+    Glyph: PropTypes.string.isRequired,
+    'Glyph Quality': PropTypes.string.isRequired,
+    Set: PropTypes.string.isRequired,
+    Style: PropTypes.string.isRequired,
+  }),
+  primary2: PropTypes.shape({
+    display: PropTypes.oneOf(['gear.weapon.primary.display']).isRequired,
+    Quality: PropTypes.string.isRequired,
+    Weapon: PropTypes.string.isRequired,
+    Trait: PropTypes.string.isRequired,
+    Glyph: PropTypes.string.isRequired,
+    'Glyph Quality': PropTypes.string.isRequired,
+    Set: PropTypes.string.isRequired,
+    Style: PropTypes.string.isRequired,
+  }),
+  secondary2: PropTypes.shape({
+    display: PropTypes.oneOf(['gear.weapon.secondary.display']).isRequired,
+    Quality: PropTypes.string.isRequired,
+    Weapon: PropTypes.string.isRequired,
+    Trait: PropTypes.string.isRequired,
+    Glyph: PropTypes.string.isRequired,
+    'Glyph Quality': PropTypes.string.isRequired,
+    Set: PropTypes.string.isRequired,
+    Style: PropTypes.string.isRequired,
+  }),
+});

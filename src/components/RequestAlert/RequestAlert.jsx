@@ -2,7 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { useIntl } from 'react-intl';
-import { IconButton, Snackbar, SnackbarContent, Typography } from '@material-ui/core';
+import {
+  IconButton, Snackbar, SnackbarContent, Typography,
+} from '@material-ui/core';
 import { green, red } from '@material-ui/core/colors';
 import CloseIcon from '@material-ui/icons/Close';
 import { RESTART, RETRY } from '../../store/constants';
@@ -11,14 +13,14 @@ const propTypes = {
   isSuccessful: PropTypes.bool.isRequired,
   isFailed: PropTypes.bool.isRequired,
   reset: PropTypes.func.isRequired,
-  retry: PropTypes.func.isRequired
+  retry: PropTypes.func.isRequired,
 };
 
 const RequestAlert = ({
   isSuccessful,
   isFailed,
   reset,
-  retry
+  retry,
 }) => {
   const intl = useIntl();
   const [snackbarOpen, setSnackbarOpen] = React.useState(false);
@@ -29,26 +31,26 @@ const RequestAlert = ({
     if (isSuccessful || isFailed) {
       setSnackbarOpen(true);
 
-      if(isSuccessful) {
+      if (isSuccessful) {
         setBackgroundColor(green[600]);
         setMessage(intl.formatMessage({ id: 'alert.success' }));
       }
 
-      if(isFailed) {
+      if (isFailed) {
         setBackgroundColor(red[600]);
         setMessage(intl.formatMessage({ id: 'alert.failure' }));
       }
     } else {
       setSnackbarOpen(false);
     }
-  }, [isSuccessful, isFailed, intl])
+  }, [isSuccessful, isFailed, intl]);
 
   const onClose = () => {
     setSnackbarOpen(false);
 
     if (isSuccessful) reset();
     if (isFailed) retry();
-  }
+  };
 
   return (
     <Snackbar
@@ -71,18 +73,18 @@ const RequestAlert = ({
       />
     </Snackbar>
   );
-}
+};
 
 RequestAlert.propTypes = propTypes;
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   isSuccessful: state.success,
-  isFailed: state.failed
+  isFailed: state.failed,
 });
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch) => ({
   reset: () => dispatch({ type: RESTART }),
-  retry: () => dispatch({ type: RETRY })
+  retry: () => dispatch({ type: RETRY }),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(RequestAlert);

@@ -1,67 +1,64 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Card, CardContent, CardHeader, Grid } from '@material-ui/core';
+import {
+  Card, CardContent, CardHeader, Grid,
+} from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 
 // constants and Utils
+import { useIntl } from 'react-intl';
 import { qualityOptions } from '../../constants/qualityOptions';
 import { armorWeights, armorTraits, armorGlyphs } from '../../constants/armorOptions';
 import { jewelryTraits, jewelryGlyphs } from '../../constants/jewelryOptions';
-import { primaryWeapons, secondaryWeapons, weaponTraits, weaponGlyphs } from '../../constants/weaponOptions';
+import {
+  primaryWeapons, secondaryWeapons, weaponTraits, weaponGlyphs,
+} from '../../constants/weaponOptions';
 import SetOptions from '../../constants/setOptions';
 import StyleOptions from '../../constants/styleOptions';
-import { UPDATE_ARMOR, UPDATE_JEWELRY, UPDATE_WEAPONS, UPDATE_ARMOR_MATS, UPDATE_WEAPON_MATS, UPDATE_JEWELRY_MATS } from '../../store/constants';
+import defaultDropdownValues from '../../constants/defaultDropdownValues';
+import {
+  UPDATE_ARMOR, UPDATE_JEWELRY, UPDATE_WEAPONS, UPDATE_ARMOR_MATS, UPDATE_WEAPON_MATS, UPDATE_JEWELRY_MATS,
+} from '../../store/constants';
+import GearAttributesShape from '../../propShapes/gearAttributesShape';
 import Dropdown from './Dropdown';
-import { useIntl } from 'react-intl';
 
 const propTypes = {
   group: PropTypes.oneOf(['armor', 'jewelry', 'weapon']).isRequired,
   piece: PropTypes.string.isRequired,
 
   // from redux
-  gearAttributes: PropTypes.shape({}).isRequired,
+  gearAttributes: GearAttributesShape.isRequired,
   updateAttributes: PropTypes.func.isRequired,
-  glyphVal: PropTypes.string
+  glyphVal: PropTypes.string,
 };
 
 const useStyles = makeStyles({
   card: {
     color: 'black',
     backgroundColor: '#e8e9ea',
-    overflow: 'visible'
+    overflow: 'visible',
   },
   content: {
-    width: "30em"
+    width: '30em',
   },
   centered: {
     display: 'flex',
     flexWrap: 'wrap',
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
   },
   cardPadding: {
-    padding: '2rem'
-  }
+    padding: '2rem',
+  },
 });
-
-const defaultValues = {
-  glyph: { value: '', label: 'Glyph', color: '#FF5630', isFixed: true },
-  glyphQuality: { value: '', label: 'Glyph Quality', color: '#FF5630', isFixed: true },
-  trait: { value: '', label: 'Trait', color: '#FF5630', isFixed: true },
-  quality: { value: '', label: 'Quality', color: '#FF5630', isFixed: true },
-  set: { value: '', label: 'Set', color: '#FF5630', isFixed: true },
-  style: { value: '', label: 'Style', color: '#FF5630', isFixed: true },
-  weapon: { value: '', label: 'Weapon', color: '#FF5630', isFixed: true },
-  weight: { value: '', label: 'Weight', color: '#FF5630', isFixed: true }
-}
 
 const PieceCard = ({
   group,
   piece,
   gearAttributes,
   updateAttributes,
-  glyphVal
+  glyphVal,
 }) => {
   const classes = useStyles();
   const intl = useIntl();
@@ -70,51 +67,52 @@ const PieceCard = ({
 
   let allPieceOptions;
   let shieldOptions;
+  let weapons;
 
   switch (group) {
     case 'armor':
       allPieceOptions = [
-        { options: armorWeights, default: defaultValues.weight, key: 'Weight' },
-        { options: armorTraits, default: defaultValues.trait, key: 'Trait' },
-        { options: armorGlyphs, default: defaultValues.glyph, key: 'Glyph' },
-        { options: qualityOptions, default: defaultValues.glyphQuality, key: 'Glyph Quality' },
-        { options: sortedSetOptions, default: defaultValues.set, key: 'Set' },
-        { options: sortedStyleOptions, default: defaultValues.style, key: 'Style' }
+        { options: armorWeights, default: defaultDropdownValues.weight, key: 'Weight' },
+        { options: armorTraits, default: defaultDropdownValues.trait, key: 'Trait' },
+        { options: armorGlyphs, default: defaultDropdownValues.glyph, key: 'Glyph' },
+        { options: qualityOptions, default: defaultDropdownValues.glyphQuality, key: 'Glyph Quality' },
+        { options: sortedSetOptions, default: defaultDropdownValues.set, key: 'Set' },
+        { options: sortedStyleOptions, default: defaultDropdownValues.style, key: 'Style' },
       ];
       break;
     case 'jewelry':
       allPieceOptions = [
-        { options: jewelryTraits, default: defaultValues.trait, key: 'Trait' },
-        { options: sortedSetOptions, default: defaultValues.set, key: 'Set' },
-        { options: jewelryGlyphs, default: defaultValues.glyph, key: 'Glyph' },
-        { options: qualityOptions, default: defaultValues.glyphQuality, key: 'Glyph Quality' }
+        { options: jewelryTraits, default: defaultDropdownValues.trait, key: 'Trait' },
+        { options: sortedSetOptions, default: defaultDropdownValues.set, key: 'Set' },
+        { options: jewelryGlyphs, default: defaultDropdownValues.glyph, key: 'Glyph' },
+        { options: qualityOptions, default: defaultDropdownValues.glyphQuality, key: 'Glyph Quality' },
       ];
       break;
     case 'weapon':
-      let weapons = piece.includes('primary') ? primaryWeapons : secondaryWeapons;
+      weapons = piece.includes('primary') ? primaryWeapons : secondaryWeapons;
       allPieceOptions = [
-        { options: weapons, default: defaultValues.weapon, key: 'Weapon' },
-        { options: weaponTraits, default: defaultValues.trait, key: 'Trait' },
-        { options: weaponGlyphs, default: defaultValues.glyph, key: 'Glyph' },
-        { options: qualityOptions, default: defaultValues.glyphQuality, key: 'Glyph Quality' },
-        { options: sortedSetOptions, default: defaultValues.set, key: 'Set' },
-        { options: sortedStyleOptions, default: defaultValues.style, key: 'Style' }
+        { options: weapons, default: defaultDropdownValues.weapon, key: 'Weapon' },
+        { options: weaponTraits, default: defaultDropdownValues.trait, key: 'Trait' },
+        { options: weaponGlyphs, default: defaultDropdownValues.glyph, key: 'Glyph' },
+        { options: qualityOptions, default: defaultDropdownValues.glyphQuality, key: 'Glyph Quality' },
+        { options: sortedSetOptions, default: defaultDropdownValues.set, key: 'Set' },
+        { options: sortedStyleOptions, default: defaultDropdownValues.style, key: 'Style' },
       ];
       shieldOptions = [
-        { options: weapons, default: defaultValues.weapon, key: 'Weapon' },
-        { options: armorTraits, default: defaultValues.trait, key: 'Trait' },
-        { options: armorGlyphs, default: defaultValues.glyph, key: 'Glyph' },
-        { options: qualityOptions, default: defaultValues.glyphQuality, key: 'Glyph Quality' },
-        { options: sortedSetOptions, default: defaultValues.set, key: 'Set' },
-        { options: sortedStyleOptions, default: defaultValues.style, key: 'Style' }
-      ]
+        { options: weapons, default: defaultDropdownValues.weapon, key: 'Weapon' },
+        { options: armorTraits, default: defaultDropdownValues.trait, key: 'Trait' },
+        { options: armorGlyphs, default: defaultDropdownValues.glyph, key: 'Glyph' },
+        { options: qualityOptions, default: defaultDropdownValues.glyphQuality, key: 'Glyph Quality' },
+        { options: sortedSetOptions, default: defaultDropdownValues.set, key: 'Set' },
+        { options: sortedStyleOptions, default: defaultDropdownValues.style, key: 'Style' },
+      ];
       break;
     default:
       allPieceOptions = [];
       break;
   }
 
-  const [allOptions, setAllOptions] = React.useState(allPieceOptions)
+  const [allOptions, setAllOptions] = React.useState(allPieceOptions);
 
   return (
     <span style={{ padding: '1rem' }}>
@@ -122,13 +120,16 @@ const PieceCard = ({
         className={classes.card}
         raised
       >
-        <CardHeader classes={{content: classes.centered}} title={intl.formatMessage({ id: gearAttributes.display })} />
+        <CardHeader
+          classes={{ content: classes.centered }}
+          title={intl.formatMessage({ id: gearAttributes.display })}
+        />
         <CardContent className={classes.content}>
           <Grid container>
             <Dropdown
               piece={piece}
-              dropdownData={{ options: qualityOptions, default: defaultValues.quality, key: 'Quality' }}
-              defaultValues={defaultValues}
+              data={{ options: qualityOptions, default: defaultDropdownValues.quality, key: 'Quality' }}
+              defaultDropdownValues={defaultDropdownValues}
               gridSize={12}
               gearAttributes={gearAttributes}
               updateAttributes={updateAttributes}
@@ -137,12 +138,12 @@ const PieceCard = ({
               allPieceOptions={allPieceOptions}
               shieldOptions={shieldOptions}
             />
-            {allOptions.map(option => (
+            {allOptions.map((option) => (
               <Dropdown
                 key={option.key}
                 piece={piece}
-                dropdownData={option}
-                defaultValues={defaultValues}
+                data={option}
+                defaultDropdownValues={defaultDropdownValues}
                 gridSize={6}
                 gearAttributes={gearAttributes}
                 updateAttributes={updateAttributes}
@@ -156,43 +157,78 @@ const PieceCard = ({
         </CardContent>
       </Card>
     </span>
-  )
+  );
+};
+
+PieceCard.defaultProps = {
+  glyphVal: undefined,
 };
 
 PieceCard.propTypes = propTypes;
 
 const mapStateToProps = (state, ownProps) => {
-  switch(ownProps.group) {
+  switch (ownProps.group) {
     case 'armor':
-      return { gearAttributes: state.armorAttributes[ownProps.piece], glyphVal: state.armorAttributes[ownProps.piece].Glyph }
+      return {
+        gearAttributes: state.armorAttributes[ownProps.piece],
+        glyphVal: state.armorAttributes[ownProps.piece].Glyph,
+      };
     case 'jewelry':
-      return { gearAttributes: state.jewelryAttributes[ownProps.piece], glyphVal: state.jewelryAttributes[ownProps.piece].Glyph }
+      return {
+        gearAttributes: state.jewelryAttributes[ownProps.piece],
+        glyphVal: state.jewelryAttributes[ownProps.piece].Glyph,
+      };
     case 'weapon':
-      return { gearAttributes: state.weaponAttributes[ownProps.piece], glyphVal: state.weaponAttributes[ownProps.piece].Glyph }
+      return {
+        gearAttributes: state.weaponAttributes[ownProps.piece],
+        glyphVal: state.weaponAttributes[ownProps.piece].Glyph,
+      };
     default:
-      return { gearAttributes: {}, glyphVal: null }
+      return { gearAttributes: {}, glyphVal: null };
   }
 };
 
 const mapDispatchToProps = (dispatch, ownProps) => {
-  switch(ownProps.group) {
+  switch (ownProps.group) {
     case 'armor':
-      return { updateAttributes: (piece, attribute, value = '', stone = 'common.none', essenceRune, potency) => {
-        dispatch({ type: UPDATE_ARMOR, piece, attribute, value });
-        dispatch({ type: UPDATE_ARMOR_MATS, piece, attribute, value: value || 'None', stone, essenceRune, potency })
-      }};
+      return {
+        updateAttributes: (piece, attribute, value = '', stone = 'common.none', essenceRune, potency) => {
+          dispatch({
+            type: UPDATE_ARMOR, piece, attribute, value,
+          });
+          dispatch({
+            type: UPDATE_ARMOR_MATS, piece, attribute, value: value || 'None', stone, essenceRune, potency,
+          });
+        },
+      };
     case 'jewelry':
-      return { updateAttributes: (piece, attribute, value = '', stone = 'common.none', essenceRune, potency) => {
-        dispatch({ type: UPDATE_JEWELRY, piece, attribute, value });
-        dispatch({ type: UPDATE_JEWELRY_MATS, piece, attribute, value: value || 'None', stone, essenceRune, potency });
-      }};
+      return {
+        updateAttributes: (piece, attribute, value = '', stone = 'common.none', essenceRune, potency) => {
+          dispatch({
+            type: UPDATE_JEWELRY, piece, attribute, value,
+          });
+          dispatch({
+            type: UPDATE_JEWELRY_MATS, piece, attribute, value: value || 'None', stone, essenceRune, potency,
+          });
+        },
+      };
     case 'weapon':
-      return { updateAttributes: (piece, attribute, value = '', stone = 'common.none', essenceRune, potency) => {
-        dispatch({ type: UPDATE_WEAPONS, piece, attribute, value });
-        dispatch({ type: UPDATE_WEAPON_MATS, piece, attribute, value: value || 'None', stone, essenceRune, potency  });
-      }};
+      return {
+        updateAttributes: (piece, attribute, value = '', stone = 'common.none', essenceRune, potency) => {
+          dispatch({
+            type: UPDATE_WEAPONS, piece, attribute, value,
+          });
+          dispatch({
+            type: UPDATE_WEAPON_MATS, piece, attribute, value: value || 'None', stone, essenceRune, potency,
+          });
+        },
+      };
     default:
-      return { updateAttributes: (piece, attribute, value) => console.log(`Failed to update ${ownProps.group} ${piece} ${attribute} to ${value}`) }
+      return {
+        updateAttributes: (piece, attribute, value) => (
+          console.log(`Failed to update ${ownProps.group} ${piece} ${attribute} to ${value}`)
+        ),
+      };
   }
 };
 

@@ -13,7 +13,7 @@ const propTypes = {
   craftableLevels: PropTypes.bool.isRequired,
 
   // from redux
-  updateGearLevel: PropTypes.func.isRequired
+  updateGearLevel: PropTypes.func.isRequired,
 };
 
 const LevelSlider = ({ label, craftableLevels, updateGearLevel }) => {
@@ -21,30 +21,30 @@ const LevelSlider = ({ label, craftableLevels, updateGearLevel }) => {
   const TooltipSlider = Slider.createSliderWithTooltip(Slider);
   const levels = [];
 
-  const sliderLevels = craftableLevels ? craftLevels: levels;
+  const sliderLevels = craftableLevels ? craftLevels : levels;
 
   function updateLevelLabel(level) {
-     document.getElementById('level-label').innerHTML = `${intl.formatMessage({ id: 'user.level' })} ${level}`;
+    document.getElementById('level-label').innerHTML = `${intl.formatMessage({ id: 'user.level' })} ${level}`;
   }
 
   return (
     <div style={{ width: 'fit-content', marginLeft: 50 }}>
-      <Typography variant='h6'>{label}</Typography>
+      <Typography variant="h6">{label}</Typography>
       <TooltipSlider
         id="level-slider"
         trackStyle={{ backgroundColor: '#27a745' }}
-        style={{ width: 200, 'marginTop': 10, 'marginBottom': 10 }}
+        style={{ width: 200, marginTop: 10, marginBottom: 10 }}
         min={0}
         max={sliderLevels.length - 1}
-        tipFormatter={value => `${intl.formatMessage({ id: 'user.level' })} ${sliderLevels[value]}`}
-        onChange={value => {
+        tipFormatter={(value) => `${intl.formatMessage({ id: 'user.level' })} ${sliderLevels[value]}`}
+        onChange={(value) => {
           updateLevelLabel(sliderLevels[value]);
           updateGearLevel(sliderLevels[value]);
         }}
       />
       <Typography
-        id='level-label'
-        variant='body1'
+        id="level-label"
+        variant="body1"
       >
         {`${intl.formatMessage({ id: 'user.level' })} ${sliderLevels[0]}`}
       </Typography>
@@ -56,11 +56,10 @@ LevelSlider.propTypes = propTypes;
 
 LevelSlider.defaultProps = {
   label: '',
-  craftableLevels: false
 };
 
-const mapDispatchToProps = dispatch => ({
-  updateGearLevel: level => dispatch({ type: UPDATE_GEAR_LEVEL, level })
-})
+const mapDispatchToProps = (dispatch) => ({
+  updateGearLevel: (level) => dispatch({ type: UPDATE_GEAR_LEVEL, level }),
+});
 
 export default connect(null, mapDispatchToProps)(LevelSlider);

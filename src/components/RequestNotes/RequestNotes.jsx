@@ -17,13 +17,20 @@ const RequestNotes = ({ notes, updateNotes }) => {
   return (
     <div className="wrapper">
       <div className="centered-div">
-        <Typography variant='h5'>{
+        <Typography variant="h5">
+          {
           intl.formatMessage(
             { id: 'user.requestNotes.header' },
-            { total: notes.length }
+            { total: notes.length },
           )
-        }</Typography>
-        <Typography variant='body1'><i>*{intl.formatMessage({ id: 'user.requestNotes.optional' })}</i></Typography>
+        }
+        </Typography>
+        <Typography variant="body1">
+          <i>
+            *
+            {intl.formatMessage({ id: 'user.requestNotes.optional' })}
+          </i>
+        </Typography>
       </div>
       <div className="centered-div">
         <textarea
@@ -35,19 +42,19 @@ const RequestNotes = ({ notes, updateNotes }) => {
         />
       </div>
     </div>
-  )
+  );
 };
 
 RequestNotes.propTypes = propTypes;
 
-const mapStateToProps = state => ({
-  notes: state.notes
+const mapStateToProps = (state) => ({
+  notes: state.notes,
 });
 
-const mapDispatchToProps = dispatch => ({
-  updateNotes: notes => dispatch(
-    { type: UPDATE_NOTES, notes }
-  )
+const mapDispatchToProps = (dispatch) => ({
+  updateNotes: (notes) => dispatch(
+    { type: UPDATE_NOTES, notes },
+  ),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(RequestNotes);

@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { useIntl } from 'react-intl';
 import { makeStyles } from '@material-ui/core/styles';
-import { TOGGLE_REVIEW } from '../../store/constants';
 import Image from 'material-ui-image';
 import Fab from '@material-ui/core/Fab';
 import EditIcon from '@material-ui/icons/Edit';
@@ -17,24 +16,25 @@ import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableRow from '@material-ui/core/TableRow';
+import { TOGGLE_REVIEW } from '../../store/constants';
 import { sendRequest } from '../../store/actions';
+import { stateShape } from '../../propShapes';
 
 const propTypes = {
   // from redux
-  currentState: PropTypes.shape({}).isRequired,
+  currentState: stateShape.isRequired,
   sendMessage: PropTypes.func.isRequired,
-  closeReview: PropTypes.func.isRequired
+  closeReview: PropTypes.func.isRequired,
 };
 
-const Transition = React.forwardRef(function Transition(props, ref) {
-  return <Slide direction="up" ref={ref} {...props} />;
-});
+// eslint-disable-next-line react/jsx-props-no-spreading
+const Transition = React.forwardRef((props, ref) => <Slide direction="up" ref={ref} {...props} />);
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   subheader: {
     backgroundColor: '#e0e0e0',
     fontSize: '1em',
-    fontColor: 'black'
+    fontColor: 'black',
   },
   buttonMargin: {
     margin: theme.spacing(1),
@@ -55,7 +55,7 @@ const Confirmation = ({ currentState, sendMessage, closeReview }) => {
     weaponPieces,
     armorAttributes,
     jewelryAttributes,
-    weaponAttributes
+    weaponAttributes,
   } = currentState;
   const classes = useStyles();
   const intl = useIntl();
@@ -65,40 +65,49 @@ const Confirmation = ({ currentState, sendMessage, closeReview }) => {
 
     if (selected.length) {
       returnVal = (
-        <React.Fragment>
+        <>
           <TableRow>
-            <TableCell className={classes.subheader} key={`${attributes.display}_subheader`} align='center' colSpan={3}>
-              {intl.formatMessage({ id: attributes.display})}
+            <TableCell className={classes.subheader} key={`${attributes.display}_subheader`} align="center" colSpan={3}>
+              {intl.formatMessage({ id: attributes.display })}
             </TableCell>
           </TableRow>
-          {selected.map(piece => (
-              Object.keys(attributes[piece]).map(attribute => {
-                if (attribute !== 'display') {
-                  let tableRow;
-                  var pieceLabel = attribute === 'Quality' ? attributes[piece]['display'] : ''
+          {selected.map((piece) => (
+            Object.keys(attributes[piece]).map((attribute) => {
+              if (attribute !== 'display') {
+                let tableRow;
+                const pieceLabel = attribute === 'Quality' ? attributes[piece].display : '';
 
-                  if (attribute === 'Glyph Quality' && attributes[piece].Glyph === 'common.none') {
-                    tableRow = null;
-                  } else {
-                    tableRow = (
-                      <TableRow key={`${piece}-${attribute}-row`}>
-                        <TableCell key={`${piece}-${attribute}-piece`}>{pieceLabel ? intl.formatMessage({ id: pieceLabel }) : undefined}</TableCell>
-                        <TableCell key={`${piece}-${attribute}-attribute`}>{attribute ? intl.formatMessage({ id: attribute }) : undefined}</TableCell>
-                        <TableCell key={`${piece}-${attribute}-input`}>{attributes[piece][attribute] ? intl.formatMessage({ id: attributes[piece][attribute] }) : undefined}</TableCell>
-                      </TableRow>
-                    );
-                  }
-
-                  return tableRow;
+                if (attribute === 'Glyph Quality' && attributes[piece].Glyph === 'common.none') {
+                  tableRow = null;
                 } else {
-                  return null
+                  tableRow = (
+                    <TableRow key={`${piece}-${attribute}-row`}>
+                      <TableCell key={`${piece}-${attribute}-piece`}>
+                        {pieceLabel ? intl.formatMessage({ id: pieceLabel }) : undefined}
+                      </TableCell>
+                      <TableCell key={`${piece}-${attribute}-attribute`}>
+                        {attribute ? intl.formatMessage({ id: attribute }) : undefined}
+                      </TableCell>
+                      <TableCell key={`${piece}-${attribute}-input`}>
+                        {
+                          attributes[piece][attribute]
+                            ? intl.formatMessage({ id: attributes[piece][attribute] })
+                            : undefined
+                        }
+                      </TableCell>
+                    </TableRow>
+                  );
                 }
-              })
+
+                return tableRow;
+              }
+              return null;
+            })
           ))}
-        </React.Fragment>
-      )
+        </>
+      );
     } else {
-      returnVal = <React.Fragment></React.Fragment>;
+      returnVal = <></>;
     }
 
     return returnVal;
@@ -121,21 +130,27 @@ const Confirmation = ({ currentState, sendMessage, closeReview }) => {
       >
         <div style={{ paddingRight: '5em', paddingLeft: '5em' }}>
           <Image
-            src='/images/confirmation.png'
-            aspectRatio={(16/9)}
+            src="/images/confirmation.png"
+            aspectRatio={(16 / 9)}
           />
           <Table>
             <TableBody>
               <TableRow key="eso_username">
-                <TableCell key="username_label" colSpan={2}>{intl.formatMessage({ id: 'user.username' })}</TableCell>
+                <TableCell key="username_label" colSpan={2}>
+                  {intl.formatMessage({ id: 'user.username' })}
+                </TableCell>
                 <TableCell key="username">{esoName}</TableCell>
               </TableRow>
               <TableRow key="gear_level">
-                <TableCell key="level_label" colSpan={2}>{intl.formatMessage({ id: 'confirmation.gearLevel' })}</TableCell>
+                <TableCell key="level_label" colSpan={2}>
+                  {intl.formatMessage({ id: 'confirmation.gearLevel' })}
+                </TableCell>
                 <TableCell key="level">{gearLevel}</TableCell>
               </TableRow>
               <TableRow key="payment_option">
-                <TableCell key="payment_label" colSpan={2}>{intl.formatMessage({ id: 'confirmation.payment' })}</TableCell>
+                <TableCell key="payment_label" colSpan={2}>
+                  {intl.formatMessage({ id: 'confirmation.payment' })}
+                </TableCell>
                 <TableCell key="payment">{intl.formatMessage({ id: payment })}</TableCell>
               </TableRow>
               {pieceRows(armorPieces, armorAttributes)}
@@ -176,13 +191,13 @@ const Confirmation = ({ currentState, sendMessage, closeReview }) => {
 
 Confirmation.propTypes = propTypes;
 
-const mapStateToProps = state => ({
-  currentState: state
+const mapStateToProps = (state) => ({
+  currentState: state,
 });
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch) => ({
   sendMessage: (currentState, intl) => sendRequest(currentState, intl)(dispatch),
-  closeReview: () => dispatch({ type: TOGGLE_REVIEW, show: false })
+  closeReview: () => dispatch({ type: TOGGLE_REVIEW, show: false }),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Confirmation);
