@@ -10,6 +10,7 @@
     "babel-core": "^6.26.3",
     "babel-polyfill": "^6.26.0",
     "chroma-js": "^2.1.2",
+    "classnames": "^2.3.1",
     "clean-webpack-plugin": "^1.0.1",
     "clsx": "^1.1.1",
     "css-loader": "^2.1.0",
