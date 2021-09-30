@@ -15,6 +15,10 @@ const appStyle = {
   backgroundColor: '#26262b',
   color: '#dddacb',
   height: '100vh',
+  fallbacks: {
+    /* https://allthingssmitty.com/2020/05/11/css-fix-for-100vh-in-mobile-webkit/ */
+    height: '-webkit-fill-available',
+  },
 };
 
 const App = ({ guildData }) => {

@@ -36,14 +36,20 @@ const useStyles = makeStyles((theme) => ({
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,
     }),
+    fallbacks: {
+      /* https://allthingssmitty.com/2020/05/11/css-fix-for-100vh-in-mobile-webkit/ */
+      height: '-webkit-fill-available',
+    },
   },
   shift: {
-    width: `calc(100% - ${drawerWidth})`,
+    '@media screen and (min-width: 1500px)': {
+      marginRight: drawerWidth,
+      width: `calc(100% - ${drawerWidth})`,
+    },
     transition: theme.transitions.create(['margin', 'width'], {
       easing: theme.transitions.easing.easeOut,
       duration: theme.transitions.duration.enteringScreen,
     }),
-    marginRight: drawerWidth,
   },
   disabled: {
     pointerEvents: 'none',

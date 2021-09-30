@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { useIntl } from 'react-intl';
 import { makeStyles } from '@material-ui/core/styles';
-import Drawer from '@material-ui/core/Drawer';
+import SwipeableDrawer from '@material-ui/core/SwipeableDrawer';
 import Divider from '@material-ui/core/Divider';
 import IconButton from '@material-ui/core/IconButton';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
@@ -66,12 +66,17 @@ const propTypes = {
 
 const useStyles = (drawerWidth) => makeStyles((theme) => ({
   drawer: {
-    width: drawerWidth,
+    '@media screen and (min-width: 1500px)': {
+      width: drawerWidth,
+    },
     flexShrink: 0,
   },
   drawerPaper: {
-    width: drawerWidth,
+    '@media screen and (min-width: 1500px)': {
+      width: drawerWidth,
+    },
     backgroundColor: '#2f3136',
+    minWidth: '15rem',
   },
   drawerHeader: {
     display: 'flex',
@@ -239,14 +244,15 @@ const MatsDrawer = ({
   );
 
   return (
-    <Drawer
+    <SwipeableDrawer
       className={classes.drawer}
-      variant="persistent"
       anchor="right"
       open={open}
       classes={{
         paper: classes.drawerPaper,
       }}
+      onClose={() => setDrawerOpen(false)}
+      onOpen={() => setDrawerOpen(true)}
     >
       <div className={classes.drawerHeader}>
         <IconButton onClick={() => setDrawerOpen(false)}>
@@ -262,7 +268,7 @@ const MatsDrawer = ({
       {generateMaterialSection(intl.formatMessage({ id: 'materialsList.traits' }), totalTraitMats, 'stone')}
       {generateMaterialSection(intl.formatMessage({ id: 'materialsList.styles' }), totalStyleMats, 'stone')}
       {generateMaterialSection(intl.formatMessage({ id: 'materialsList.glyphRunes' }), totalGlyphMats, 'name', false)}
-    </Drawer>
+    </SwipeableDrawer>
   );
 };
 

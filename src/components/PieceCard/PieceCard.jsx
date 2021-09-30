@@ -40,7 +40,8 @@ const useStyles = makeStyles({
     overflow: 'visible',
   },
   content: {
-    width: '30em',
+    width: 'fit-content',
+    maxWidth: '30em',
   },
   centered: {
     display: 'flex',
@@ -115,7 +116,7 @@ const PieceCard = ({
   const [allOptions, setAllOptions] = React.useState(allPieceOptions);
 
   return (
-    <span style={{ padding: '1rem' }}>
+    <span style={{ padding: '1rem', maxWidth: '90vw' }}>
       <Card
         className={classes.card}
         raised
