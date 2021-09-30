@@ -66,12 +66,17 @@ const propTypes = {
 
 const useStyles = (drawerWidth) => makeStyles((theme) => ({
   drawer: {
-    width: drawerWidth,
+    '@media screen and (min-width: 1500px)': {
+      width: drawerWidth,
+    },
     flexShrink: 0,
   },
   drawerPaper: {
-    width: drawerWidth,
+    '@media screen and (min-width: 1500px)': {
+      width: drawerWidth,
+    },
     backgroundColor: '#2f3136',
+    minWidth: '15rem',
   },
   drawerHeader: {
     display: 'flex',

@@ -42,12 +42,14 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   shift: {
-    width: `calc(100% - ${drawerWidth})`,
+    '@media screen and (min-width: 1500px)': {
+      marginRight: drawerWidth,
+      width: `calc(100% - ${drawerWidth})`,
+    },
     transition: theme.transitions.create(['margin', 'width'], {
       easing: theme.transitions.easing.easeOut,
       duration: theme.transitions.duration.enteringScreen,
     }),
-    marginRight: drawerWidth,
   },
   disabled: {
     pointerEvents: 'none',

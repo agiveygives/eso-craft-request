@@ -42,6 +42,12 @@ const useStyles = makeStyles((theme) => ({
   iconMargin: {
     marginRight: theme.spacing(1),
   },
+  dialogContent: {
+    '@media screen and (min-width: 600px)': {
+      paddingRight: '5em',
+      paddingLeft: '5em',
+    },
+  },
 }));
 
 const Confirmation = ({ currentState, sendMessage, closeReview }) => {
@@ -128,7 +134,7 @@ const Confirmation = ({ currentState, sendMessage, closeReview }) => {
       <DialogContent
         dividers
       >
-        <div style={{ paddingRight: '5em', paddingLeft: '5em' }}>
+        <div className={classes.dialogContent}>
           <Image
             src="/images/confirmation.png"
             aspectRatio={(16 / 9)}
