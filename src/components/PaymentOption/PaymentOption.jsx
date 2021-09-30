@@ -31,7 +31,7 @@ const styles = createStyles({
   helperText: {
     color: '#dddacb',
     maxWidth: '7rem',
-    whiteSpace: 'nowrap',
+    paddingLeft: '0.5rem',
   },
   wrapper: {
     paddingLeft: '0.5rem',
@@ -53,6 +53,8 @@ const PaymentOption = ({ paymentType, updatePaymentOption, paymentOptions }) => 
         >
           {paymentOptions.map((option) => generateSelectOptions(option, `Payment Option - ${option}`, {}, intl))}
         </Select>
+      </span>
+      <span>
         {(paymentOptions.length > 1 && paymentOptions.includes('user.payment.materials')) && (
           <FormHelperText style={styles.helperText}>
             {intl.formatMessage({ id: 'user.payment.tooltip' })}

@@ -36,6 +36,10 @@ const useStyles = makeStyles((theme) => ({
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,
     }),
+    fallbacks: {
+      /* https://allthingssmitty.com/2020/05/11/css-fix-for-100vh-in-mobile-webkit/ */
+      height: '-webkit-fill-available',
+    },
   },
   shift: {
     width: `calc(100% - ${drawerWidth})`,

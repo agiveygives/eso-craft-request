@@ -8,6 +8,7 @@ import {
   Typography,
   FormControl,
 } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
 import DeepEqual from 'deep-equal';
 import { generateSelectOptions } from '../../utils';
 import defaultDropdownValues from '../../constants/defaultDropdownValues';
@@ -55,6 +56,17 @@ const propTypes = {
   shieldOptions: PropTypes.arrayOf(PropTypes.shape({})),
 };
 
+const useStyles = makeStyles({
+  select: {
+    '@media screen and (min-width: 450px)': {
+      minWidth: '10rem',
+    },
+    '@media screen and (max-width: 450px)': {
+      width: '100%',
+    },
+  },
+});
+
 const Dropdown = ({
   piece,
   data,
@@ -66,6 +78,7 @@ const Dropdown = ({
   allPieceOptions,
   shieldOptions,
 }) => {
+  const classes = useStyles();
   const intl = useIntl();
 
   const [dropdownData, setDropdownData] = useState(data);
@@ -264,7 +277,7 @@ const Dropdown = ({
     <Grid key={dropdownData.key} item xs={gridSize} className="centered-div">
       <FormControl disabled={glyphVal === 'common.none' && dropdownData.key === 'Glyph Quality'}>
         <Select
-          style={{ minWidth: '10rem' }}
+          className={classes.select}
           MenuProps={{
             PaperProps: {
               style: {
