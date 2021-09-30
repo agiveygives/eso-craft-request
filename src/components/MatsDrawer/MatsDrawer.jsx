@@ -77,7 +77,7 @@ const useStyles = (drawerWidth) => makeStyles((theme) => ({
     },
     backgroundColor: '#2f3136',
     minWidth: '15rem',
-    zIndex: 2001,
+    zIndex: 10000,
   },
   drawerHeader: {
     display: 'flex',
