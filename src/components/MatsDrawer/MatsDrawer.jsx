@@ -252,6 +252,8 @@ const MatsDrawer = ({
       classes={{
         paper: classes.drawerPaper,
       }}
+      onClose={() => setDrawerOpen(false)}
+      onOpen={() => setDrawerOpen(true)}
     >
       <div className={classes.drawerHeader}>
         <IconButton onClick={() => setDrawerOpen(false)}>
