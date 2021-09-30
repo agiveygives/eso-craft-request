@@ -246,7 +246,6 @@ const MatsDrawer = ({
   return (
     <SwipeableDrawer
       className={classes.drawer}
-      variant="persistent"
       anchor="right"
       open={open}
       classes={{
