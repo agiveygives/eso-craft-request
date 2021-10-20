@@ -3,11 +3,12 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { useIntl } from 'react-intl';
 import axios from 'axios';
-import { makeStyles } from '@material-ui/core/styles';
 import {
   Typography, Toolbar, AppBar, Avatar, Button, Grid,
 } from '@material-ui/core';
 import ReactTooltip from 'react-tooltip';
+import useStyles from './styles';
+import buttonDisabled from './utils';
 import { RESTART, TOGGLE_REVIEW } from '../../store/constants';
 import {
   armorAttributesShape, jewelryAttributesShape, weaponAttributesShape,
@@ -30,36 +31,6 @@ const propTypes = {
   guildWebsite: PropTypes.string.isRequired,
   guildFooterColor: PropTypes.string.isRequired,
 };
-
-const useStyles = (guildFooterColor) => makeStyles(() => ({
-  appBar: {
-    paddingTop: '0.25rem',
-    top: 'auto',
-    bottom: 0,
-    borderStyle: 'hidden',
-    backgroundColor: guildFooterColor,
-  },
-  disabled: {
-    color: 'white',
-  },
-  footerActions: {
-    textAlign: 'right',
-    justifyContent: 'center',
-  },
-  guildBranding: {
-    display: 'flex',
-    alignItems: 'center',
-  },
-  rightMargin: {
-    marginRight: '0.7rem',
-    display: 'flex',
-  },
-  wrapper: {
-    display: 'inline-flex',
-    paddingTop: '1rem',
-    paddingBottom: '1rem',
-  },
-}));
 
 const AppFooter = ({
   currentState, restart, review, guildName, guildMnemonic, guildWebsite, guildFooterColor,
@@ -95,53 +66,6 @@ const AppFooter = ({
         setImageExists(false);
       });
   }, [guildImagePath]);
-
-  function buttonDisabled() {
-    if (esoName[0] !== '@' || esoName.length < 2
-      || (!armorPieces.length && !jewelryPieces.length && !weaponPieces.length)
-    ) {
-      return true;
-    }
-    let undefinedAttributes = false;
-
-    armorPieces.forEach((piece) => {
-      Object.keys(armorAttributes[piece]).forEach((attribute) => {
-        if (!armorAttributes[piece][attribute]) {
-          if (attribute === 'Glyph Quality' && armorAttributes[piece].Glyph !== 'common.none') {
-            undefinedAttributes = true;
-          } else if (attribute !== 'Glyph Quality') {
-            undefinedAttributes = true;
-          }
-        }
-      });
-    });
-
-    jewelryPieces.forEach((piece) => {
-      Object.keys(jewelryAttributes[piece]).forEach((attribute) => {
-        if (!jewelryAttributes[piece][attribute] && jewelryAttributes[piece].Glyph !== 'common.none') {
-          if (attribute === 'Glyph Quality' && jewelryAttributes[piece].Glyph !== 'common.none') {
-            undefinedAttributes = true;
-          } else if (attribute !== 'Glyph Quality') {
-            undefinedAttributes = true;
-          }
-        }
-      });
-    });
-
-    weaponPieces.forEach((piece) => {
-      Object.keys(weaponAttributes[piece]).forEach((attribute) => {
-        if (!weaponAttributes[piece][attribute] && weaponAttributes[piece].Glyph !== 'common.none') {
-          if (attribute === 'Glyph Quality' && weaponAttributes[piece].Glyph !== 'common.none') {
-            undefinedAttributes = true;
-          } else if (attribute !== 'Glyph Quality') {
-            undefinedAttributes = true;
-          }
-        }
-      });
-    });
-
-    return undefinedAttributes;
-  }
 
   const guildBranding = (name, website, imagePath) => {
     let branding;
@@ -208,8 +132,28 @@ const AppFooter = ({
                 {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
                 <a data-for="submit-button" data-tip>
                   <Button
-                    style={buttonDisabled() ? { backgroundColor: 'grey' } : {}}
-                    disabled={buttonDisabled()}
+                    style={
+                      buttonDisabled(
+                        esoName,
+                        armorPieces,
+                        jewelryPieces,
+                        weaponPieces,
+                        armorAttributes,
+                        jewelryAttributes,
+                        weaponAttributes,
+                      ) ? { backgroundColor: 'grey' } : {}
+                    }
+                    disabled={
+                      buttonDisabled(
+                        esoName,
+                        armorPieces,
+                        jewelryPieces,
+                        weaponPieces,
+                        armorAttributes,
+                        jewelryAttributes,
+                        weaponAttributes,
+                      )
+                    }
                     variant="contained"
                     color="primary"
                     onClick={() => review()}
