@@ -5,12 +5,15 @@ import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
+import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
 import Select from '@material-ui/core/Select';
 import Tab from '@material-ui/core/Tab';
 import Tabs from '@material-ui/core/Tabs';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
+import InputLabel from '@material-ui/core/InputLabel';
+import { SelectedGuildType } from '../../context/SelectedGuild';
 import { StateType } from '../../store/types';
 import { SessionType, InfoType, GuildsType } from '../../store/user/types';
 import NavLinks from '../../constants/NavigationLinks';
@@ -33,26 +36,35 @@ interface StateProps {
 }
 
 interface OwnProps {
+  selectedGuild?: SelectedGuildType;
+  setSelectedGuild: (guild: SelectedGuildType) => void;
   children: JSX.Element;
 }
 
 type Props = StateProps & OwnProps
 
-const Layout = ({ session, userInfo, children, guilds }: Props): JSX.Element => {
+const Layout = ({ session, userInfo, children, guilds, selectedGuild, setSelectedGuild }: Props): JSX.Element => {
   const history = useHistory();
   const location = useLocation();
   const classes = useStyles();
 
   const [isAuthenticated, setIsAuthenticated] = useState<Boolean>(false);
   const [tabValue, setTabValue] = useState<number>(-1);
-  const [selectedGuild, setSelectedGuild] = useState<number>()
 
   const handleTabChange = (event: React.ChangeEvent<{}>, newValue: number) => {
     setTabValue(newValue);
   };
 
   const handleGuildChange = (event: React.ChangeEvent<{ name?: string | undefined; value: unknown; }>) => {
-    setSelectedGuild(event.currentTarget.value as number);
+    const discordId = event.target.value as string
+
+    const selectedGuild = guilds.find((guild) => guild.id === discordId);
+
+    setSelectedGuild({
+      discordId,
+      name: selectedGuild?.name || '',
+      iconUrl: selectedGuild?.iconUrl || '',
+    });
   };
 
   const handleTabClick = (event: React.ChangeEvent<{}>, href: string) => {
@@ -81,12 +93,28 @@ const Layout = ({ session, userInfo, children, guilds }: Props): JSX.Element => 
           guilds.length > 0 ? (
             <Grid item >
               <Select
-                labelId="demo-simple-select-outlined-label"
-                id="demo-simple-select-outlined"
+                labelId="guild-select-label"
+                id="guild-select"
                 label="Guild"
                 onChange={handleGuildChange}
-                value={selectedGuild}
-                defaultValue={guilds[0].id}
+                value={selectedGuild?.discordId || null}
+                displayEmpty
+                renderValue={
+                  () => {
+                    if (!selectedGuild?.discordId) return <InputLabel id="guild-select-label">Select Guild</InputLabel>;
+
+                    return (
+                      <Grid container alignItems="center" justify="flex-end" spacing={1}>
+                        <Grid item>
+                          <Avatar src={selectedGuild.iconUrl} />
+                        </Grid>
+                        <Grid item>
+                          <Typography color="secondary">{selectedGuild.name}</Typography>
+                        </Grid>
+                      </Grid>
+                    )
+                  }
+                }
               >
                 {guilds.map((guild) => (
                   <MenuItem key={guild.id} value={guild.id}>
@@ -127,7 +155,7 @@ const Layout = ({ session, userInfo, children, guilds }: Props): JSX.Element => 
           <NavLink className={classes.icon} to="/" >
             <Avatar src="/images/hammer-and-anvil.png" />
           </NavLink>
-          <Grid item xs={5}>
+          {isAuthenticated && <Grid item xs={5}>
             <Tabs value={tabValue} onChange={handleTabChange} textColor="secondary">
               {NavLinks.map((navLink) => (
                 <Tab
@@ -137,14 +165,16 @@ const Layout = ({ session, userInfo, children, guilds }: Props): JSX.Element => 
                 />
               ))}
             </Tabs>
-          </Grid>
+          </Grid>}
           <Grid container alignItems="center" justify="flex-end" spacing={1}>
             {accountElement}
           </Grid>
         </Toolbar>
       </AppBar>
       <div className={classes.appBody}>
-        {children}
+        <Container>
+          {children}
+        </Container>
       </div>
     </div>
   )

@@ -4,7 +4,7 @@ export type GetOauthTokenRequest = {
   grant_type: 'authorization_code';
   code: string;
   redirect_uri: string;
-  scope: 'identity email guilds';
+  scope: 'identity email guilds bot applications.commands';
 }
 
 export type RefreshOauthTokenRequest = {
@@ -13,5 +13,5 @@ export type RefreshOauthTokenRequest = {
   grant_type: 'refresh_token';
   refresh_token: string;
   redirect_uri: string;
-  scope: 'identity email guilds';
+  scope: 'identity email guilds bot applications.commands';
 }

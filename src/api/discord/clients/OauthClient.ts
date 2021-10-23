@@ -15,7 +15,7 @@ class OauthClient extends DiscordApi {
       grant_type: 'authorization_code',
       code,
       redirect_uri: process.env.REACT_APP_DISCORD_API_REDIRECT_URI || '',
-      scope: 'identity email guilds',
+      scope: 'identity email guilds bot applications.commands',
     }
 
     const response = await fetch(`${this.baseUrl}/oauth2/token`, {
@@ -45,7 +45,7 @@ class OauthClient extends DiscordApi {
       grant_type: 'refresh_token',
       refresh_token: token,
       redirect_uri: process.env.REACT_APP_DISCORD_API_REDIRECT_URI || '',
-      scope: 'identity email guilds',
+      scope: 'identity email guilds bot applications.commands',
     }
 
     const response = await fetch(`${this.baseUrl}/oauth2/token`, {

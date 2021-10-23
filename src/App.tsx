@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { connect, MapDispatchToProps, MapStateToProps } from 'react-redux'
 import QueryString from 'query-string';
 import { BrowserRouter, Route } from 'react-router-dom';
@@ -9,6 +9,7 @@ import { GetAdminGuilds } from './store/user/actions';
 import { SET_SESSION, SET_USER_INFO } from './store/user/constants';
 import { SessionType, InfoType } from './store/user/types';
 import { StateType } from './store/types';
+import SelectedGuildContext, { SelectedGuildType } from './context/SelectedGuild';
 import { Home } from './pages/Home';
 import { ThemeWrapper } from './components/ThemeWrapper';
 import { Layout } from './components/Layout';
@@ -32,6 +33,8 @@ interface OwnProps {}
 type Props = StateProps & DispatchProps & OwnProps
 
 const App = ({ session, userInfo, setSession, setUserInfo, setAdminGuilds }: Props): JSX.Element => {
+  const [selectedGuild, setSelectedGuild] = useState<SelectedGuildType>();
+
   useEffect(() => {
     const uriCode = QueryString.parse(window.location.search).code?.toString();
 
@@ -75,32 +78,38 @@ const App = ({ session, userInfo, setSession, setUserInfo, setAdminGuilds }: Pro
     if (userInfo.userId && session.tokenType && session.accessToken)
       UserClient.getUserGuilds(`${session.tokenType} ${session.accessToken}`)
         .then((res) => {
-          console.log(res);
           setAdminGuilds(res);
         })
         .catch((err: Error) => {
           console.log(err.message);
         })
-  }, [session, userInfo, setAdminGuilds])
+  }, [session, userInfo, setAdminGuilds]);
 
   return (
     <ThemeWrapper>
-      <BrowserRouter>
-        <Layout>
-          <>
-            <ScrollToTop />
-            <Route path="/" component={Home} exact />
-            {/* <Route
-              exact
-              path="/login"
-              render={() => (window.location.href = process.env.REACT_APP_IDENTITY_URI || 'esocraftrequest.com')}
-            /> */}
-            {NavLinks.map((navLink) => (
-              <Route key={navLink.location} path={navLink.location} component={navLink.component} exact />
-            ))}
-          </>
-        </Layout>
-      </BrowserRouter>
+      <SelectedGuildContext.Provider value={selectedGuild}>
+        <BrowserRouter>
+          <Layout selectedGuild={selectedGuild} setSelectedGuild={setSelectedGuild}>
+            <>
+              <ScrollToTop />
+              <Route path="/" component={Home} exact />
+              {/* <Route
+                exact
+                path="/login"
+                render={() => (window.location.href = process.env.REACT_APP_IDENTITY_URI || 'esocraftrequest.com')}
+              /> */}
+              {selectedGuild && NavLinks.map((navLink) => (
+                <Route
+                  key={navLink.location}
+                  path={navLink.location}
+                  component={navLink.component}
+                  exact
+                />
+              ))}
+            </>
+          </Layout>
+        </BrowserRouter>
+      </SelectedGuildContext.Provider>
     </ThemeWrapper>
   );
 }
