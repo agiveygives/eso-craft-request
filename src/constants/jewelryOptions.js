@@ -130,7 +130,7 @@ export const jewelryGlyphs = [
     value: 'gear.jewelry.glyphs.increaseMagicalHarm',
     essenceRune: 'Makderi',
     potency: 'additive',
-    label: 'gear.jewelry.glyphs.increasePhysicalHarm',
+    label: 'gear.jewelry.glyphs.increaseMagicalHarm',
     color: '#2DC50E',
     isFixed: true,
   },
