@@ -94,8 +94,7 @@ export const sendRequest = (currentState, intl) => (dispatch) => {
 
   const discordMessage = () => {
     let request = (
-      `${guildData.crafterTag}\n`
-      + `${intl.formatMessage({ id: 'user.username' })}:\t\t${esoName}\n`
+      `${intl.formatMessage({ id: 'user.username' })}:\t\t${esoName}\n`
       + `${intl.formatMessage({ id: 'confirmation.gearLevel' })}:\t\t\t\t${gearLevel}\n`
       + `${intl.formatMessage({ id: 'confirmation.payment' })}:\t${intl.formatMessage({ id: payment })}\n`
     );
@@ -105,7 +104,7 @@ export const sendRequest = (currentState, intl) => (dispatch) => {
 
     if (requestWithArmor.length < 2000) {
       request = requestWithArmor;
-      armorRequest = undefined;
+      armorRequest = null;
     }
 
     let jewelryRequest = buildGearMessage(jewelryPieces, jewelryAttributes);
@@ -113,7 +112,7 @@ export const sendRequest = (currentState, intl) => (dispatch) => {
 
     if (requestWithJewelry.length < 2000) {
       request = requestWithJewelry;
-      jewelryRequest = undefined;
+      jewelryRequest = null;
     }
 
     let weaponsRequest = buildGearMessage(weaponPieces, weaponAttributes);
@@ -121,7 +120,7 @@ export const sendRequest = (currentState, intl) => (dispatch) => {
 
     if (requestWithWeapons.length < 2000) {
       request = requestWithWeapons;
-      weaponsRequest = undefined;
+      weaponsRequest = null;
     }
 
     let requestNotes = `${notes.length > 0
@@ -132,7 +131,7 @@ export const sendRequest = (currentState, intl) => (dispatch) => {
 
     if (requestWithNotes.length < 2000) {
       request = requestWithNotes;
-      requestNotes = undefined;
+      requestNotes = null;
     }
 
     return {
@@ -146,36 +145,15 @@ export const sendRequest = (currentState, intl) => (dispatch) => {
 
   const discordMessages = discordMessage();
 
-  axios.post(guildData.webhook, {
-    content: discordMessages.request,
+  axios.post(`https://us-central1-eso-craft-request.cloudfunctions.net/api/guilds/${guildData.mnemonic}/request`, {
+    message: discordMessages.request,
+    armor: discordMessages.armorRequest,
+    jewelry: discordMessages.jewelryRequest,
+    weapons: discordMessages.weaponsRequest,
+    notes: discordMessages.requestNotes,
   })
-    .then(async () => {
-      try {
-        if (discordMessages.armorRequest) {
-          await axios.post(guildData.webhook, {
-            content: discordMessages.armorRequest,
-          });
-        }
-        if (discordMessages.jewelryRequest) {
-          await axios.post(guildData.webhook, {
-            content: discordMessages.jewelryRequest,
-          });
-        }
-        if (discordMessages.weaponsRequest) {
-          await axios.post(guildData.webhook, {
-            content: discordMessages.weaponsRequest,
-          });
-        }
-        if (discordMessages.requestNotes) {
-          await axios.post(guildData.webhook, {
-            content: discordMessages.requestNotes,
-          });
-        }
-
-        dispatch({ type: SUCCESSFUL_REQUEST });
-      } catch (e) {
-        dispatch({ type: FAILED_REQUEST });
-      }
+    .then(() => {
+      dispatch({ type: SUCCESSFUL_REQUEST });
     })
     .catch(() => {
       dispatch({ type: FAILED_REQUEST });

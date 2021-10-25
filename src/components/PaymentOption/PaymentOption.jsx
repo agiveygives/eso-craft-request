@@ -14,7 +14,7 @@ import { generateSelectOptions } from '../../utils';
 const propTypes = {
   paymentType: PropTypes.string.isRequired,
   updatePaymentOption: PropTypes.func.isRequired,
-  paymentOptions: PropTypes.arrayOf(PropTypes.oneOf('user.payment.materials', 'user.payment.gold')),
+  paymentOptions: PropTypes.arrayOf(PropTypes.oneOf(['user.payment.materials', 'user.payment.gold'])),
 };
 
 const styles = createStyles({
