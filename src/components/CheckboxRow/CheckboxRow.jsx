@@ -1,111 +1,65 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { useIntl } from 'react-intl';
-import { makeStyles, withStyles } from '@material-ui/core/styles';
 import {
-  FormControl, FormGroup, FormControlLabel, Switch, Typography,
+  FormControl, FormGroup, FormControlLabel, Typography,
 } from '@material-ui/core';
 
-import { green } from '@material-ui/core/colors';
 import { UPDATE_ARMOR_PIECES, UPDATE_JEWELRY_PIECES, UPDATE_WEAPON_PIECES } from '../../store/constants';
-
-const propTypes = {
-  id: PropTypes.oneOf(['armor', 'jewelry', 'weapon']).isRequired,
-
-  // from redux
-  selectedPieces: PropTypes.arrayOf(PropTypes.string).isRequired,
-  updatePieces: PropTypes.func.isRequired,
-};
-
-const ColoredSwitch = withStyles({
-  switchBase: {
-    '&$checked': {
-      color: green[500],
-    },
-    '&$checked + $track': {
-      backgroundColor: green[500],
-    },
-  },
-  checked: {},
-  track: {},
-})(Switch);
-
-const useStyles = makeStyles(() => ({
-  spacer: {
-    margin: '1rem',
-  },
-}));
+import ColoredSwitch from '../ColoredSwitch';
+import { armorBoxes, jewelryBoxes, weaponBoxes } from './utils';
+import useStyles from './styles';
+import propTypes from './propTypes';
 
 const CheckboxRow = ({ id, selectedPieces, updatePieces }) => {
   const classes = useStyles();
   const intl = useIntl();
 
-  const armorBoxes = [
-    { id: 'head', label: intl.formatMessage({ id: 'gear.armor.head' }) },
-    { id: 'shoulder', label: intl.formatMessage({ id: 'gear.armor.shoulder' }) },
-    { id: 'chest', label: intl.formatMessage({ id: 'gear.armor.chest' }) },
-    { id: 'legs', label: intl.formatMessage({ id: 'gear.armor.legs' }) },
-    { id: 'waist', label: intl.formatMessage({ id: 'gear.armor.waist' }) },
-    { id: 'hands', label: intl.formatMessage({ id: 'gear.armor.hands' }) },
-    { id: 'feet', label: intl.formatMessage({ id: 'gear.armor.feet' }) },
-  ];
-  const jewelryBoxes = [
-    { id: 'necklace', label: intl.formatMessage({ id: 'gear.jewelry.necklace' }) },
-    { id: 'ring1', label: intl.formatMessage({ id: 'gear.jewelry.ring' }) },
-    { id: 'ring2', label: intl.formatMessage({ id: 'gear.jewelry.ring' }) },
-  ];
-  const weaponBoxes = [
-    { id: 'primary1', label: intl.formatMessage({ id: 'gear.weapon.primary' }) },
-    { id: 'secondary1', label: intl.formatMessage({ id: 'gear.weapon.secondary' }) },
-    { id: 'primary2', label: intl.formatMessage({ id: 'gear.weapon.primary' }) },
-    { id: 'secondary2', label: intl.formatMessage({ id: 'gear.weapon.secondary' }) },
-  ];
-  let checkboxes;
-  let sectionHeader;
+  const [checkboxes, setCheckboxes] = useState([]);
+  const [sectionHeader, setSectionHeader] = useState('');
 
-  switch (id) {
-    case 'armor':
-      checkboxes = armorBoxes;
-      sectionHeader = intl.formatMessage({ id: 'gear.armor.sectionHeader' });
-      break;
-    case 'jewelry':
-      checkboxes = jewelryBoxes;
-      sectionHeader = intl.formatMessage({ id: 'gear.jewelry.sectionHeader' });
-      break;
-    case 'weapon':
-      checkboxes = weaponBoxes;
-      sectionHeader = intl.formatMessage({ id: 'gear.weapon.sectionHeader' });
-      break;
-    default:
-      checkboxes = [];
-      sectionHeader = '';
-      break;
-  }
+  useEffect(() => {
+    switch (id) {
+      case 'armor':
+        setCheckboxes(armorBoxes(intl));
+        setSectionHeader(intl.formatMessage({ id: 'gear.armor.sectionHeader' }));
+        break;
+      case 'jewelry':
+        setCheckboxes(jewelryBoxes(intl));
+        setSectionHeader(intl.formatMessage({ id: 'gear.jewelry.sectionHeader' }));
+        break;
+      case 'weapon':
+        setCheckboxes(weaponBoxes(intl));
+        setSectionHeader(intl.formatMessage({ id: 'gear.weapon.sectionHeader' }));
+        break;
+      default:
+        setCheckboxes([]);
+        setSectionHeader('');
+        break;
+    }
+  }, [id, intl]);
 
-  function createCheckbox(box) {
-    return (
-      <FormControlLabel
-        key={box.id}
-        value={box.id}
-        control={(
-          <ColoredSwitch
-            checked={selectedPieces.includes(box.id)}
-            color="primary"
-            onChange={(event, checked) => {
-              if (checked && !selectedPieces.includes(event.target.value)) {
-                updatePieces([...selectedPieces, event.target.value]);
-              } else if (!checked && selectedPieces.includes(event.target.value)) {
-                updatePieces(selectedPieces.filter((word) => word !== event.target.value));
-              }
-            }}
-          />
-        )}
-        label={box.label}
-        labelPlacement="top"
-      />
-    );
-  }
+  const createCheckbox = (box) => (
+    <FormControlLabel
+      key={box.id}
+      value={box.id}
+      control={(
+        <ColoredSwitch
+          checked={selectedPieces.includes(box.id)}
+          color="primary"
+          onChange={(event, checked) => {
+            if (checked && !selectedPieces.includes(event.target.value)) {
+              updatePieces([...selectedPieces, event.target.value]);
+            } else if (!checked && selectedPieces.includes(event.target.value)) {
+              updatePieces(selectedPieces.filter((word) => word !== event.target.value));
+            }
+          }}
+        />
+      )}
+      label={box.label}
+      labelPlacement="top"
+    />
+  );
 
   return (
     <span className={classes.spacer}>
