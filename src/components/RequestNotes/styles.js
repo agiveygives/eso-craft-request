@@ -5,7 +5,12 @@ const useStyles = makeStyles(() => ({
     marginTop: '1rem',
   },
   requestNotes: {
-    width: '50%',
+    '@media screen and (min-width: 600px)': {
+      width: '50%',
+    },
+    '@media screen and (max-width: 600px)': {
+      width: '80%',
+    },
   },
   input: {
     backgroundColor: 'white',
