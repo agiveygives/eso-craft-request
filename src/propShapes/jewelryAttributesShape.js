@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 
 export default PropTypes.shape({
-  display: PropTypes.oneOf(['gear.jewelry'].isRequired),
+  display: PropTypes.oneOf(['gear.jewelry']).isRequired,
   necklace: PropTypes.shape({
     display: PropTypes.oneOf(['gear.jewelry.necklace']).isRequired,
     Quality: PropTypes.string.isRequired,

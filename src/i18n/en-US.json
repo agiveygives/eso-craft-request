@@ -13,7 +13,7 @@
   "tou.decline": "Decline",
 
   "user.username": "ESO Username",
-  "user.usernameExample": "example: @JukesMcGee",
+  "user.invalidUsername": "Username must begin with @",
   "user.levelSliderLabel": "Select Armor Level",
   "user.level": "Level",
   "user.payment.text": "I will be paying with ",

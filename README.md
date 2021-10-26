@@ -48,7 +48,6 @@ Deployment it automated with AWS Amplify. A deployment pipeline will start on a 
 * [Node](https://nodejs.org/en/) - an open source server environment
 * [React](https://reactjs.org/) - The web framework used
 * [Material-UI](https://material-ui.com/) - open source React Component
-* [Terra](https://engineering.cerner.com/terra-ui/#/home/terra-ui/index) - Cerner Open Source React Components
 * [Webpack](https://webpack.js.org/)
 
 ## Contributing

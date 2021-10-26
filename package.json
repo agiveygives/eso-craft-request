@@ -38,8 +38,6 @@
     "redux": "^4.1.0",
     "sass-loader": "^7.1.0",
     "style-loader": "^0.23.1",
-    "terra-content-container": "^3.34.0",
-    "terra-form-input": "^2.2.0",
     "terser-webpack-plugin": "^1.2.1"
   },
   "devDependencies": {

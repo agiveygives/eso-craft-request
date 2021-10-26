@@ -1,39 +1,14 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React, { useState } from 'react';
 import { Collapse, Container, Typography } from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
 import ExpandMore from '@material-ui/icons/ExpandMore';
 import ExpandLess from '@material-ui/icons/ExpandLess';
-
-const propTypes = {
-  title: PropTypes.string.isRequired,
-  variant: PropTypes.string,
-  align: PropTypes.string,
-  paddingTop: PropTypes.string,
-  children: PropTypes.node.isRequired,
-};
-
-const useStyles = (paddingTop, alignment) => makeStyles(() => ({
-  container: {
-    display: 'flex',
-    flexWrap: 'wrap',
-    justifyContent: alignment,
-    alignItems: 'center',
-    paddingTop,
-  },
-  icon: {
-    color: '#dcddde',
-  },
-  text: {
-    cursor: 'pointer',
-    color: '#dcddde',
-  },
-}));
+import useStyles from './styles';
+import propTypes from './propTypes';
 
 const ToggleHeader = ({
   title, variant, align, paddingTop, children,
 }) => {
-  const [isOpen, setIsOpen] = React.useState(true);
+  const [isOpen, setIsOpen] = useState(true);
   const classes = useStyles(paddingTop, align)();
 
   const handleToggle = () => {

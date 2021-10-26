@@ -1,23 +1,17 @@
 import 'rc-slider/assets/index.css';
 import React from 'react';
 import { useIntl } from 'react-intl';
-import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Slider from 'rc-slider';
 import { Typography } from '@material-ui/core';
 import craftLevels from '../../constants/craftableLevels';
 import { UPDATE_GEAR_LEVEL } from '../../store/constants';
-
-const propTypes = {
-  label: PropTypes.string,
-  craftableLevels: PropTypes.bool.isRequired,
-
-  // from redux
-  updateGearLevel: PropTypes.func.isRequired,
-};
+import propTypes from './propTypes';
+import useStyles from './styles';
 
 const LevelSlider = ({ label, craftableLevels, updateGearLevel }) => {
   const intl = useIntl();
+  const classes = useStyles();
   const TooltipSlider = Slider.createSliderWithTooltip(Slider);
   const levels = [];
 
@@ -28,12 +22,12 @@ const LevelSlider = ({ label, craftableLevels, updateGearLevel }) => {
   }
 
   return (
-    <div style={{ width: 'fit-content', marginLeft: 50 }}>
+    <div className={classes.wrapper}>
       <Typography variant="h6">{label}</Typography>
       <TooltipSlider
         id="level-slider"
+        className={classes.tooltipSlider}
         trackStyle={{ backgroundColor: '#27a745' }}
-        style={{ width: 200, marginTop: 10, marginBottom: 10 }}
         min={0}
         max={sliderLevels.length - 1}
         tipFormatter={(value) => `${intl.formatMessage({ id: 'user.level' })} ${sliderLevels[value]}`}

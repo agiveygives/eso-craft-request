@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { IntlProvider } from 'react-intl';
 import LinearProgress from '@material-ui/core/LinearProgress';
@@ -22,9 +22,9 @@ const appStyle = {
 };
 
 const App = ({ guildData }) => {
-  const [locale, setLocale] = React.useState('en-US');
+  const [locale, setLocale] = useState('en-US');
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (supportedLocales.includes(window.navigator.language)) {
       setLocale(window.navigator.language);
     } else if (guildData.locale) {

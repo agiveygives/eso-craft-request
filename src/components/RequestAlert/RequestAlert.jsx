@@ -1,5 +1,4 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { useIntl } from 'react-intl';
 import {
@@ -8,13 +7,7 @@ import {
 import { green, red } from '@material-ui/core/colors';
 import CloseIcon from '@material-ui/icons/Close';
 import { RESTART, RETRY } from '../../store/constants';
-
-const propTypes = {
-  isSuccessful: PropTypes.bool.isRequired,
-  isFailed: PropTypes.bool.isRequired,
-  reset: PropTypes.func.isRequired,
-  retry: PropTypes.func.isRequired,
-};
+import propTypes from './propTypes';
 
 const RequestAlert = ({
   isSuccessful,
@@ -23,11 +16,11 @@ const RequestAlert = ({
   retry,
 }) => {
   const intl = useIntl();
-  const [snackbarOpen, setSnackbarOpen] = React.useState(false);
-  const [backgroundColor, setBackgroundColor] = React.useState(green[600]);
-  const [message, setMessage] = React.useState(intl.formatMessage({ id: 'alert.success' }));
+  const [snackbarOpen, setSnackbarOpen] = useState(false);
+  const [backgroundColor, setBackgroundColor] = useState(green[600]);
+  const [message, setMessage] = useState(intl.formatMessage({ id: 'alert.success' }));
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (isSuccessful || isFailed) {
       setSnackbarOpen(true);
 
