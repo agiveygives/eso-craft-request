@@ -1,12 +1,8 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React, { useEffect, useState, useRef } from 'react';
 import { connect } from 'react-redux';
 import {
   Card, CardContent, CardHeader, Grid,
 } from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
-
-// constants and Utils
 import { useIntl } from 'react-intl';
 import { qualityOptions } from '../../constants/qualityOptions';
 import { armorWeights, armorTraits, armorGlyphs } from '../../constants/armorOptions';
@@ -20,39 +16,9 @@ import defaultDropdownValues from '../../constants/defaultDropdownValues';
 import {
   UPDATE_ARMOR, UPDATE_JEWELRY, UPDATE_WEAPONS, UPDATE_ARMOR_MATS, UPDATE_WEAPON_MATS, UPDATE_JEWELRY_MATS,
 } from '../../store/constants';
-import GearAttributesShape from '../../propShapes/gearAttributesShape';
 import Dropdown from './Dropdown';
-
-const propTypes = {
-  group: PropTypes.oneOf(['armor', 'jewelry', 'weapon']).isRequired,
-  piece: PropTypes.string.isRequired,
-
-  // from redux
-  gearAttributes: GearAttributesShape.isRequired,
-  updateAttributes: PropTypes.func.isRequired,
-  glyphVal: PropTypes.string,
-};
-
-const useStyles = makeStyles({
-  card: {
-    color: 'black',
-    backgroundColor: '#e8e9ea',
-    overflow: 'visible',
-  },
-  content: {
-    width: 'fit-content',
-    maxWidth: '30em',
-  },
-  centered: {
-    display: 'flex',
-    flexWrap: 'wrap',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  cardPadding: {
-    padding: '2rem',
-  },
-});
+import useStyles from './styles';
+import propTypes from './propTypes';
 
 const PieceCard = ({
   group,
@@ -63,60 +29,72 @@ const PieceCard = ({
 }) => {
   const classes = useStyles();
   const intl = useIntl();
-  const sortedSetOptions = SetOptions(intl);
-  const sortedStyleOptions = StyleOptions(intl);
+  const sortedSetOptions = useRef(SetOptions(intl));
+  const sortedStyleOptions = useRef(StyleOptions(intl));
 
-  let allPieceOptions;
-  let shieldOptions;
-  let weapons;
+  const [allPieceOptions, setAllPieceOptions] = useState([]);
+  const [shieldOptions, setShieldOptions] = useState();
 
-  switch (group) {
-    case 'armor':
-      allPieceOptions = [
-        { options: armorWeights, default: defaultDropdownValues.weight, key: 'Weight' },
-        { options: armorTraits, default: defaultDropdownValues.trait, key: 'Trait' },
-        { options: armorGlyphs, default: defaultDropdownValues.glyph, key: 'Glyph' },
-        { options: qualityOptions, default: defaultDropdownValues.glyphQuality, key: 'Glyph Quality' },
-        { options: sortedSetOptions, default: defaultDropdownValues.set, key: 'Set' },
-        { options: sortedStyleOptions, default: defaultDropdownValues.style, key: 'Style' },
-      ];
-      break;
-    case 'jewelry':
-      allPieceOptions = [
-        { options: jewelryTraits, default: defaultDropdownValues.trait, key: 'Trait' },
-        { options: sortedSetOptions, default: defaultDropdownValues.set, key: 'Set' },
-        { options: jewelryGlyphs, default: defaultDropdownValues.glyph, key: 'Glyph' },
-        { options: qualityOptions, default: defaultDropdownValues.glyphQuality, key: 'Glyph Quality' },
-      ];
-      break;
-    case 'weapon':
-      weapons = piece.includes('primary') ? primaryWeapons : secondaryWeapons;
-      allPieceOptions = [
-        { options: weapons, default: defaultDropdownValues.weapon, key: 'Weapon' },
-        { options: weaponTraits, default: defaultDropdownValues.trait, key: 'Trait' },
-        { options: weaponGlyphs, default: defaultDropdownValues.glyph, key: 'Glyph' },
-        { options: qualityOptions, default: defaultDropdownValues.glyphQuality, key: 'Glyph Quality' },
-        { options: sortedSetOptions, default: defaultDropdownValues.set, key: 'Set' },
-        { options: sortedStyleOptions, default: defaultDropdownValues.style, key: 'Style' },
-      ];
-      shieldOptions = [
-        { options: weapons, default: defaultDropdownValues.weapon, key: 'Weapon' },
-        { options: armorTraits, default: defaultDropdownValues.trait, key: 'Trait' },
-        { options: armorGlyphs, default: defaultDropdownValues.glyph, key: 'Glyph' },
-        { options: qualityOptions, default: defaultDropdownValues.glyphQuality, key: 'Glyph Quality' },
-        { options: sortedSetOptions, default: defaultDropdownValues.set, key: 'Set' },
-        { options: sortedStyleOptions, default: defaultDropdownValues.style, key: 'Style' },
-      ];
-      break;
-    default:
-      allPieceOptions = [];
-      break;
-  }
+  useEffect(() => {
+    switch (group) {
+      case 'armor':
+        setAllPieceOptions([
+          { options: armorWeights, default: defaultDropdownValues.weight, key: 'Weight' },
+          { options: armorTraits, default: defaultDropdownValues.trait, key: 'Trait' },
+          { options: armorGlyphs, default: defaultDropdownValues.glyph, key: 'Glyph' },
+          { options: qualityOptions, default: defaultDropdownValues.glyphQuality, key: 'Glyph Quality' },
+          { options: sortedSetOptions.current, default: defaultDropdownValues.set, key: 'Set' },
+          { options: sortedStyleOptions.current, default: defaultDropdownValues.style, key: 'Style' },
+        ]);
+        break;
+      case 'jewelry':
+        setAllPieceOptions([
+          { options: jewelryTraits, default: defaultDropdownValues.trait, key: 'Trait' },
+          { options: sortedSetOptions.current, default: defaultDropdownValues.set, key: 'Set' },
+          { options: jewelryGlyphs, default: defaultDropdownValues.glyph, key: 'Glyph' },
+          { options: qualityOptions, default: defaultDropdownValues.glyphQuality, key: 'Glyph Quality' },
+        ]);
+        break;
+      case 'weapon':
+        setAllPieceOptions([
+          {
+            options: piece.includes('primary') ? primaryWeapons : secondaryWeapons,
+            default: defaultDropdownValues.weapon,
+            key: 'Weapon',
+          },
+          { options: weaponTraits, default: defaultDropdownValues.trait, key: 'Trait' },
+          { options: weaponGlyphs, default: defaultDropdownValues.glyph, key: 'Glyph' },
+          { options: qualityOptions, default: defaultDropdownValues.glyphQuality, key: 'Glyph Quality' },
+          { options: sortedSetOptions.current, default: defaultDropdownValues.set, key: 'Set' },
+          { options: sortedStyleOptions.current, default: defaultDropdownValues.style, key: 'Style' },
+        ]);
+        setShieldOptions([
+          {
+            options: piece.includes('primary') ? primaryWeapons : secondaryWeapons,
+            default: defaultDropdownValues.weapon,
+            key: 'Weapon',
+          },
+          { options: armorTraits, default: defaultDropdownValues.trait, key: 'Trait' },
+          { options: armorGlyphs, default: defaultDropdownValues.glyph, key: 'Glyph' },
+          { options: qualityOptions, default: defaultDropdownValues.glyphQuality, key: 'Glyph Quality' },
+          { options: sortedSetOptions.current, default: defaultDropdownValues.set, key: 'Set' },
+          { options: sortedStyleOptions.current, default: defaultDropdownValues.style, key: 'Style' },
+        ]);
+        break;
+      default:
+        setAllPieceOptions([]);
+        break;
+    }
+  }, [group, sortedSetOptions, sortedStyleOptions, piece]);
 
-  const [allOptions, setAllOptions] = React.useState(allPieceOptions);
+  /* This is necessary to handle trait and glypth options changing when shield is selected */
+  const [allOptions, setAllOptions] = useState(allPieceOptions);
+  useEffect(() => {
+    setAllOptions(allPieceOptions);
+  }, [allPieceOptions]);
 
   return (
-    <span style={{ padding: '1rem', maxWidth: '90vw' }}>
+    <span className={classes.wrapper}>
       <Card
         className={classes.card}
         raised

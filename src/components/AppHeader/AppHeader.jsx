@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import clsx from 'clsx';
 import { connect } from 'react-redux';
 import { useIntl } from 'react-intl';
@@ -9,13 +8,7 @@ import Typography from '@material-ui/core/Typography';
 import Toolbar from '@material-ui/core/Toolbar';
 import Button from '@material-ui/core/Button';
 import useStyles from './styles';
-
-const propTypes = {
-  title: PropTypes.string.isRequired,
-  guildHeaderColor: PropTypes.string.isRequired,
-  toggleMatsDrawer: PropTypes.func.isRequired,
-  matsDrawerOpen: PropTypes.bool.isRequired,
-};
+import propTypes from './propTypes';
 
 const AppHeader = ({
   title, guildHeaderColor, toggleMatsDrawer, matsDrawerOpen,

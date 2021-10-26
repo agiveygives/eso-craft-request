@@ -1,8 +1,6 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { useIntl } from 'react-intl';
-import { makeStyles } from '@material-ui/core/styles';
 import SwipeableDrawer from '@material-ui/core/SwipeableDrawer';
 import Divider from '@material-ui/core/Divider';
 import IconButton from '@material-ui/core/IconButton';
@@ -14,107 +12,21 @@ import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableRow from '@material-ui/core/TableRow';
 import ToggleHeader from '../ToggleHeader/ToggleHeader';
-
-const propTypes = {
-  open: PropTypes.bool.isRequired,
-  setDrawerOpen: PropTypes.func.isRequired,
-  width: PropTypes.string,
-  materials: PropTypes.arrayOf(
-    PropTypes.shape({
-      requestPiece: PropTypes.string.isRequired,
-      gearType: PropTypes.string.isRequired,
-      weight: PropTypes.string.isRequired,
-      type: PropTypes.string.isRequired,
-      count: PropTypes.number.isRequired,
-    }),
-  ).isRequired,
-  traits: PropTypes.arrayOf(
-    PropTypes.shape({
-      requestPiece: PropTypes.string.isRequired,
-      stone: PropTypes.string.isRequired,
-    }),
-  ).isRequired,
-  styles: PropTypes.arrayOf(
-    PropTypes.shape({
-      requestPiece: PropTypes.string.isRequired,
-      stone: PropTypes.string.isRequired,
-    }),
-  ).isRequired,
-  qualityMats: PropTypes.arrayOf(
-    PropTypes.shape({
-      count: PropTypes.number.isRequired,
-      material: PropTypes.string.isRequired,
-      piece: PropTypes.string.isRequired,
-    }),
-  ).isRequired,
-  glyphMats: PropTypes.shape({
-    essenceRunes: PropTypes.arrayOf(
-      PropTypes.shape({ piece: PropTypes.string.isRequired, name: PropTypes.string.isRequired }),
-    ).isRequired,
-    potencyRunes: PropTypes.arrayOf(
-      PropTypes.shape({
-        piece: PropTypes.string.isRequired,
-        name: PropTypes.string.isRequired,
-        potency: PropTypes.string,
-      }),
-    ).isRequired,
-    aspectRunes: PropTypes.arrayOf(
-      PropTypes.shape({ piece: PropTypes.string.isRequired, name: PropTypes.string.isRequired }),
-    ).isRequired,
-  }).isRequired,
-};
-
-const useStyles = (drawerWidth) => makeStyles((theme) => ({
-  drawer: {
-    '@media screen and (min-width: 1500px)': {
-      width: drawerWidth,
-    },
-    flexShrink: 0,
-  },
-  drawerPaper: {
-    '@media screen and (min-width: 1500px)': {
-      width: drawerWidth,
-    },
-    backgroundColor: '#2f3136',
-    minWidth: '15rem',
-  },
-  drawerHeader: {
-    display: 'flex',
-    alignItems: 'center',
-    padding: theme.spacing(0, 1),
-    ...theme.mixins.toolbar,
-    justifyContent: 'flex-start',
-  },
-  closeIcon: {
-    color: '#fafafa',
-  },
-  primaryText: {
-    color: '#dcddde',
-    paddingRight: '1.5rem',
-  },
-  sendToDiscord: {
-    display: 'none',
-  },
-  table: {
-    minWidth: '100%',
-  },
-  section: {
-    paddingTop: '1rem',
-  },
-}));
+import useStyles from './styles';
+import propTypes from './propTypes';
 
 const MatsDrawer = ({
   open, setDrawerOpen, width, materials, traits, styles, qualityMats, glyphMats,
 }) => {
   const classes = useStyles(width)();
   const intl = useIntl();
-  const [totalEquipementMats, setTotalEquipmentMats] = React.useState([]);
-  const [totalTraitMats, setTotalTraitMats] = React.useState([]);
-  const [totalStyleMats, setTotalStyleMats] = React.useState([]);
-  const [totalQualityMats, setTotalQualityMats] = React.useState([]);
-  const [totalGlyphMats, setTotalGlyphMats] = React.useState([]);
+  const [totalEquipementMats, setTotalEquipmentMats] = useState([]);
+  const [totalTraitMats, setTotalTraitMats] = useState([]);
+  const [totalStyleMats, setTotalStyleMats] = useState([]);
+  const [totalQualityMats, setTotalQualityMats] = useState([]);
+  const [totalGlyphMats, setTotalGlyphMats] = useState([]);
 
-  React.useEffect(() => {
+  useEffect(() => {
     let newTotal = [];
 
     materials.forEach((material) => {
@@ -132,7 +44,7 @@ const MatsDrawer = ({
     setTotalEquipmentMats(newTotal);
   }, [materials]);
 
-  React.useEffect(() => {
+  useEffect(() => {
     let newTotal = [];
 
     traits.forEach((trait) => {
@@ -150,7 +62,7 @@ const MatsDrawer = ({
     setTotalTraitMats(newTotal);
   }, [traits]);
 
-  React.useEffect(() => {
+  useEffect(() => {
     let newTotal = [];
 
     styles.forEach((style) => {
@@ -168,7 +80,7 @@ const MatsDrawer = ({
     setTotalStyleMats(newTotal);
   }, [styles]);
 
-  React.useEffect(() => {
+  useEffect(() => {
     let newTotal = [];
 
     qualityMats.forEach((qualityMat) => {
@@ -186,7 +98,7 @@ const MatsDrawer = ({
     setTotalQualityMats(newTotal);
   }, [qualityMats]);
 
-  React.useEffect(() => {
+  useEffect(() => {
     const newTotal = [];
 
     glyphMats.essenceRunes.forEach((essenceRune) => {

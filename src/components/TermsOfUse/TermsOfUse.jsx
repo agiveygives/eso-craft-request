@@ -1,8 +1,6 @@
-import React from 'react';
+import React, { forwardRef } from 'react';
 import { useIntl } from 'react-intl';
-import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { makeStyles } from '@material-ui/core/styles';
 import Image from 'material-ui-image';
 import Fab from '@material-ui/core/Fab';
 import ThumbsUp from '@material-ui/icons/ThumbUp';
@@ -13,27 +11,11 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Slide from '@material-ui/core/Slide';
 import { TERMS_RESPONSE } from '../../store/constants';
-
-const propTypes = {
-  // from redux
-  termsOpen: PropTypes.bool.isRequired,
-  acceptTerms: PropTypes.func.isRequired,
-};
+import useStyles from './styles';
+import propTypes from './propTypes';
 
 // eslint-disable-next-line react/jsx-props-no-spreading
-const Transition = React.forwardRef((props, ref) => <Slide direction="up" ref={ref} {...props} />);
-
-const useStyles = makeStyles((theme) => ({
-  buttonMargin: {
-    margin: theme.spacing(1),
-  },
-  iconMargin: {
-    marginRight: theme.spacing(1),
-  },
-  wrapper: {
-    padding: '0.7rem',
-  },
-}));
+const Transition = forwardRef((props, ref) => <Slide direction="up" ref={ref} {...props} />);
 
 const TermsOfUse = ({ termsOpen, acceptTerms }) => {
   const classes = useStyles();

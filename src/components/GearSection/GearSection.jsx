@@ -1,47 +1,34 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { useIntl } from 'react-intl';
-import { makeStyles } from '@material-ui/core/styles';
 import ToggleHeader from '../ToggleHeader/ToggleHeader';
 import CheckboxRow from '../CheckboxRow/CheckboxRow';
 import PieceCard from '../PieceCard/PieceCard';
-
-const propTypes = {
-  group: PropTypes.oneOf(['armor', 'jewelry', 'weapon']).isRequired,
-
-  // from redux
-  selectedPieces: PropTypes.arrayOf(PropTypes.string).isRequired,
-};
-
-const useStyles = makeStyles(() => ({
-  wrapper: {
-    margin: '0.85rem',
-  },
-  cardWrapper: {
-    margin: '1.5rem',
-  },
-}));
+import useStyles from './styles';
+import propTypes from './propTypes';
 
 const GearSection = ({ group, selectedPieces }) => {
   const classes = useStyles();
   const intl = useIntl();
 
-  let groupTitle;
-  switch (group) {
-    case 'armor':
-      groupTitle = intl.formatMessage({ id: 'gear.armor.title' });
-      break;
-    case 'jewelry':
-      groupTitle = intl.formatMessage({ id: 'gear.jewelry.title' });
-      break;
-    case 'weapon':
-      groupTitle = intl.formatMessage({ id: 'gear.weapon.title' });
-      break;
-    default:
-      groupTitle = '';
-      break;
-  }
+  const [groupTitle, setGroupTitle] = useState('');
+
+  useEffect(() => {
+    switch (group) {
+      case 'armor':
+        setGroupTitle(intl.formatMessage({ id: 'gear.armor.title' }));
+        break;
+      case 'jewelry':
+        setGroupTitle(intl.formatMessage({ id: 'gear.jewelry.title' }));
+        break;
+      case 'weapon':
+        setGroupTitle(intl.formatMessage({ id: 'gear.weapon.title' }));
+        break;
+      default:
+        setGroupTitle('');
+        break;
+    }
+  }, [intl, group]);
 
   return (
     <div className={classes.wrapper}>

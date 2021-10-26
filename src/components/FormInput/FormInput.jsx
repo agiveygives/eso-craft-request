@@ -1,38 +1,38 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
-import InputField from 'terra-form-input/lib/InputField';
-import { Typography } from '@material-ui/core';
+import { useIntl } from 'react-intl';
+import { Typography, TextField } from '@material-ui/core';
 import { SET_ESO_NAME } from '../../store/constants';
-
-const propTypes = {
-  label: PropTypes.string.isRequired,
-  helpText: PropTypes.string,
-
-  // from redux
-  esoUsername: PropTypes.string.isRequired,
-  setEsoUsername: PropTypes.func.isRequired,
-};
+import useStyles from './styles';
+import propTypes from './propTypes';
 
 const FormInput = ({
-  label, helpText, esoUsername, setEsoUsername,
-}) => (
-  <InputField
-    inputId="username-input"
-    label={
-      <Typography style={{ color: '#dddacb' }} variant="h6">{label}</Typography>
-    }
-    help={
-      <Typography style={{ color: '#dddacb' }} variant="body1">{helpText}</Typography>
-    }
-    value={esoUsername}
-    style={{ color: 'black' }}
-    onChange={(event) => setEsoUsername(event.currentTarget.value)}
-  />
-);
+  label, esoUsername, setEsoUsername,
+}) => {
+  const classes = useStyles();
+  const intl = useIntl();
+  const [isInvalid, setIsInvalid] = useState(false);
 
-FormInput.defaultProps = {
-  helpText: '',
+  useEffect(() => {
+    setIsInvalid(esoUsername.length > 0 && esoUsername[0] !== '@');
+  }, [esoUsername]);
+
+  return (
+    <span>
+      <Typography style={{ color: '#dddacb' }} variant="h6">{label}</Typography>
+      <TextField
+        error={isInvalid}
+        id="username-input"
+        variant="outlined"
+        placeholder="@JukesMcGee"
+        helperText={isInvalid ? intl.formatMessage({ id: 'user.invalidUsername' }) : undefined}
+        value={esoUsername}
+        onChange={(event) => setEsoUsername(event.currentTarget.value)}
+        InputProps={{ className: classes.input }}
+        size="small"
+      />
+    </span>
+  );
 };
 
 FormInput.propTypes = propTypes;

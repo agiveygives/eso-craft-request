@@ -1,5 +1,4 @@
-import React, { useState, useRef } from 'react';
-import PropTypes from 'prop-types';
+import React, { useEffect, useState, useRef } from 'react';
 import { Circle } from 'react-shapes';
 import { useIntl } from 'react-intl';
 import {
@@ -8,11 +7,11 @@ import {
   Typography,
   FormControl,
 } from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
 import DeepEqual from 'deep-equal';
-import { generateSelectOptions } from '../../utils';
-import defaultDropdownValues from '../../constants/defaultDropdownValues';
-import GearAttributesShape from '../../propShapes/gearAttributesShape';
+import { generateSelectOptions } from '../../../utils';
+import defaultDropdownValues from '../../../constants/defaultDropdownValues';
+import useStyles from '../styles';
+import propTypes from './propTypes';
 
 const qualityColors = {
   'quality.normal': '#888888',
@@ -21,51 +20,6 @@ const qualityColors = {
   'quality.epic': '#A02EF7',
   'quality.legendary': '#CCAA1A',
 };
-
-const propTypes = {
-  piece: PropTypes.string.isRequired,
-  data: PropTypes.shape({
-    options: PropTypes.arrayOf(PropTypes.shape({
-      color: PropTypes.string.isRequired,
-      isFixed: PropTypes.bool.isRequired,
-      label: PropTypes.string.isRequired,
-      value: PropTypes.string.isRequired,
-    })),
-    default: PropTypes.shape({
-      value: PropTypes.string.isRequired,
-      label: PropTypes.oneOf([
-        'Glyph',
-        'Glyph Quality',
-        'Trait',
-        'Quality',
-        'Set',
-        'Style',
-        'Weapon',
-        'Weight',
-      ]).isRequired,
-      isFixed: PropTypes.bool.isRequired,
-    }),
-    key: PropTypes.string,
-  }).isRequired,
-  gridSize: PropTypes.number.isRequired,
-  gearAttributes: GearAttributesShape.isRequired,
-  updateAttributes: PropTypes.func.isRequired,
-  glyphVal: PropTypes.string.isRequired,
-  setAllOptions: PropTypes.func.isRequired,
-  allPieceOptions: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
-  shieldOptions: PropTypes.arrayOf(PropTypes.shape({})),
-};
-
-const useStyles = makeStyles({
-  select: {
-    '@media screen and (min-width: 450px)': {
-      minWidth: '10rem',
-    },
-    '@media screen and (max-width: 450px)': {
-      width: '100%',
-    },
-  },
-});
 
 const Dropdown = ({
   piece,
@@ -86,8 +40,12 @@ const Dropdown = ({
 
   const prevDropdownData = useRef();
 
+  useEffect(() => {
+    console.log(dropdownData);
+  }, [dropdownData]);
+
   // Load Data
-  React.useEffect(() => {
+  useEffect(() => {
     if (!DeepEqual(prevDropdownData.current, dropdownData)) {
       switch (data.key) {
         case 'Quality':
@@ -255,11 +213,11 @@ const Dropdown = ({
     prevDropdownData.current = dropdownData;
   }, [data, gearAttributes, dropdownData]);
 
-  React.useEffect(() => {
+  useEffect(() => {
     setDropdownData(data);
   }, [data]);
 
-  React.useEffect(() => {
+  useEffect(() => {
     const splitKey = dropdownData.key.split(' ');
     splitKey[0] = splitKey[0].toLowerCase();
 
@@ -310,8 +268,7 @@ const Dropdown = ({
             )
           }
           onChange={
-            (_,
-              child) => {
+            (_, child) => {
               setSelectValue(child.props.optiondata);
               updateAttributes(
                 piece,

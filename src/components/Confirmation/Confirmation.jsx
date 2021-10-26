@@ -1,8 +1,6 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React, { forwardRef } from 'react';
 import { connect } from 'react-redux';
 import { useIntl } from 'react-intl';
-import { makeStyles } from '@material-ui/core/styles';
 import Image from 'material-ui-image';
 import Fab from '@material-ui/core/Fab';
 import EditIcon from '@material-ui/icons/Edit';
@@ -18,37 +16,11 @@ import TableCell from '@material-ui/core/TableCell';
 import TableRow from '@material-ui/core/TableRow';
 import { TOGGLE_REVIEW } from '../../store/constants';
 import { sendRequest } from '../../store/actions';
-import { stateShape } from '../../propShapes';
-
-const propTypes = {
-  // from redux
-  currentState: stateShape.isRequired,
-  sendMessage: PropTypes.func.isRequired,
-  closeReview: PropTypes.func.isRequired,
-};
+import propTypes from './propTypes';
+import useStyles from './styles';
 
 // eslint-disable-next-line react/jsx-props-no-spreading
-const Transition = React.forwardRef((props, ref) => <Slide direction="up" ref={ref} {...props} />);
-
-const useStyles = makeStyles((theme) => ({
-  subheader: {
-    backgroundColor: '#e0e0e0',
-    fontSize: '1em',
-    fontColor: 'black',
-  },
-  buttonMargin: {
-    margin: theme.spacing(1),
-  },
-  iconMargin: {
-    marginRight: theme.spacing(1),
-  },
-  dialogContent: {
-    '@media screen and (min-width: 600px)': {
-      paddingRight: '5em',
-      paddingLeft: '5em',
-    },
-  },
-}));
+const Transition = forwardRef((props, ref) => <Slide direction="up" ref={ref} {...props} />);
 
 const Confirmation = ({ currentState, sendMessage, closeReview }) => {
   const {
@@ -66,7 +38,7 @@ const Confirmation = ({ currentState, sendMessage, closeReview }) => {
   const classes = useStyles();
   const intl = useIntl();
 
-  function pieceRows(selected, attributes) {
+  const pieceRows = (selected, attributes) => {
     let returnVal = null;
 
     if (selected.length) {
@@ -117,7 +89,7 @@ const Confirmation = ({ currentState, sendMessage, closeReview }) => {
     }
 
     return returnVal;
-  }
+  };
 
   return (
     <Dialog

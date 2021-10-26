@@ -13,7 +13,7 @@
   "tou.decline": "Decliner",
 
   "user.username": "Pseudo ESO",
-  "user.usernameExample": "exemple: @JukesMcGee",
+  "user.invalidUsername": "Pseudo ESO doit commencer par @",
   "user.levelSliderLabel": "Niveau de l'equipement",
   "user.level": "Niveau",
   "user.payment.text": "Je paierai en ",

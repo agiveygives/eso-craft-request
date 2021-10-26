@@ -1,5 +1,4 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { useIntl } from 'react-intl';
 import axios from 'axios';
@@ -10,27 +9,7 @@ import ReactTooltip from 'react-tooltip';
 import useStyles from './styles';
 import buttonDisabled from './utils';
 import { RESTART, TOGGLE_REVIEW } from '../../store/constants';
-import {
-  armorAttributesShape, jewelryAttributesShape, weaponAttributesShape,
-} from '../../propShapes';
-
-const propTypes = {
-  currentState: PropTypes.shape({
-    esoName: PropTypes.string.isRequired,
-    armorPieces: PropTypes.arrayOf(PropTypes.string).isRequired,
-    jewelryPieces: PropTypes.arrayOf(PropTypes.string).isRequired,
-    weaponPieces: PropTypes.arrayOf(PropTypes.string).isRequired,
-    armorAttributes: armorAttributesShape.isRequired,
-    jewelryAttributes: jewelryAttributesShape.isRequired,
-    weaponAttributes: weaponAttributesShape.isRequired,
-  }).isRequired,
-  restart: PropTypes.func.isRequired,
-  review: PropTypes.func.isRequired,
-  guildName: PropTypes.string.isRequired,
-  guildMnemonic: PropTypes.string.isRequired,
-  guildWebsite: PropTypes.string.isRequired,
-  guildFooterColor: PropTypes.string.isRequired,
-};
+import propTypes from './propTypes';
 
 const AppFooter = ({
   currentState, restart, review, guildName, guildMnemonic, guildWebsite, guildFooterColor,
@@ -46,14 +25,14 @@ const AppFooter = ({
   } = currentState;
   const classes = useStyles(guildFooterColor)();
   const intl = useIntl();
-  const [guildImagePath, setGuildImagePath] = React.useState(`/guildImages/${guildMnemonic}.png`);
-  const [imageExists, setImageExists] = React.useState(false);
+  const [guildImagePath, setGuildImagePath] = useState(`/guildImages/${guildMnemonic}.png`);
+  const [imageExists, setImageExists] = useState(false);
 
-  React.useEffect(() => {
+  useEffect(() => {
     setGuildImagePath(`/guildImages/${guildMnemonic}.png`);
   }, [guildMnemonic]);
 
-  React.useEffect(() => {
+  useEffect(() => {
     axios.get(guildImagePath)
       .then((response) => {
         if (response.config.url === guildImagePath) {

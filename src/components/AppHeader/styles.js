@@ -11,6 +11,11 @@ const useStyles = (guildHeaderColor) => makeStyles(() => ({
   },
   appBar: {
     backgroundColor: guildHeaderColor,
+    top: 0,
+    left: 'auto',
+    right: 0,
+    position: 'sticky',
+    zIndex: 1100,
   },
 }));
 

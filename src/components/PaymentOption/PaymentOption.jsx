@@ -1,52 +1,24 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { useIntl } from 'react-intl';
-
-// Material-UI
+import clsx from 'clsx';
 import { Typography, FormHelperText } from '@material-ui/core';
 import Select from '@material-ui/core/Select';
-import { createStyles } from '@material-ui/core/styles';
-
 import { UPDATE_PAYMENT_TYPE } from '../../store/constants';
 import { generateSelectOptions } from '../../utils';
-
-const propTypes = {
-  paymentType: PropTypes.string.isRequired,
-  updatePaymentOption: PropTypes.func.isRequired,
-  paymentOptions: PropTypes.arrayOf(PropTypes.oneOf('user.payment.materials', 'user.payment.gold')),
-};
-
-const styles = createStyles({
-  select: {
-    background: '#e8e9ea',
-    borderRadius: 3,
-    color: 'black',
-    padding: '0.2rem',
-    minWidth: '7rem',
-  },
-  disabled: {
-    color: 'rgba(0, 0, 0, 0.38)',
-  },
-  helperText: {
-    color: '#dddacb',
-    maxWidth: '7rem',
-    paddingLeft: '0.5rem',
-  },
-  wrapper: {
-    paddingLeft: '0.5rem',
-  },
-});
+import useStyles from './styles';
+import propTypes from './propTypes';
 
 const PaymentOption = ({ paymentType, updatePaymentOption, paymentOptions }) => {
   const intl = useIntl();
+  const classes = useStyles();
 
   return (
     <span className="centered-div">
       <Typography variant="h5">{intl.formatMessage({ id: 'user.payment.text' })}</Typography>
-      <span style={styles.wrapper}>
+      <span className={classes.wrapper}>
         <Select
-          style={paymentOptions.length <= 1 ? { ...styles.select, ...styles.disabled } : styles.select}
+          className={clsx(classes.select, paymentOptions.length <= 1 && classes.disabled)}
           value={paymentType}
           onChange={(event) => updatePaymentOption(event.target.value)}
           disabled={paymentOptions.length <= 1}
@@ -56,7 +28,7 @@ const PaymentOption = ({ paymentType, updatePaymentOption, paymentOptions }) => 
       </span>
       <span>
         {(paymentOptions.length > 1 && paymentOptions.includes('user.payment.materials')) && (
-          <FormHelperText style={styles.helperText}>
+          <FormHelperText className={classes.helperText}>
             {intl.formatMessage({ id: 'user.payment.tooltip' })}
           </FormHelperText>
         )}
