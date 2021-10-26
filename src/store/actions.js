@@ -5,7 +5,7 @@ import {
 import English from '../i18n/en-US.json';
 
 export const getGuildData = (guildMemonic) => (dispatch) => {
-  axios.get(`https://us-central1-eso-craft-request.cloudfunctions.net/api/guilds?mnemonic=${guildMemonic}`)
+  axios.get('https://us-central1-eso-craft-request.cloudfunctions.net/api/guilds', { params: { mnemonic: guildMemonic } })
     .then((response) => {
       if (response.data.length > 0) {
         dispatch({ type: SET_GUILD_DATA, guildData: response.data[0] });
