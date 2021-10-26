@@ -40,10 +40,6 @@ const Dropdown = ({
 
   const prevDropdownData = useRef();
 
-  useEffect(() => {
-    console.log(dropdownData);
-  }, [dropdownData]);
-
   // Load Data
   useEffect(() => {
     if (!DeepEqual(prevDropdownData.current, dropdownData)) {
