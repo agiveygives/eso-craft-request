@@ -301,10 +301,16 @@ const reducer = (state = initialState, action) => {
           if (newState.weaponAttributes[action.piece].Quality) {
             let type;
 
-            if (['axe', 'mace', 'sword', 'battle axe', 'maul', 'greatsword', 'dagger']
-              .includes(action.value.toLowerCase())
-            ) {
-              type = 'Heavy';
+            if ([
+              'gear.weapon.axe',
+              'gear.weapon.mace',
+              'gear.weapon.sword',
+              'gear.weapon.battleaxe',
+              'gear.weapon.maul',
+              'gear.weapon.greatsword',
+              'gear.weapon.dagger',
+            ].includes(action.value.toLowerCase())) {
+              type = 'gear.armor.weight.heavy';
             } else {
               type = 'wood';
             }
@@ -335,10 +341,16 @@ const reducer = (state = initialState, action) => {
           if (newState.weaponAttributes[action.piece].Weapon) {
             let type;
 
-            if (['axe', 'mace', 'sword', 'battle axe', 'maul', 'greatsword', 'dagger']
-              .includes(newState.weaponAttributes[action.piece].Weapon.toLowerCase())
-            ) {
-              type = 'Heavy';
+            if ([
+              'gear.weapon.axe',
+              'gear.weapon.mace',
+              'gear.weapon.sword',
+              'gear.weapon.battleaxe',
+              'gear.weapon.maul',
+              'gear.weapon.greatsword',
+              'gear.weapon.dagger',
+            ].includes(newState.weaponAttributes[action.piece].Weapon.toLowerCase())) {
+              type = 'gear.armor.weight.heavy';
             } else {
               type = 'wood';
             }
