@@ -14,6 +14,7 @@ import Confirmation from '../../components/Confirmation/Confirmation';
 import RequestAlert from '../../components/RequestAlert/RequestAlert';
 import MatsDrawer from '../../components/MatsDrawer/MatsDrawer';
 import RequestNotes from '../../components/RequestNotes';
+// import GoogleAd from '../../components/GoogleAd';
 import { TERMS_RESPONSE } from '../../store/constants';
 import useStyles from './styles';
 import propTypes from './propTypes';
@@ -40,6 +41,7 @@ const CraftRequest = ({ termsAccepted, guildMnemonic, acceptTerms }) => {
       <RequestAlert />
       {guildMnemonic === 'demo' ? <TermsOfUse /> : <></>}
       <Confirmation />
+      {/* <GoogleAd slot="5302794966" /> */}
       <div className={clsx(classes.appStyle, (!termsAccepted && classes.disabled))}>
         <span className={classes.wrapper}>
           <div className="centered-div">
