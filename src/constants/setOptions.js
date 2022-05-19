@@ -66,6 +66,10 @@ const craftedSets = [
   'set.diamondsVictory',
   'set.histWhisperer',
   'set.heartlandConqueror',
+  // Deadlands
+  'set.wretchedVitality',
+  'set.deadlandsDemolisher',
+  'set.ironFlask',
 ];
 
 const sortedSets = (intl) => [
