@@ -23,6 +23,7 @@ const TermsOfUse = ({ termsOpen, acceptTerms }) => {
 
   return (
     <Dialog
+      id="terms-of-use"
       TransitionComponent={Transition}
       style={{ overflow: 'auto' }}
       aria-labelledby="Terms of Use"
@@ -89,6 +90,7 @@ const TermsOfUse = ({ termsOpen, acceptTerms }) => {
       <DialogActions>
         <div>
           <Fab
+            id="accept"
             variant="extended"
             size="small"
             aria-label="accept"
@@ -100,6 +102,7 @@ const TermsOfUse = ({ termsOpen, acceptTerms }) => {
             {intl.formatMessage({ id: 'tou.accept' })}
           </Fab>
           <Fab
+            id="decline"
             variant="extended"
             size="small"
             aria-label="decline"
