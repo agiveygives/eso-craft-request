@@ -1,4 +1,5 @@
 // https://en.uesp.net/wiki/Online:Craftable_Sets
+// use https://eso-sets.com/ to get French translations
 
 const craftedSets = [
   'set.adeptRider',
@@ -70,6 +71,14 @@ const craftedSets = [
   'set.wretchedVitality',
   'set.deadlandsDemolisher',
   'set.ironFlask',
+  // High Isle
+  'set.druidsBraid',
+  'set.ordersWrath',
+  'set.serpentsDisdain',
+  // Galen
+  'set.chimerasRebuke',
+  'set.clawOfTheForestWraith',
+  'set.oldGrowthBrewer',
 ];
 
 const sortedSets = (intl) => [
