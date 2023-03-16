@@ -1,5 +1,4 @@
 import React, { useEffect, useState, useRef } from 'react';
-import { Circle } from 'react-shapes';
 import { useIntl } from 'react-intl';
 import {
   Grid,
@@ -8,6 +7,7 @@ import {
   FormControl,
 } from '@material-ui/core';
 import DeepEqual from 'deep-equal';
+import Circle from '../../Shapes/Circle';
 import { generateSelectOptions } from '../../../utils';
 import defaultDropdownValues from '../../../constants/defaultDropdownValues';
 import useStyles from '../styles';
