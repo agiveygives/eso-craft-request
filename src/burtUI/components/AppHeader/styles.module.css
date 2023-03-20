@@ -1,0 +1,33 @@
+.header {
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  right: 0;
+  left: 0;
+  display: grid;
+  grid-template-columns: var(--header-logo-width) auto max-content;
+  grid-column-gap: 20px;
+  align-items: center;
+  background-color: var(--header-background);
+  padding-top: var(--header-padding-top);
+  padding-right: var(--header-padding-right);
+  padding-bottom: var(--header-padding-bottom);
+  padding-left: var(--header-padding-left);
+  transition: border-radius 300ms linear, background-color 300ms linear;
+  height: var(--header-height);
+}
+
+.headerScroll {
+  border-radius: 0px 0px 20px 20px;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  background-color: var(--header-background-scroll);
+}
+
+.logoContainer {
+  display: flex;
+}
+
+.logo {
+  width: 100%;
+  height: 100%;
+}

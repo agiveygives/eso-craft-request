@@ -1,0 +1,6 @@
+:root {
+  /* header styles */
+  --header-background: #f2f2f2;
+  --header-background-scroll: #00c49a;
+  --header-height: 125px;
+}

@@ -1,0 +1,22 @@
+.appContainer {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  min-height: 100vh;
+}
+
+.contentContainer {
+  flex: 1;
+  margin-top: var(--header-height);
+  background-color: #26262b;
+  padding: 20px;
+}
+
+.centered {
+  display: grid;
+  justify-content: center;
+}
+
+.footer {
+  max-height: 25%;
+}
