@@ -1,0 +1,15 @@
+.noResize {
+  resize: none;
+}
+
+.onlyVerticalResize {
+  resize: vertical;
+}
+
+.onlyHorizontalResize {
+  resize: vertical;
+}
+
+.allowResize {
+  resize: both;
+}

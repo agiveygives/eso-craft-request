@@ -1,0 +1,96 @@
+// https://en.uesp.net/wiki/Online:Craftable_Sets
+// use https://eso-sets.com/ to get French translations
+import type { TFunction } from 'i18next';
+
+const craftedSets = [
+  'set.adeptRider',
+  'set.alessiasBulwark',
+  'set.armorMaster',
+  'set.armorOfTheSeducer',
+  'set.ashenGrip',
+  'set.assassinsGuile',
+  'set.cleverAlchemist',
+  'set.daedricTrickery',
+  'set.deathsWind',
+  'set.eternalHunt',
+  'set.eyesOfMara',
+  'set.fortifiedBrass',
+  'set.graveStakeCollector',
+  'set.histBark',
+  'set.hundingsRage',
+  'set.innateAxiom',
+  'set.kaegrenacsHope',
+  'set.kvatchGladiator',
+  'set.lawOfJulianos',
+  'set.magnusGift',
+  'set.mechanicalAcuity',
+  'set.mightOfTheLostLegion',
+  'set.morkuldin',
+  'set.nocturnalsFavor',
+  'set.nagaShaman',
+  'set.nightMothersGaze',
+  'set.nightsSilence',
+  'set.noblesConquest',
+  'set.oblivionsFoe',
+  'set.orgnumsScales',
+  'set.pelinialsAptitude',
+  'set.redistributor',
+  'set.shacklebreaker',
+  'set.shalidorsCurse',
+  'set.sloadsSemblance',
+  'set.songOfLamae',
+  'set.spectresEye',
+  'set.tavasFavor',
+  'set.torugsPact',
+  'set.trialByFire',
+  'set.twiceBornStar',
+  'set.twilightsEmbrace',
+  'set.vampiresKiss',
+  'set.varensLegacy',
+  'set.wayOfArena',
+  'set.whitestrakesRetribution',
+  'set.willowsPath',
+  'set.coldharboursFavorite',
+  'set.sencheRahtsGrit',
+  'set.vastariesTutelage',
+  'set.ancientDragonguard',
+  'set.daringCorsair',
+  'set.newMoonAcolyte',
+  'set.criticalRiposte',
+  'set.dauntlessCombatant',
+  'set.unchainedAggressor',
+  'set.dragonsAppetite',
+  'set.spellParasite',
+  'set.stuhnsFavor',
+  'set.legacyOfKarth',
+  'set.redEaglesFury',
+  'set.aetherialAscension',
+  'set.diamondsVictory',
+  'set.histWhisperer',
+  'set.heartlandConqueror',
+  // Deadlands
+  'set.wretchedVitality',
+  'set.deadlandsDemolisher',
+  'set.ironFlask',
+  // High Isle
+  'set.druidsBraid',
+  'set.ordersWrath',
+  'set.serpentsDisdain',
+  // Galen
+  'set.chimerasRebuke',
+  'set.clawOfTheForestWraith',
+  'set.oldGrowthBrewer',
+];
+
+const sortedSets = (t: TFunction) => [
+  {
+    value: 'common.none', label: t('common.none'),
+  },
+].concat(
+  craftedSets.sort((a, b) => ((t(a) > t(b)) ? 1 : -1))
+    .map((set) => ({
+      value: set, label: t(set),
+    })),
+);
+
+export default sortedSets;

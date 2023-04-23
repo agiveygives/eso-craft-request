@@ -1,0 +1,13 @@
+.container {
+  background-color: var(--card--background-color);
+  color: var(--card--color);
+  padding: var(--card--padding);
+  border-radius: 10px;
+  box-shadow: 0px 12px 10px -10px rgba(0, 0, 0, 0.5);
+}
+
+.title {
+  display: grid;
+  justify-content: center;
+  padding-bottom: 5px;
+}

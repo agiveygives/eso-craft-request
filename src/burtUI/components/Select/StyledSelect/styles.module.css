@@ -1,0 +1,40 @@
+.container {
+  width: 100%;
+}
+
+.placeholder {
+  color: grey;
+}
+
+.searchContainer {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  padding: 5px;
+  background-color: var(--card--background-color);
+}
+
+.optionsContainer {
+  max-height: 300px;
+}
+
+.option {
+  display: block;
+  border: none;
+  width: 100%;
+  padding: 10px 15px;
+  border-radius: 0px;
+  background-color: var(--input--background-color);
+  color: var(--input--color);
+  cursor: pointer;
+}
+
+.option:last-child {
+  border-bottom-right-radius: 10px;
+  border-bottom-left-radius: 10px;
+}
+
+.option:focus,
+.option:hover {
+  filter: contrast(50%)
+}

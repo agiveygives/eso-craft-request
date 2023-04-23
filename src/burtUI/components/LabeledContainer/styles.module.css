@@ -1,0 +1,31 @@
+.container {
+  border: none;
+  height: 100%;
+  display: flex;
+  padding: 10px 10px;
+}
+
+.bordered {
+  border: 1px solid var(--primary);
+  border-radius: 5px;
+}
+
+.label.primary {
+  color: var(--primary);
+}
+
+.label.light {
+  color: var(--light);
+}
+
+.label.small {
+  font-size: 12px;
+}
+
+.label.medium {
+  font-size: 16px;
+}
+
+.label.large {
+  font-size: 18px;
+}

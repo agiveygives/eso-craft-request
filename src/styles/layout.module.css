@@ -1,0 +1,18 @@
+.limitWidth {
+  max-width: 45vw;
+  margin: 0px auto;
+}
+
+@media (max-width: 1000px) {
+  .limitWidth {
+    max-width: 65vw;
+    margin: 0px auto;
+  }
+}
+
+@media (max-width: 650px) {
+  .limitWidth {
+    max-width: 95vw;
+    margin: 0px auto;
+  }
+}

@@ -1,0 +1,35 @@
+.container {
+  border: none;
+  height: 100%;
+  display: flex;
+  padding: 0px 10px;
+}
+
+.bordered {
+  border: 1px solid var(--primary);
+  border-radius: 5px;
+}
+
+.sliderContainer {
+  width: 100%;
+}
+
+.track {
+  background-color: var(--primary);
+  position: relative;
+  height: 8px;
+  top: 14px;
+  border-top-left-radius: 6px;
+  border-bottom-left-radius: 6px;
+}
+
+.sliderInput {
+  -webkit-appearance: none;
+  width: 100%;
+  cursor: grab;
+  height: 8px;
+}
+
+.sliderInput:focus:active {
+  cursor: grabbing;
+}

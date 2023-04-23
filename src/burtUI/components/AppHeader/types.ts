@@ -1,4 +1,5 @@
 export type AppHeaderPropTypes = {
+  className?: string
   logoUri: string,
   navLinks: {
     href: string,

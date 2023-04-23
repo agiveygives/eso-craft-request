@@ -4,23 +4,24 @@ import { AppHeader } from '../AppHeader';
 import { PropTypes } from './types';
 import styles from './styles.module.css';
 
-const AppLayout = ({ children, footer, header, centered }: PropTypes) => {
+const AppLayout = ({ className, children, footer, header, centered }: PropTypes) => {
   return (
-    <main className={styles.appContainer}>
+    <main className={classNames(styles.appContainer, className)}>
       <AppHeader logoUri={header.logoUri} navLinks={header.navLinks} menu={header.menu} />
 
       <article className={classNames(styles.contentContainer, {[styles.centered]: centered})}>
         {children}
       </article>
 
-      <section className={styles.footer}>
+      <footer className={styles.footer}>
         {footer}
-      </section>
+      </footer>
     </main>
   );
 }
 
 AppLayout.defaultProps = {
+  className: '',
   centered: true,
   header: {
     logoUri: '',

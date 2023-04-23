@@ -9,7 +9,7 @@
 .switch:hover,
 .switch:focus,
 .switch:focus-within {
-  box-shadow: 0px 0px 5px rgb(0 0 0 / 50%);
+  box-shadow: 0px 0px 5px var(--light);
 }
 
 .switch .checkbox {
@@ -45,11 +45,11 @@
 }
 
 .checkbox:checked + .slider {
-  background-color: #00c49a;
+  background-color: var(--switch--checked--background-color);
 }
 
 .checkbox:checked + .slider {
-  box-shadow: 0 0 1px #00c49a;
+  box-shadow: 0 0 1px var(--switch--checked--background-color);
 }
 
 .checkbox:checked + .slider:before {

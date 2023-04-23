@@ -1,0 +1,40 @@
+.container {
+  margin: 20px 0px;
+}
+
+.sectionHeader {
+  cursor: pointer;
+  background-color: var(--section-header--background-color);
+  border-radius: 1px 0px;
+  text-align: left;
+  padding: 10px 20px;
+  color: var(--section-header--color);
+}
+
+.sectionHeader.centered {
+  display: grid;
+  justify-content: center;
+}
+
+.headerIcon {
+  transform: rotate(0deg);
+  margin-right: 10px;
+  height: 20px;
+  transition: transform 250ms ease-in-out;
+}
+
+.collapsedIcon {
+  transform: rotate(-90deg);
+}
+
+.sectionHeader > h2 {
+  display: inline;
+  margin: 0px;
+}
+
+.content {
+  height: auto;
+  overflow-x: auto;
+  overflow-y: hidden;
+  transition: height 250ms ease-in-out;
+}

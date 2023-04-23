@@ -1,16 +1,27 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { SwitchPropTypes } from './types';
 import styles from './styles.module.css';
 
-const Switch = ({ onToggle }: SwitchPropTypes) => {
-  const [checked, setChecked] = useState<boolean>(false);
+const Switch = ({ checked, onToggle }: SwitchPropTypes) => {
+  const [isChecked, setIsChecked] = useState<boolean>(checked);
+
+  useEffect(() => {
+    setIsChecked(checked);
+  }, [checked])
 
   return (
     <label className={styles.switch}>
-      <input type="checkbox" className={styles.checkbox} checked={checked} onClick={() => {
-        setChecked((oldChecked) => !oldChecked);
-        onToggle && onToggle();
-      }} />
+      <input
+        type="checkbox"
+        className={styles.checkbox}
+        checked={isChecked}
+        onClick={() => {
+          setIsChecked((oldChecked) => !oldChecked);
+        }}
+        onChange={() => {
+          onToggle && onToggle();
+        }}
+      />
       <span className={styles.slider} />
     </label>
   )
