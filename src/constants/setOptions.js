@@ -79,6 +79,10 @@ const craftedSets = [
   'set.chimerasRebuke',
   'set.clawOfTheForestWraith',
   'set.oldGrowthBrewer',
+  // Necrom
+  'set.seekerSynthesis',
+  'set.shatteredFate',
+  'set.telvanniEfficiency',
 ];
 
 const sortedSets = (intl) => [
