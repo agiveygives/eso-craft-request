@@ -33,6 +33,7 @@ const craftedSets = [
   'set.oblivionsFoe',
   'set.orgnumsScales',
   'set.pelinialsAptitude',
+  'set.pelinalsWrath',
   'set.redistributor',
   'set.shacklebreaker',
   'set.shalidorsCurse',
