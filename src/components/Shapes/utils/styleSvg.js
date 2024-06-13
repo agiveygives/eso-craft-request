@@ -1,4 +1,4 @@
-export default function styleSvg(style = {}, sourceProps) {
+export default function styleSvg(sourceProps, style = {}) {
   if (sourceProps === undefined) return style;
 
   const styledSvg = style;

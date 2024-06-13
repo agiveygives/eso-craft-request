@@ -85,6 +85,7 @@ const Confirmation = ({ currentState, sendMessage, closeReview }) => {
         </>
       );
     } else {
+      // eslint-disable-next-line react/jsx-no-useless-fragment
       returnVal = <></>;
     }
 

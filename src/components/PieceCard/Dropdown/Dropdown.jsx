@@ -213,19 +213,21 @@ const Dropdown = ({
     setDropdownData(data);
   }, [data]);
 
-  useEffect(() => {
-    const splitKey = dropdownData.key.split(' ');
-    splitKey[0] = splitKey[0].toLowerCase();
+  useEffect(
+    () => {
+      const splitKey = dropdownData.key.split(' ');
+      splitKey[0] = splitKey[0].toLowerCase();
 
-    if (
-      selectValue.value !== defaultDropdownValues[splitKey.join('')].value
+      if (
+        selectValue.value !== defaultDropdownValues[splitKey.join('')].value
       && !dropdownData.options.find((option) => option.value === selectValue.value)
-    ) {
-      updateAttributes(piece, dropdownData.key);
-      setSelectValue(defaultDropdownValues[splitKey.join('')]);
-    }
-  },
-  [dropdownData, selectValue, updateAttributes, piece]);
+      ) {
+        updateAttributes(piece, dropdownData.key);
+        setSelectValue(defaultDropdownValues[splitKey.join('')]);
+      }
+    },
+    [dropdownData, selectValue, updateAttributes, piece],
+  );
 
   return (
     <Grid key={dropdownData.key} item xs={gridSize} className="centered-div">
@@ -243,24 +245,22 @@ const Dropdown = ({
           value={selectValue.value}
           renderValue={
             () => (
-              <>
-                <span style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                }}
+              <span style={{
+                display: 'flex',
+                alignItems: 'center',
+              }}
+              >
+                <Circle r={5} fill={{ color: selectValue.color }} />
+                <Typography
+                  variant="body1"
+                  style={{
+                    padding: '0.5rem',
+                    minWidth: '5rem',
+                  }}
                 >
-                  <Circle r={5} fill={{ color: selectValue.color }} />
-                  <Typography
-                    variant="body1"
-                    style={{
-                      padding: '0.5rem',
-                      minWidth: '5rem',
-                    }}
-                  >
-                    {intl.formatMessage({ id: selectValue.label })}
-                  </Typography>
-                </span>
-              </>
+                  {intl.formatMessage({ id: selectValue.label })}
+                </Typography>
+              </span>
             )
           }
           onChange={
@@ -269,10 +269,10 @@ const Dropdown = ({
               updateAttributes(
                 piece,
                 child.props.piecekey,
-                child.props.value,
-                child.props.optiondata.stone,
                 child.props.optiondata.essenceRune,
                 child.props.optiondata.potency,
+                child.props.optiondata.stone,
+                child.props.value,
               );
               if (child.props.piecekey === 'Weapon') {
                 if (child.props.value === 'gear.weapon.shield') {
