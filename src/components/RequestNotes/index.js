@@ -1,1 +1,3 @@
-export { default } from './RequestNotes';
+import RequestNotes from './RequestNotes';
+
+export default RequestNotes;

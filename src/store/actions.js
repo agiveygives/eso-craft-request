@@ -2,7 +2,7 @@ import axios from 'axios';
 import {
   TOGGLE_REVIEW, SUCCESSFUL_REQUEST, FAILED_REQUEST, SET_GUILD_DATA, SET_GUILD_REQUEST_CODE,
 } from './constants';
-import English from '../i18n/en-US.json';
+import { english } from '../i18n/translations';
 
 export const getGuildData = (guildMemonic) => (dispatch) => {
   axios.get('https://us-central1-eso-craft-request.cloudfunctions.net/api/guilds', { params: { mnemonic: guildMemonic } })
@@ -65,7 +65,7 @@ export const sendRequest = (currentState, intl) => (dispatch) => {
     if (selected.length) {
       returnVal = `\n__${intl.formatMessage({ id: attributes.display })}__`;
 
-      const attributeGearKey = English[attributes.display].toLowerCase();
+      const attributeGearKey = english[attributes.display].toLowerCase();
       requestLog[attributeGearKey] = {};
 
       selected.forEach((piece) => {

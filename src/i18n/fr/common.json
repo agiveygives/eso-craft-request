@@ -1,0 +1,64 @@
+{
+  "AppName": "ESO Craft Request",
+
+  "tou.title": "Lisez ceci!",
+  "tou.header": "Informations",
+  "tou.demo": "Ceci est une demo.",
+  "tou.line1": "Une commande postee avec cette demo ne pourra pas etre effectuee.",
+  "tou.line2": "Pour visualiser la publication de la commande, rejoignez le server discord de  {discordInvite}.",
+  "tou.line3": "Si vous essayez de passer une commande dans votre guilde, contactez les dirigeants de votre guilde pour avoir le lien vers la version de l'appli dediee a la guilde.",
+  "tou.line4": "Si vous voulez creer une version de l'appli dediee a votre guilde, soumettez une requete dans l' {onboardingLink} sur github.",
+  "tou.line5": "Toutes les questions peuvent etre directement adressees sur le channel {questionsLink} du server Discord ou a JukesMcGee#4228 sur Discord.",
+  "tou.accept": "Accepter",
+  "tou.decline": "Decliner",
+
+  "user.username": "Pseudo ESO",
+  "user.invalidUsername": "Pseudo ESO doit commencer par @",
+  "user.levelSliderLabel": "Niveau de l'equipement",
+  "user.level": "Niveau",
+  "user.payment.text": "Je paierai en ",
+  "user.payment.tooltip": "Les crafters preferent generalement etre payes en materiaux",
+  "user.payment.materials": "Materiaux",
+  "user.payment.gold": "Or",
+  "user.requestNotes.header": "Remarques ({total}/1000)",
+  "user.requestNotes.optional": "optionnel",
+  "user.requestNotes.placeholder": "Informations pour le crafter a propos de la commande ou du paiement.",
+
+  "confirmation": "Confirmation de la commande",
+  "confirmation.gearLevel": "Niveau de l'equipement",
+  "confirmation.payment": "Paiement",
+  "confirmation.confirm": "Confirmer",
+  "confirmation.edit": "Modifier",
+
+  "message.requestNotes": "Demander des notes",
+  "message.sentFrom": "Envoyé de",
+
+  "alert.success": "Votre commande a ete publiee sur Discord.",
+  "alert.failure": "Votre commande n'a pas pu etre publiee, veuillez reessayer. Si le probleme persiste, contactez @JukesMcGee#4228 sur discord.",
+
+  "Glyph": "Glyphe",
+  "Glyph Quality": "Qualite du glyphe",
+  "Trait": "Trait",
+  "Quality": "Qualite",
+  "Set": "Set",
+  "Style": "Style",
+  "Weapon": "Arme",
+  "Weight": "Poids",
+
+  "quality.normal": "Normal",
+  "quality.fine": "Raffine",
+  "quality.superior": "Superieur",
+  "quality.epic": "Epique",
+  "quality.legendary": "Legendaire",
+
+  "footer.report": "Vous voulez signaler un bug ou faire des suggestions ?",
+  "footer.submit": "Soumettre",
+  "footer.tooltip": "Remplir tous les champs pour pouvoir soumettre la commande.",
+  "footer.restart": "Recommencer",
+
+  "common.quality": "Qualite",
+  "common.none": "Aucun",
+  "common.traits.infused": "Infuse",
+  "common.traits.nirnhoned": "Trempe de Nirn",
+  "common.traits.training": "Entrainement"
+}

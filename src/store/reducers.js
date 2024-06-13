@@ -8,6 +8,7 @@ import { rawMotifs } from '../constants/styleOptions';
 import { additivePotencyRunes, subtractivePotencyRunes } from '../constants/glyphMats';
 import craftableLevels from '../constants/craftableLevels';
 
+// eslint-disable-next-line default-param-last
 const reducer = (state = initialState, action) => {
   const newState = { ...state };
 

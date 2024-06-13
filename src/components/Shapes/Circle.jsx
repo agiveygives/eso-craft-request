@@ -12,7 +12,7 @@ const Circle = (props) => {
 
   const cx = r + (strokeWidth / 2);
   const cy = r + (strokeWidth / 2);
-  const styledProps = styleSvg(_.omit(props, 'style'), props);
+  const styledProps = styleSvg(props, _.omit(props, 'style'));
 
   return (
     <SVGComponent height={height} width={width}>

@@ -14,7 +14,6 @@ import Confirmation from '../../components/Confirmation/Confirmation';
 import RequestAlert from '../../components/RequestAlert/RequestAlert';
 import MatsDrawer from '../../components/MatsDrawer/MatsDrawer';
 import RequestNotes from '../../components/RequestNotes';
-// import GoogleAd from '../../components/GoogleAd';
 import { TERMS_RESPONSE } from '../../store/constants';
 import useStyles from './styles';
 import propTypes from './propTypes';
@@ -39,9 +38,9 @@ const CraftRequest = ({ termsAccepted, guildMnemonic, acceptTerms }) => {
         toggleMatsDrawer={setMatsDrawerOpen}
       />
       <RequestAlert />
+      {/* eslint-disable-next-line react/jsx-no-useless-fragment */}
       {guildMnemonic === 'demo' ? <TermsOfUse /> : <></>}
       <Confirmation />
-      {/* <GoogleAd slot="5302794966" /> */}
       <div className={clsx(classes.appStyle, (!termsAccepted && classes.disabled))}>
         <span className={classes.wrapper}>
           <div className="centered-div">

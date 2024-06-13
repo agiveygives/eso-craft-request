@@ -171,7 +171,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
   switch (ownProps.group) {
     case 'armor':
       return {
-        updateAttributes: (piece, attribute, value = '', stone = 'common.none', essenceRune, potency) => {
+        updateAttributes: (piece, attribute, essenceRune, potency, stone = 'common.none', value = '') => {
           dispatch({
             type: UPDATE_ARMOR, piece, attribute, value,
           });
@@ -182,7 +182,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
       };
     case 'jewelry':
       return {
-        updateAttributes: (piece, attribute, value = '', stone = 'common.none', essenceRune, potency) => {
+        updateAttributes: (piece, attribute, essenceRune, potency, stone = 'common.none', value = '') => {
           dispatch({
             type: UPDATE_JEWELRY, piece, attribute, value,
           });
@@ -193,7 +193,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
       };
     case 'weapon':
       return {
-        updateAttributes: (piece, attribute, value = '', stone = 'common.none', essenceRune, potency) => {
+        updateAttributes: (piece, attribute, essenceRune, potency, stone = 'common.none', value = '') => {
           dispatch({
             type: UPDATE_WEAPONS, piece, attribute, value,
           });
