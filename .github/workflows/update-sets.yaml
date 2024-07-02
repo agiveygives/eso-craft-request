@@ -21,7 +21,7 @@ jobs:
         run: npm install
 
       - name: Run Sets Scraper script
-        run: node lib/scrpaers/set-scraper.js
+        run: node lib/scrapers/set-scraper.js
 
       - name: Commit changes
         run: |
