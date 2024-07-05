@@ -1,6 +1,7 @@
 name: Update Sets
 
 on:
+  workflow_dispatch:
   schedule:
     - cron: "0 17 * * 5" # Every Friday at 5pm
 
