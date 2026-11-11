@@ -67,6 +67,7 @@ export default [
   'set.telvanniEfficiency',
   'set.tharrikersStrike',
   'set.threadsOfWar',
+  'set.tideBornWildstalker',
   'set.torugsPact',
   'set.trialByFire',
   'set.twiceBornStar',
